@@ -25,7 +25,6 @@ const Hero = ({ className }: HeroProps) => {
           <AnimatedSection direction="down" duration={0.8}>
             <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-aes-greenPale px-4 py-1.5 text-sm text-aes-grayDark border border-aes-green/10 shadow-sm hover:shadow-md transition-shadow duration-300">
               <Calendar className="h-4 w-4 text-aes-green" />
-              <span>Waterloo, Ontario</span>
             </div>
           </AnimatedSection>
           
@@ -67,8 +66,8 @@ const Hero = ({ className }: HeroProps) => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               {/* Wrap Button in an anchor tag to link to the waitlist section */}
               <a href="#wait-list">
-                <Button className="bg-aes-green hover:bg-aes-greenDark text-white font-medium w-full sm:w-auto animate-pulse-slow shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  Join Waitlist <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button className="bg-aes-green hover:bg-aes-greenDark text-white font-medium w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-500 group">
+                  Contact Us <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </Button>
               </a>
               {/* Wrap Button in an anchor tag to link to a relevant section (e.g., features) */}
