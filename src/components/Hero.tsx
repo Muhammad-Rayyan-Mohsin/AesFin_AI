@@ -21,12 +21,12 @@ const Hero = ({ className }: HeroProps) => {
       
       <div className="container relative z-10">
         <div className="mx-auto max-w-3xl text-center">
-          {/* Date and Location */}
+          {/* Date and Location
           <AnimatedSection direction="down" duration={0.8}>
             <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-aes-greenPale px-4 py-1.5 text-sm text-aes-grayDark border border-aes-green/10 shadow-sm hover:shadow-md transition-shadow duration-300">
               <Calendar className="h-4 w-4 text-aes-green" />
             </div>
-          </AnimatedSection>
+          </AnimatedSection> */}
           
           {/* Large Prominent Logo */}
           <AnimatedSection delay={0.1} duration={0.8}>
