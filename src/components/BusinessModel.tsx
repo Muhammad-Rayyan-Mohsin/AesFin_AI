@@ -72,7 +72,7 @@ const BusinessModel = ({ className }: BusinessModelProps) => {
             
             <div className="p-6">
               <div className="flex gap-2 items-baseline mb-4">
-                <span className="text-3xl font-display font-bold text-white">$199</span>
+                <span className="text-3xl font-display font-bold text-white">$19.99</span>
                 <span className="text-sm text-aes-gray">/month</span>
               </div>
               
