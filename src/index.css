@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 14% 34%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 14% 34%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 14% 34%;
+
+    --primary: 143 98% 34%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 143 30% 94%;
+    --secondary-foreground: 143 58% 30%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 14% 54%;
+
+    --accent: 143 58% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 92%;
+    --input: 210 20% 92%;
+    --ring: 143 98% 34%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 14% 34%;
+    --sidebar-primary: 143 98% 34%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 143 30% 94%;
+    --sidebar-accent-foreground: 143 58% 30%;
+    --sidebar-border: 210 20% 92%;
+    --sidebar-ring: 143 98% 34%;
+  }
+
+  .dark {
+    --background: 215 14% 14%;
+    --foreground: 0 0% 98%;
+
+    --card: 215 14% 16%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 215 14% 16%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 143 98% 34%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 143 35% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 143 20% 24%;
+    --muted-foreground: 215 14% 70%;
+
+    --accent: 143 58% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 215 14% 24%;
+    --input: 215 14% 24%;
+    --ring: 143 98% 34%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .prototype-banner {
+    @apply bg-aes-green text-white font-mono text-xs py-1 px-4 tracking-wider font-medium;
+    /* This might be the class used for the prototype banner */
+    /* Check for content in a ::before or ::after pseudo-element */
+  }
+  
+  .heading-xl {
+    @apply font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+  
+  .heading-lg {
+    @apply font-display text-3xl md:text-4xl font-bold tracking-tight;
+  }
+  
+  .heading-md {
+    @apply font-display text-2xl md:text-3xl font-bold;
+  }
+  
+  .heading-sm {
+    @apply font-display text-xl md:text-2xl font-bold;
+  }
+  
+  .body-lg {
+    @apply text-lg leading-relaxed;
+  }
+  
+  .body-md {
+    @apply text-base leading-relaxed;
+  }
+  
+  .body-sm {
+    @apply text-sm leading-relaxed;
+  }
+  
+  .experimental-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-lg p-6 relative overflow-hidden;
+  }
+  
+  .experimental-card::before {
+    @apply content-[''] absolute inset-0 bg-shimmer animate-shimmer;
+  }
+  
+  .dash-border {
+    @apply border border-dashed;
+  }
+  
+  .asymmetric-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+  }
+
+  .animate-in {
+    animation: animateIn 0.5s ease forwards;
+  }
+
+  .reveal-on-scroll {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+  
+  .revealed {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

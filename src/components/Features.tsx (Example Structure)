@@ -1,0 +1,16 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+interface FeaturesProps {
+  className?: string;
+}
+
+const Features = ({ className }: FeaturesProps) => {
+  return (
+    <section className={cn("py-20 bg-gray-50", className)}>
+      {/* ... content of your features section ... */}
+    </section>
+  );
+};
+
+export default Features;
