@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Activity, AlertCircle, BarChart3, Clock, FileText, PieChart, ScanSearch, Smartphone, Zap } from 'lucide-react';
+import { Activity, AlertCircle, BarChart3, Clock, FileText, PieChart, ScanSearch, Smartphone, Zap, ArrowUpRight, LineChart, Shield, RefreshCw } from 'lucide-react';
 import FeatureCard from './ui/feature-card';
 import AnimatedSection from './ui/animated-section';
 
@@ -41,9 +41,9 @@ const Overview = ({ className }: OverviewProps) => {
       description: "View customizable dashboards that update in real-time as new financial data is processed."
     },
     {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Automated Reporting",
-      description: "Schedule and generate comprehensive financial reports without manual effort."
+      icon: <RefreshCw className="h-6 w-6" />,
+      title: "Inventory Turnover",
+      description: "Track and optimize your inventory efficiency with real-time turnover analysis and forecasting."
     },
     {
       icon: <Smartphone className="h-6 w-6" />,
