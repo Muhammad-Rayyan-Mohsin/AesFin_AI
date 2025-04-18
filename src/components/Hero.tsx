@@ -1,8 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Calendar, ChevronRight } from 'lucide-react';
+import { ChevronRight, AlertCircle, TrendingUp, DollarSign, AlertTriangle } from 'lucide-react';
 import { Button } from './ui/button';
-import AnimatedGradient from './ui/animated-gradient';
 import AnimatedSection from './ui/animated-section';
 
 interface HeroProps {
@@ -10,111 +9,183 @@ interface HeroProps {
 }
 
 const Hero = ({ className }: HeroProps) => {
+  const sampleTransactions = [
+    {
+      id: 1,
+      description: "International Wire Transfer",
+      amount: "$45,230.00",
+      risk: "high",
+      date: "2024-03-15"
+    },
+    {
+      id: 2,
+      description: "Vendor Payment - Tech Solutions",
+      amount: "$12,850.00",
+      risk: "low",
+      date: "2024-03-14"
+    },
+    {
+      id: 3,
+      description: "Recurring Payment - Cloud Services",
+      amount: "$3,499.99",
+      risk: "medium",
+      date: "2024-03-13"
+    },
+    {
+      id: 4,
+      description: "Payroll Distribution",
+      amount: "$78,500.00",
+      risk: "low",
+      date: "2024-03-12"
+    }
+  ];
+
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case 'high':
+        return 'bg-red-100 text-red-700';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'low':
+        return 'bg-emerald-100 text-emerald-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
   return (
     <section className={cn(
       "relative overflow-hidden bg-white pt-24 pb-16 md:pt-32 md:pb-24",
       className
     )}>
-      {/* Background Elements */}
-      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-aes-green/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-aes-greenDark/5 rounded-full blur-3xl"></div>
-      
       <div className="container relative z-10">
-        <div className="mx-auto max-w-3xl text-center">
-          {/* Date and Location
-          <AnimatedSection direction="down" duration={0.8}>
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-aes-greenPale px-4 py-1.5 text-sm text-aes-grayDark border border-aes-green/10 shadow-sm hover:shadow-md transition-shadow duration-300">
-              <Calendar className="h-4 w-4 text-aes-green" />
-            </div>
-          </AnimatedSection> */}
-          
-          {/* Large Prominent Logo */}
-          <AnimatedSection delay={0.1} duration={0.8}>
-            <div className="mb-6 flex justify-center">
-              <img 
-                src="/aesfin-logo.svg" 
-                alt="AesFin AI" 
-                className="h-24 md:h-32 w-auto object-contain transform hover:scale-105 transition-transform duration-300" 
-              />
-            </div>
-          </AnimatedSection>
-          
-          {/* Heading with enhanced gradient and subtle animation */}
-          <AnimatedSection delay={0.2} duration={1}>
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-aes-greenDark/10 via-aes-green/5 to-aes-greenLight/10 rounded-lg blur-xl opacity-70 group-hover:opacity-100 transition duration-1000"></div>
-              <h1 className="heading-xl relative mb-6 bg-gradient-to-r from-aes-greenDark via-aes-green to-aes-greenLight bg-clip-text text-transparent animate-pulse-very-slow">
-                AesFin AI
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Main Content */}
+          <div className="space-y-8">
+            <AnimatedSection>
+              <h1 className="text-5xl md:text-6xl font-display font-bold text-aes-navy leading-tight mb-6">
+                Automate your  <br />
+                finances- <br />
+                from <span className="line-through text-aes-gray/50">months</span> to <span className="text-aes-green">minutes</span>
               </h1>
-            </div>
-            
-            {/* Prototype badge */}
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-aes-green/10 text-aes-greenDark border border-aes-green/20 mb-4">
-              PROTOTYPE
-            </span>
-          </AnimatedSection>
-          
-          <AnimatedSection delay={0.4} duration={0.8}>
-            <p className="body-lg mb-8 text-aes-gray leading-relaxed mx-auto max-w-2xl">
-              A cutting-edge AI financial intelligence platform designed for businesses.
-              Direct integration with your accounting tools to deliver exceptional financial clarity and insights.
-            </p>
-          </AnimatedSection>
-          
-          {/* Enhanced CTA Buttons */}
-          <AnimatedSection delay={0.6} duration={0.6}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              {/* Wrap Button in an anchor tag to link to the waitlist section */}
-              <a href="#wait-list">
-                <Button className="bg-aes-green hover:bg-aes-greenDark text-white font-medium w-full sm:w-auto shadow-lg hover:shadow-xl transition-all duration-500 group">
-                  Contact Us <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-300" />
+              
+              <p className="text-xl text-aes-gray mb-8">
+                The most complete AI copilot for financial auditors and accountants.
+              </p>
+
+              <div className="flex gap-4">
+                <Button 
+                  variant="outline" 
+                  size="default" 
+                  className="border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all duration-300 group px-5 py-2 text-sm"
+                  onClick={() => window.location.href = '/demo'}
+                >
+                  Watch Demo
+                  <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
-              </a>
-              {/* Wrap Button in an anchor tag to link to a relevant section (e.g., features) */}
-              <a href="#features"> 
-                <Button variant="outline" className="border-aes-green/80 text-aes-green hover:bg-aes-greenPale/50 hover:text-aes-greenDark w-full sm:w-auto transition-all duration-300 hover:border-aes-green">
-                  Learn More
+                <Button 
+                  size="default"
+                  className="bg-gradient-to-r from-aes-green to-aes-navy text-white transition-all duration-300 group px-5 py-2 text-sm font-medium hover:opacity-90 hover:scale-105 transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
+                  onClick={() => window.location.href = '/demo'}
+                >
+                  Book a Call
+                  <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
-              </a>
-            </div>
-            
-            {/* Visual scroll indicator */}
-            <div className="hidden md:flex justify-center mt-8 animate-bounce-slow">
-              <div className="w-6 h-10 rounded-full border-2 border-aes-gray/30 flex justify-center">
-                <span className="block w-1 h-2 bg-aes-green/60 rounded-full mt-2 animate-pulse-slow"></span>
               </div>
-            </div>
-          </AnimatedSection>
-        </div>
-        
-        {/* Hero Illustration - enhanced with better shadows and effects */}
-        <AnimatedSection delay={1} duration={1.2} direction="up">
-          <div className="mt-12 mx-auto max-w-4xl">
-            <AnimatedGradient className="aspect-video rounded-xl overflow-hidden border border-aes-grayLight shadow-xl hover:shadow-2xl transition-all duration-500">
-              <div className="h-full w-full bg-gradient-to-br from-aes-greenPale/80 to-white/80 flex items-center justify-center backdrop-blur-sm">
-                <div className="experimental-card w-3/4 h-3/4 flex items-center justify-center flex-col gap-4 p-8 text-center backdrop-blur-md hover:backdrop-blur-lg transition-all duration-300">
-                  {/* Embedded logo within the card */}
-                  <div className="w-24 h-24 flex items-center justify-center mb-2">
-                    <img 
-                      src="/aesfin-logo.svg" 
-                      alt="AesFin AI Logo" 
-                      className="w-full h-full object-contain" 
-                    />
+            </AnimatedSection>
+          </div>
+
+          {/* Right Column - UI Demo */}
+          <div className="relative">
+            <AnimatedSection delay={0.3}>
+              {/* Risk Score Card */}
+              <div className="absolute -top-12 -left-12 bg-white rounded-lg shadow-lg p-4 border border-emerald-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <AlertCircle className="w-5 h-5 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-display font-bold text-aes-greenDark">Financial Intelligence Platform</h3>
-                  <p className="text-sm text-aes-gray">Prototype Interface</p>
-                  <div className="grid grid-cols-3 gap-2 w-full mt-4">
-                    {[1, 2, 3, 4, 5, 6].map((i) => (
-                      <div key={i} className="h-2 bg-white/60 rounded-full overflow-hidden shadow-inner">
-                        <div className="h-full bg-gradient-to-r from-aes-green/60 to-aes-greenLight/60 rounded-full animate-pulse-very-slow" style={{ width: `${Math.random() * 100}%`, animationDelay: `${i * 0.2}s` }}></div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">Risk Score</p>
+                    <p className="text-2xl font-bold text-emerald-600">87%</p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-emerald-600" />
+                  <span className="text-sm text-emerald-600">12% improvement</span>
+                </div>
+              </div>
+
+              {/* Main UI Preview */}
+              <div className="bg-white rounded-xl shadow-2xl border border-emerald-100 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="border-emerald-200 text-emerald-700 hover:bg-emerald-50">
+                      Export
+                    </Button>
+                    <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                      Review All
+                    </Button>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {sampleTransactions.map((transaction) => (
+                    <div key={transaction.id} 
+                         className="flex items-center gap-4 p-4 hover:bg-emerald-50 rounded-lg transition-colors border border-emerald-100">
+                      <div className={cn(
+                        "w-2 h-2 rounded-full",
+                        transaction.risk === 'high' ? 'bg-red-500' :
+                        transaction.risk === 'medium' ? 'bg-yellow-500' : 'bg-emerald-500'
+                      )}></div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-900">{transaction.description}</p>
+                        <p className="text-xs text-gray-500">{transaction.date}</p>
                       </div>
-                    ))}
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-gray-900">{transaction.amount}</p>
+                        <span className={cn(
+                          "text-xs px-2 py-1 rounded-full",
+                          getRiskColor(transaction.risk)
+                        )}>
+                          {transaction.risk.charAt(0).toUpperCase() + transaction.risk.slice(1)} Risk
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Analytics Card */}
+              <div className="absolute -bottom-8 -right-8 bg-white rounded-lg shadow-lg p-4 border border-emerald-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">Total Monitored</p>
+                    <p className="text-lg font-bold text-emerald-600">$140,080.00</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1">
+                      <AlertTriangle className="w-4 h-4 text-yellow-500" />
+                      <span className="text-xs font-medium text-gray-600">Flagged</span>
+                    </div>
+                    <p className="text-sm font-bold text-gray-900">$48,730</p>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1">
+                      <TrendingUp className="w-4 h-4 text-emerald-600" />
+                      <span className="text-xs font-medium text-gray-600">Cleared</span>
+                    </div>
+                    <p className="text-sm font-bold text-gray-900">$91,350</p>
                   </div>
                 </div>
               </div>
-            </AnimatedGradient>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

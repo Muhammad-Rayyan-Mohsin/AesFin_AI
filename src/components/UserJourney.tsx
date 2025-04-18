@@ -38,28 +38,29 @@ const UserJourney = ({ className }: UserJourneyProps) => {
     {
       step: 1,
       title: "Sign-up & Onboarding",
-      description: "Create your account and configure your business profile for personalized insights.",
+      description: "Create your account and configure your business profile.",
       icon: <Users className="h-6 w-6" />
     },
     {
       step: 2,
-      title: "Data Integration",
-      description: "Connect your accounting software and financial systems via our secure API connections.",
+      title: "Data Sync",
+      description: "Upload your financial data or connect it via SharePoint/secure API integrations.",
       icon: <Upload className="h-6 w-6" />
     },
     {
       step: 3,
-      title: "AI Analysis",
-      description: "Our AI engine processes your data to detect anomalies, assess risks, and generate insights.",
+      title: "AI-Powered Analysis",
+      description: "Get daily insights and flag risks instantly—no more waiting for month-end audits or manual reviews.",
       icon: <Database className="h-6 w-6" />
     },
     {
       step: 4,
-      title: "Actionable Insights",
-      description: "Receive customized reports, alerts, and recommendations to improve financial performance.",
+      title: "Real-Time Insights",
+      description: "Receive instant alerts, tax receipt readiness, turnover tracking, and personalized reports.",
       icon: <LineChart className="h-6 w-6" />
     }
   ];
+  
 
   return (
     <section id="journey" className={cn(

@@ -1,15 +1,17 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Github, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 interface FooterProps {
   className?: string;
 }
 
 const Footer = ({ className }: FooterProps) => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className={cn(
-      "relative py-12 bg-aes-greenPale border-t border-aes-grayLight",
+      "relative py-12 bg-white border-t border-aes-grayLight",
       className
     )}>
       <div className="container">
@@ -20,7 +22,7 @@ const Footer = ({ className }: FooterProps) => {
               {/* Single logo in the footer */}
               <div className="mb-4 flex justify-center md:justify-start">
                 <img 
-                  src="/aesfin-logo.svg" 
+                  src="/Logo.svg" 
                   alt="AesFin AI" 
                   className="h-12 w-auto object-contain" 
                 />
@@ -31,21 +33,9 @@ const Footer = ({ className }: FooterProps) => {
               </p>
             </div>
             <div className="flex items-center justify-center md:justify-start gap-4">
-              <a href="#" className="text-aes-gray hover:text-aes-greenDark transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="text-aes-gray hover:text-aes-greenDark transition-colors">
+              <a href="https://www.linkedin.com/company/aesfin-ai" target="_blank" rel="noopener noreferrer" className="text-aes-gray hover:text-aes-greenDark transition-colors">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="#" className="text-aes-gray hover:text-aes-greenDark transition-colors">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a href="#" className="text-aes-gray hover:text-aes-greenDark transition-colors">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
               </a>
             </div>
           </div>
@@ -54,10 +44,9 @@ const Footer = ({ className }: FooterProps) => {
           <div>
             <h3 className="font-display font-semibold text-aes-greenDark mb-4">Company</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">About</a></li>
-              <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Careers</a></li>
-              <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Press</a></li>
-              <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Contact</a></li>
+              <li><a href="/about" className="text-sm text-aes-gray hover:text-aes-green transition-colors">About</a></li>
+              <li><a href="/contact" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Contact</a></li>
+              <li><a href="/pricing" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Pricing</a></li>
             </ul>
           </div>
           
@@ -65,7 +54,6 @@ const Footer = ({ className }: FooterProps) => {
             <h3 className="font-display font-semibold text-aes-greenDark mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Documentation</a></li>
-              <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">API</a></li>
               <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Privacy</a></li>
               <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Terms</a></li>
             </ul>
@@ -74,7 +62,7 @@ const Footer = ({ className }: FooterProps) => {
         
         <div className="border-t border-aes-grayLight mt-12 pt-6 flex flex-col md:flex-row items-center justify-between">
           <p className="text-xs text-aes-gray mb-4 md:mb-0">
-            © 2025 AesFin AI. All rights reserved. This is a prototype demo.
+            © {currentYear} AesFin AI. All rights reserved.
           </p>
         </div>
       </div>

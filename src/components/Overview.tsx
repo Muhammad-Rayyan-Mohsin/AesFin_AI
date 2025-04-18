@@ -64,7 +64,7 @@ const Overview = ({ className }: OverviewProps) => {
               OVERVIEW
             </div>
             <h2 className="heading-lg mb-6 text-white">
-              Cutting-edge LLM Financial Intelligence
+               LLM Financial Intelligence
             </h2>
             <p className="body-md text-aes-gray">
               AesFin AI integrates directly with your existing accounting tools like QuickBooks and Excel

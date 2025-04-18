@@ -193,6 +193,11 @@ export default {
 						transform: 'translateY(-5px)'
 					}
 				},
+				'grid-shine': {
+					from: { transform: 'translateX(-100%)' },
+					via: { transform: 'translateX(100%)' },
+					to: { transform: 'translateX(100%)' }
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -207,6 +212,7 @@ export default {
 				'fade-in-up': 'fade-in-up 0.6s ease-out',
 				'pulse-very-slow': 'pulse-very-slow 4s ease-in-out infinite',
 				'bounce-slow': 'bounce-slow 2s ease-in-out infinite',
+				'grid-shine': 'grid-shine 3s ease-in-out infinite',
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
