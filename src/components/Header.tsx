@@ -4,6 +4,7 @@ import { Menu, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useScrollDirection } from '@/hooks/use-scroll-direction';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   className?: string;
@@ -21,13 +22,13 @@ const Header = ({ className }: HeaderProps) => {
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img 
               src="/Logo.svg" 
               alt="AesFin AI Logo" 
               className="h-14 w-auto object-contain" 
             />
-          </div>
+          </Link>
           <div className="flex flex-col sm:hidden">
             <span className="font-display font-bold text-lg text-gray-900 tracking-tight">AesFin AI</span>
             <span className="text-xs text-gray-500 -mt-1">Your AI Partner in Financial Integrity</span>
@@ -37,14 +38,10 @@ const Header = ({ className }: HeaderProps) => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
           <nav className="flex items-center gap-16 mr-8">
-            <a href="/pricing" className="relative text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
+            <Link to="/pricing" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
               <span className="relative z-10">Pricing</span>
               <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
-            </a>
-            <a href="/research" className="relative text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
-              <span className="relative z-10">Our Research</span>
-              <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
-            </a>
+            </Link>
             <a href="/about" className="relative text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
               <span className="relative z-10">About Us</span>
               <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
@@ -83,14 +80,10 @@ const Header = ({ className }: HeaderProps) => {
               
               <nav className="flex-1">
                 <div className="space-y-6">
-                  <a href="/pricing" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
+                  <Link to="/pricing" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
                     <span className="font-medium">Pricing</span>
                     <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>
-                  </a>
-                  <a href="/research" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
-                    <span className="font-medium">Our Research</span>
-                    <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>
-                  </a>
+                  </Link>
                   <a href="/about" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
                     <span className="font-medium">About Us</span>
                     <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>

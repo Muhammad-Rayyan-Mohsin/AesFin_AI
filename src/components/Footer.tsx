@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
   className?: string;
@@ -45,18 +46,17 @@ const Footer = ({ className }: FooterProps) => {
             <div className="flex-1">
               <h3 className="font-display font-semibold text-aes-greenDark mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><a href="/about" className="text-sm text-aes-gray hover:text-aes-green transition-colors">About</a></li>
-                <li><a href="/contact" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Contact</a></li>
-                <li><a href="/pricing" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Pricing</a></li>
+                <li><Link to="/about" className="text-sm text-aes-gray hover:text-aes-green transition-colors">About</Link></li>
+                <li><Link to="/contact" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Contact</Link></li>
+                <li><Link to="/pricing" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Pricing</Link></li>
               </ul>
             </div>
             
             <div className="flex-1">
               <h3 className="font-display font-semibold text-aes-greenDark mb-4">Resources</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Documentation</a></li>
-                <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Privacy</a></li>
-                <li><a href="#" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Terms</a></li>
+                <li><Link to="/privacy" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Privacy</Link></li>
+                <li><Link to="/terms" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Terms</Link></li>
               </ul>
             </div>
           </div>
