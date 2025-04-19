@@ -15,8 +15,7 @@ export function useScrollAnimation<T extends HTMLElement>(
     const element = elementRef.current;
     if (!element) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
+    const observer = new IntersectionObserver(      ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           // Once the animation has played, no need to keep observing

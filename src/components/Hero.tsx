@@ -85,7 +85,7 @@ const Hero = ({ className }: HeroProps) => {
                 </Button>
                 <Button 
                   size="default"
-                  className="bg-gradient-to-r from-aes-green to-aes-navy text-white transition-all duration-300 group px-5 py-2 text-sm font-medium hover:opacity-90 hover:scale-105 transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
+                  className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-5 py-2 text-sm font-medium transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
                   onClick={() => window.location.href = '/demo'}
                 >
                   Book a Call
@@ -99,7 +99,7 @@ const Hero = ({ className }: HeroProps) => {
           <div className="relative">
             <AnimatedSection delay={0.3}>
               {/* Risk Score Card */}
-              <div className="absolute -top-12 -left-12 bg-white rounded-lg shadow-lg p-4 border border-emerald-100">
+              <div className="absolute -top-8 -left-8 sm:-top-12 sm:-left-12 bg-white rounded-lg shadow-lg p-3 sm:p-4 border border-emerald-100 scale-90 sm:scale-100">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
                     <AlertCircle className="w-5 h-5 text-emerald-600" />
@@ -116,7 +116,7 @@ const Hero = ({ className }: HeroProps) => {
               </div>
 
               {/* Main UI Preview */}
-              <div className="bg-white rounded-xl shadow-2xl border border-emerald-100 p-6">
+              <div className="bg-white rounded-xl shadow-2xl border border-emerald-100 p-4 sm:p-6 scale-90 sm:scale-100">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-lg font-semibold text-gray-900">Recent Transactions</h3>
                   <div className="flex gap-2">
@@ -156,7 +156,7 @@ const Hero = ({ className }: HeroProps) => {
               </div>
 
               {/* Analytics Card */}
-              <div className="absolute -bottom-8 -right-8 bg-white rounded-lg shadow-lg p-4 border border-emerald-100">
+              <div className="absolute -bottom-6 -right-6 sm:-bottom-8 sm:-right-8 bg-white rounded-lg shadow-lg p-3 sm:p-4 border border-emerald-100 scale-90 sm:scale-100">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
                     <DollarSign className="w-5 h-5 text-emerald-600" />
