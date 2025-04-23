@@ -55,6 +55,7 @@ const Footer = ({ className }: FooterProps) => {
             <div className="flex-1">
               <h3 className="font-display font-semibold text-aes-greenDark mb-4">Resources</h3>
               <ul className="space-y-2">
+                <li><Link to="/security" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Security</Link></li>
                 <li><Link to="/privacy" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Privacy</Link></li>
                 <li><Link to="/terms" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Terms</Link></li>
               </ul>
