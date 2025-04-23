@@ -55,11 +55,12 @@ const Hero = ({ className }: HeroProps) => {
 
   return (
     <section className={cn(
-      "relative overflow-hidden bg-white pt-24 pb-16 md:pt-32 md:pb-24",
+      "relative overflow-hidden bg-white pt-16 pb-12 md:pt-32 md:pb-24",
       className
     )}>
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Desktop layout - unchanged */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Main Content */}
           <div className="space-y-8">
             <AnimatedSection>
@@ -181,6 +182,128 @@ const Hero = ({ className }: HeroProps) => {
                     </div>
                     <p className="text-sm font-bold text-gray-900">$91,350</p>
                   </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+
+        {/* Mobile layout - optimized for better organization */}
+        <div className="lg:hidden flex flex-col">
+          <AnimatedSection>
+            {/* Header content */}
+            <div className="mb-8">
+              <h1 className="text-4xl font-display font-bold text-aes-navy leading-tight mb-4">
+                Automate your finances- from <span className="line-through text-aes-gray/50">months</span> to <span className="text-aes-green">minutes</span>
+              </h1>
+              
+              <p className="text-base text-aes-gray mb-6">
+                The most complete AI copilot for financial auditors and accountants.
+              </p>
+
+              <div className="flex gap-3">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all duration-300 group px-4 py-1.5 text-xs"
+                  onClick={() => window.location.href = '/demo'}
+                >
+                  Watch Demo
+                  <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+                <Button 
+                  size="sm"
+                  className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-4 py-1.5 text-xs font-medium shadow-sm"
+                  onClick={() => window.location.href = '/demo'}
+                >
+                  Book a Call
+                  <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Cards in a 2-column grid */}
+          <div className="relative">
+            <AnimatedSection delay={0.2}>
+              <div className="grid grid-cols-2 gap-3">
+                {/* Risk Score Card */}
+                <div className="bg-white rounded-lg shadow-md p-3 border border-emerald-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <AlertCircle className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <p className="text-xs font-medium text-gray-900">Risk Score</p>
+                  </div>
+                  <p className="text-xl font-bold text-emerald-600 mb-1">87%</p>
+                  <div className="flex items-center gap-1">
+                    <TrendingUp className="w-3 h-3 text-emerald-600" />
+                    <span className="text-xs text-emerald-600">12% improvement</span>
+                  </div>
+                </div>
+
+                {/* Analytics Card */}
+                <div className="bg-white rounded-lg shadow-md p-3 border border-emerald-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <DollarSign className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <p className="text-xs font-medium text-gray-900">Total Monitored</p>
+                  </div>
+                  <p className="text-base font-bold text-emerald-600 mb-2">$140,080</p>
+                  <div className="grid grid-cols-2 gap-1 text-xs">
+                    <div>
+                      <div className="flex items-center">
+                        <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
+                        <span className="font-medium text-gray-600">Flagged</span>
+                      </div>
+                      <p className="font-bold text-gray-900">$48,730</p>
+                    </div>
+                    <div>
+                      <div className="flex items-center">
+                        <TrendingUp className="w-3 h-3 text-emerald-600 mr-1" />
+                        <span className="font-medium text-gray-600">Cleared</span>
+                      </div>
+                      <p className="font-bold text-gray-900">$91,350</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* Main Transaction Card */}
+            <AnimatedSection delay={0.3}>
+              <div className="mt-3 bg-white rounded-xl shadow-lg border border-emerald-100 p-3">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-semibold text-gray-900">Recent Transactions</h3>
+                  <Button size="xs" className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-6 px-2">
+                    Review All
+                  </Button>
+                </div>
+                <div className="space-y-2">
+                  {sampleTransactions.slice(0, 2).map((transaction) => (
+                    <div key={transaction.id} 
+                         className="flex items-center gap-2 p-2 hover:bg-emerald-50 rounded-lg transition-colors border border-emerald-100">
+                      <div className={cn(
+                        "w-1.5 h-1.5 rounded-full",
+                        transaction.risk === 'high' ? 'bg-red-500' :
+                        transaction.risk === 'medium' ? 'bg-yellow-500' : 'bg-emerald-500'
+                      )}></div>
+                      <div className="flex-1">
+                        <p className="text-xs font-medium text-gray-900">{transaction.description}</p>
+                        <p className="text-[10px] text-gray-500">{transaction.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs font-medium text-gray-900">{transaction.amount}</p>
+                        <span className={cn(
+                          "text-[10px] px-1.5 py-0.5 rounded-full",
+                          getRiskColor(transaction.risk)
+                        )}>
+                          {transaction.risk.charAt(0).toUpperCase() + transaction.risk.slice(1)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </AnimatedSection>

@@ -29,10 +29,6 @@ const Header = ({ className }: HeaderProps) => {
               className="h-14 w-auto object-contain" 
             />
           </Link>
-          <div className="flex flex-col sm:hidden">
-            <span className="font-display font-bold text-lg text-gray-900 tracking-tight">AesFin AI</span>
-            <span className="text-xs text-gray-500 -mt-1">Your AI Partner in Financial Integrity</span>
-          </div>
         </div>
 
         {/* Desktop Navigation */}
