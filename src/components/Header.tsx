@@ -80,10 +80,10 @@ const Header = ({ className }: HeaderProps) => {
               
               <nav className="flex-1 p-6">
                 <div className="space-y-6">
-                  <Link to="/dashboard" className="block w-full text-xl text-white font-light">
+                  <Link to="/" className="block w-full text-xl text-white font-light">
                     Dashboard
                   </Link>
-                  <Link to="/research" className="block w-full text-xl text-white font-light">
+                  <Link to="/" className="block w-full text-xl text-white font-light">
                     Our Research
                   </Link>
                   <Link to="/about" className="block w-full text-xl text-white font-light">
@@ -99,13 +99,21 @@ const Header = ({ className }: HeaderProps) => {
               </nav>
               
               <div className="mt-auto border-t border-white/5 p-6 space-y-6">
-                <Link to="/login" className="block w-full text-xl text-white font-light">
+                <Button 
+                  variant="ghost" 
+                  className="block w-full text-xl text-white font-light text-left justify-start h-auto p-0 hover:bg-transparent"
+                >
                   Login
-                </Link>
-                <Link to="/signup" className="block w-full text-xl text-white font-light">
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  className="block w-full text-xl text-white font-light text-left justify-start h-auto p-0 hover:bg-transparent"
+                >
                   Sign Up
-                </Link>
-                <Link to="/book-call" className="flex items-center text-white bg-blue-500 py-2 px-4 rounded">
+                </Button>
+                <Button 
+                  className="flex items-center text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded w-auto"
+                >
                   <span className="flex-shrink-0 mr-2">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
@@ -115,7 +123,7 @@ const Header = ({ className }: HeaderProps) => {
                     </svg>
                   </span>
                   Book a Call
-                </Link>
+                </Button>
               </div>
             </div>
           </SheetContent>

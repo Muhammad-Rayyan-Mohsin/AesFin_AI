@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Sparkles, Building2, Clock, Shield } from 'lucide-react';
 import { Button } from './ui/button';
@@ -11,6 +11,37 @@ interface WaitListProps {
 
 const WaitList = ({ className }: WaitListProps) => {
   const { toast } = useToast();
+  const [activeFeature, setActiveFeature] = useState(0);
+  
+  const features = [
+    {
+      icon: <Building2 className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />,
+      title: "SME Focused",
+      description: "Tailored specifically for small and medium enterprises"
+    },
+    {
+      icon: <Clock className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />,
+      title: "Quick Setup",
+      description: "Get started in minutes, not days or weeks"
+    },
+    {
+      icon: <Shield className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />,
+      title: "Secure & Compliant",
+      description: "Enterprise-grade security for your financial data"
+    }
+  ];
+  
+  // Rotate features every 3 seconds on mobile
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) return;
+    
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % features.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [features.length]);
 
   const handleOpenCalendly = () => {
     window.open('https://calendly.com/ali14hasnain/30min', '_blank');
@@ -65,27 +96,50 @@ const WaitList = ({ className }: WaitListProps) => {
               Get enterprise-grade financial intelligence at a fraction of the cost.
             </p>
 
-            <div className="flex flex-row overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
-              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
-                  <Building2 className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
+            {/* Features - Desktop: Grid, Mobile: Auto-rotating Carousel */}
+            <div className="hidden md:grid md:grid-cols-3 gap-8 mb-12">
+              {features.map((feature, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-aes-navy font-semibold mb-2 text-base">{feature.title}</h3>
+                  <p className="text-aes-gray text-sm">{feature.description}</p>
                 </div>
-                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">SME Focused</h3>
-                <p className="text-aes-gray text-xs md:text-sm">Tailored specifically for small and medium enterprises</p>
-              </div>
-              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
-                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
+              ))}
+            </div>
+
+            {/* Mobile: Auto-rotating Feature */}
+            <div className="md:hidden flex justify-center mb-12 h-[140px]">
+              <div className="w-[280px] relative">
+                {features.map((feature, index) => (
+                  <div 
+                    key={index} 
+                    className={`absolute flex flex-col items-center w-full transition-all duration-500 ${
+                      index === activeFeature 
+                        ? 'opacity-100 translate-y-0 z-10' 
+                        : 'opacity-0 translate-y-8 -z-10'
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-aes-navy font-semibold mb-2 text-base">{feature.title}</h3>
+                    <p className="text-aes-gray text-sm">{feature.description}</p>
+                  </div>
+                ))}
+                
+                {/* Indicators */}
+                <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-2">
+                  {features.map((_, index) => (
+                    <div 
+                      key={index}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        index === activeFeature ? 'w-6 bg-aes-green' : 'w-1.5 bg-aes-gray/30'
+                      }`}
+                    />
+                  ))}
                 </div>
-                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">Quick Setup</h3>
-                <p className="text-aes-gray text-xs md:text-sm">Get started in minutes, not days or weeks</p>
-              </div>
-              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
-                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
-                </div>
-                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">Secure & Compliant</h3>
-                <p className="text-aes-gray text-xs md:text-sm">Enterprise-grade security for your financial data</p>
               </div>
             </div>
 
