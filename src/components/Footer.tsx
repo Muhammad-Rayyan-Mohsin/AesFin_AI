@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Linkedin, Shield } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface FooterProps {
@@ -31,12 +31,6 @@ const Footer = ({ className }: FooterProps) => {
               <p className="text-sm text-aes-gray mb-6 max-w-xs text-left">
                 Your personal automated AI financial agent.
               </p>
-              
-              {/* Security Notice */}
-              <div className="flex items-center gap-2 py-2 px-3 bg-aes-green/5 rounded-md border border-aes-green/10 mb-4">
-                <Shield className="h-4 w-4 text-aes-green flex-shrink-0" />
-                <p className="text-xs text-aes-navy font-medium">Your data is end-to-end encrypted.</p>
-              </div>
               
               <div className="flex items-center gap-4">
                 <a href="https://www.linkedin.com/company/aesfin-ai" target="_blank" rel="noopener noreferrer" className="text-aes-gray hover:text-aes-greenDark transition-colors">

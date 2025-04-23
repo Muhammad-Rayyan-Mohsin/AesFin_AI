@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import JourneyStep from './ui/journey-step';
 import { Button } from './ui/button';
-import { ChevronRight, Database, LineChart, Upload, Users, Sparkles } from 'lucide-react';
+import { ChevronRight, Database, LineChart, Upload, Users } from 'lucide-react';
 import AnimatedSection from './ui/animated-section';
 import AnimatedGridBackground from './ui/animated-grid-background';
 
@@ -102,140 +102,107 @@ const UserJourney = ({ className }: UserJourneyProps) => {
           </div>
         </AnimatedSection>
         
-        {/* Desktop Layout - Enhanced Version */}
-        <div className="hidden lg:block mb-8">
-          <div className="relative">
-            {/* Interactive Journey Ring */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96">
-              <div className="absolute inset-0 rounded-full border border-aes-gray/10 flex items-center justify-center">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-aes-navy via-aes-navy to-aes-navy/80 backdrop-blur-sm border border-aes-green/20 flex items-center justify-center text-aes-green">
-                  <Sparkles className="w-10 h-10 text-aes-green animate-pulse" />
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-12 mb-8">
+          {/* Left Column - Journey Steps */}
+          <AnimatedSection direction="right">
+            <div className="space-y-0">
+              {steps.map((step, index) => (
+                <div key={index} onClick={() => handleManualStepChange(step.step)} className="cursor-pointer">
+                  <JourneyStep
+                    step={step.step}
+                    title={step.title}
+                    description={step.description}
+                    isActive={activeStep === step.step}
+                  />
                 </div>
-              </div>
+              ))}
               
-              {/* Step Positions */}
-              {steps.map((step, index) => {
-                // Position steps evenly around the circle
-                const angle = (index * (Math.PI * 2)) / steps.length;
-                const radius = 42; // % of container width
-                const x = 50 + radius * Math.cos(angle - Math.PI / 2);
-                const y = 50 + radius * Math.sin(angle - Math.PI / 2);
-                
-                return (
-                  <div
-                    key={index}
-                    onClick={() => handleManualStepChange(step.step)}
-                    className={cn(
-                      "absolute cursor-pointer transition-all duration-500",
-                      "w-64 transform -translate-x-1/2 -translate-y-1/2"
-                    )}
-                    style={{
-                      left: `${x}%`,
-                      top: `${y}%`,
-                    }}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div 
-                        className={cn(
-                          "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0",
-                          activeStep === step.step 
-                            ? "bg-aes-green text-white shadow-lg shadow-aes-green/20 scale-110" 
-                            : "bg-aes-navy border border-aes-gray/20 text-aes-gray"
-                        )}
-                      >
-                        {step.icon}
-                      </div>
-                      <div className={cn(
-                        "transition-all duration-300 flex flex-col",
-                        activeStep === step.step ? "opacity-100" : "opacity-70"
-                      )}>
-                        <h3 className={cn(
-                          "text-lg font-display font-medium mb-1",
-                          activeStep === step.step ? "text-aes-green" : "text-white"
-                        )}>
-                          {step.title}
-                        </h3>
-                        <p className="text-sm text-aes-gray/90 font-light">
-                          {step.description}
-                        </p>
+              <div className="flex items-center justify-start pt-6">
+                <Button 
+                  className="bg-aes-green hover:bg-aes-green/90 text-white font-medium"
+                  onClick={() => handleManualStepChange(activeStep < 4 ? activeStep + 1 : 1)}
+                >
+                  {activeStep < 4 ? "Next Step" : "Restart Journey"} <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </AnimatedSection>
+          
+          {/* Right Column - Step Visualization */}
+          <AnimatedSection direction="left" delay={0.3}>
+            <div className="relative h-full flex items-center justify-center">
+              <div className="w-full aspect-square max-w-md relative">
+                {/* Journey Visualization */}
+                <div className="absolute inset-0 rounded-full border-2 border-aes-gray/10 flex items-center justify-center animate-spin-slow">
+                  <div className="w-3/4 h-3/4 rounded-full border-2 border-aes-gray/20 flex items-center justify-center animate-spin-slow-reverse">
+                    <div className="w-1/2 h-1/2 rounded-full border-2 border-aes-green/30 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-aes-green flex items-center justify-center text-white font-display font-bold text-xl animate-spin-slow">
+                        AI
                       </div>
                     </div>
                   </div>
-                );
-              })}
-              
-              {/* Connection Lines */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="40" 
-                  fill="none" 
-                  stroke="rgba(27, 186, 100, 0.1)" 
-                  strokeWidth="1"
-                  className="opacity-70"
-                />
+                </div>
                 
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="40" 
-                  fill="none" 
-                  stroke="rgba(27, 186, 100, 0.4)" 
-                  strokeWidth="1.5"
-                  strokeDasharray="5,5"
-                  className="opacity-30"
-                />
-                
-                {/* Indicator for active step */}
+                {/* Step Icons */}
                 {steps.map((step, index) => {
-                  // Calculate position on circle
-                  const angle = ((index) * (Math.PI * 2)) / steps.length - Math.PI / 2;
-                  const radius = 40;
-                  const x = 50 + radius * Math.cos(angle);
-                  const y = 50 + radius * Math.sin(angle);
+                  // Position icons evenly around the circle
+                  const angle = (index * (Math.PI * 2)) / steps.length;
+                  const radius = 42; // % of container width
+                  const x = 50 + radius * Math.cos(angle - Math.PI / 2);
+                  const y = 50 + radius * Math.sin(angle - Math.PI / 2);
                   
                   return (
-                    <React.Fragment key={index}>
-                      <circle 
-                        cx={x} 
-                        cy={y} 
-                        r="1.5" 
-                        fill={activeStep === step.step ? "#1BBA64" : "#4B5563"} 
-                        className="transition-all duration-300"
-                      />
-                      
-                      {/* Active segment of the circle */}
-                      {activeStep === step.step && (
-                        <circle 
-                          cx="50" 
-                          cy="50" 
-                          r="40" 
-                          fill="none" 
-                          stroke="#1BBA64" 
-                          strokeWidth="2"
-                          strokeDasharray="251"
-                          strokeDashoffset={251 - (251 * (index + 1) / steps.length)}
-                          className="transition-all duration-1000"
-                          transform="rotate(-90 50 50)"
-                        />
+                    <div
+                      key={index}
+                      className={cn(
+                        "absolute w-12 h-12 rounded-full -ml-6 -mt-6 flex items-center justify-center transition-all duration-500",
+                        activeStep === step.step ? "bg-aes-green text-white scale-110" : "bg-aes-navy border border-aes-gray/20 text-aes-gray scale-100"
                       )}
-                    </React.Fragment>
+                      style={{
+                        left: `${x}%`,
+                        top: `${y}%`,
+                      }}
+                    >
+                      {step.icon}
+                    </div>
                   );
                 })}
-              </svg>
+                
+                {/* Connection Lines */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+                  {steps.map((step, index) => {
+                    // Calculate start and end points
+                    const startAngle = (index * (Math.PI * 2)) / steps.length - Math.PI / 2;
+                    const endAngle = ((index + 1) * (Math.PI * 2)) / steps.length - Math.PI / 2;
+                    
+                    const innerRadius = 10;
+                    const outerRadius = 42;
+                    
+                    const startX = 50 + innerRadius * Math.cos(startAngle);
+                    const startY = 50 + innerRadius * Math.sin(startAngle);
+                    
+                    const endX = 50 + outerRadius * Math.cos(startAngle);
+                    const endY = 50 + outerRadius * Math.sin(startAngle);
+                    
+                    return (
+                      <line
+                        key={index}
+                        x1={startX}
+                        y1={startY}
+                        x2={endX}
+                        y2={endY}
+                        className={cn(
+                          "transition-all duration-500",
+                          activeStep === step.step ? "stroke-aes-green stroke-[1.5]" : "stroke-aes-gray/20 stroke-[0.5]"
+                        )}
+                      />
+                    );
+                  })}
+                </svg>
+              </div>
             </div>
-            
-            {/* Navigation Button */}
-            <div className="flex justify-center mt-96 pt-24">
-              <Button 
-                className="bg-aes-green hover:bg-aes-green/90 text-white font-medium"
-                onClick={() => handleManualStepChange(activeStep < 4 ? activeStep + 1 : 1)}
-              >
-                {activeStep < 4 ? "Next Step" : "Restart Journey"} <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          </AnimatedSection>
         </div>
         
         {/* Mobile Layout */}
@@ -245,8 +212,8 @@ const UserJourney = ({ className }: UserJourneyProps) => {
             <div className="relative w-full flex justify-center mb-12">
               <div className="relative w-64 h-64">
                 {/* Central Circle */}
-                <div className="absolute inset-0 rounded-full border border-aes-gray/20 flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full bg-aes-green flex items-center justify-center text-white font-display font-bold text-base">
+                <div className="absolute inset-0 rounded-full border border-aes-gray/20 flex items-center justify-center animate-spin-slow">
+                  <div className="w-10 h-10 rounded-full bg-aes-green flex items-center justify-center text-white font-display font-bold text-base animate-spin-slow-reverse">
                     AI
                   </div>
                 </div>
