@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Overview from '@/components/Overview';
 import UserJourney from '@/components/UserJourney';
+import Security from '@/components/Security';
 import WaitList from '@/components/WaitList';
 import Footer from '@/components/Footer';
 import PrototypeBanner from '@/components/ui/prototype-banner';
@@ -16,6 +17,7 @@ const Index = () => {
         <Hero />
         <Overview />
         <UserJourney />
+        <Security />
         <WaitList />
       </main>
       <Footer />
