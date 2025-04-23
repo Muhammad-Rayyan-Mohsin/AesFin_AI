@@ -24,15 +24,15 @@ const FeatureCard = ({ icon, title, description, className, index }: FeatureCard
         </div>
       )}
       
-      <div className="flex-shrink-0 mb-3 md:mb-5 text-aes-green group-hover:text-aes-greenLight transition-colors duration-300">
+      <div className="flex-shrink-0 mb-3 md:mb-5 text-aes-green group-hover:text-aes-greenLight transition-colors duration-300 flex justify-center md:justify-start">
         {icon}
       </div>
       
-      <h3 className="text-sm md:text-md font-display font-medium text-white mb-2 md:mb-3 transition-colors duration-300 group-hover:text-aes-greenLight">
+      <h3 className="text-sm md:text-md font-display font-medium text-white mb-2 md:mb-3 transition-colors duration-300 group-hover:text-aes-greenLight text-center md:text-left">
         {title}
       </h3>
       
-      <p className="text-xs md:text-sm text-aes-gray/80 flex-grow font-light leading-relaxed">
+      <p className="text-xs md:text-sm text-aes-gray/80 flex-grow font-light leading-relaxed text-center md:text-left">
         {description}
       </p>
     </div>
