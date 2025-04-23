@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { ChevronRight, AlertCircle, TrendingUp, DollarSign, AlertTriangle, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import AnimatedSection from './ui/animated-section';
+import { Link } from 'react-router-dom';
 
 interface HeroProps {
   className?: string;
@@ -95,14 +96,15 @@ const Hero = ({ className }: HeroProps) => {
               </p>
 
               <div className="flex">
-                <Button 
-                  size="default"
-                  className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-5 py-2 text-sm font-medium transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
-                  onClick={() => window.location.href = '/demo'}
-                >
-                  Book a Call
-                  <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
+                <Link to="/contact">
+                  <Button 
+                    size="default"
+                    className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-5 py-2 text-sm font-medium transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
+                  >
+                    Book a Call
+                    <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </Link>
               </div>
             </AnimatedSection>
           </div>
@@ -227,14 +229,15 @@ const Hero = ({ className }: HeroProps) => {
               </p>
 
               <div className="flex justify-center">
-                <Button 
-                  size="sm"
-                  className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-4 py-1.5 text-xs font-medium shadow-sm"
-                  onClick={() => window.location.href = '/demo'}
-                >
-                  Book a Call
-                  <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
+                <Link to="/contact">
+                  <Button 
+                    size="sm"
+                    className="bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300 group px-4 py-1.5 text-xs font-medium shadow-sm"
+                  >
+                    Book a Call
+                    <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </AnimatedSection>
