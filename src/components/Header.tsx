@@ -38,6 +38,10 @@ const Header = ({ className }: HeaderProps) => {
               <span className="relative">Pricing</span>
               <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
             </Link>
+            <Link to="/security" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium relative group">
+              <span className="relative">Security</span>
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
+            </Link>
             <Link to="/about" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium relative group">
               <span className="relative">About Us</span>
               <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
@@ -78,6 +82,9 @@ const Header = ({ className }: HeaderProps) => {
                 <div className="space-y-5">
                   <Link to="/pricing" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
                     Pricing
+                  </Link>
+                  <Link to="/security" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
+                    Security
                   </Link>
                   <Link to="/about" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
                     About Us
