@@ -29,8 +29,7 @@ const Footer = ({ className }: FooterProps) => {
                 />
               </div>
               <p className="text-sm text-aes-gray mb-6 max-w-xs text-left">
-                A cutting-edge AI financial intelligence platform designed for businesses
-                across all sectors and regions.
+                Your personal automated AI financial agent.
               </p>
               <div className="flex items-center gap-4">
                 <a href="https://www.linkedin.com/company/aesfin-ai" target="_blank" rel="noopener noreferrer" className="text-aes-gray hover:text-aes-greenDark transition-colors">

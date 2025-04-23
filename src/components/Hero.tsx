@@ -189,7 +189,7 @@ const Hero = ({ className }: HeroProps) => {
         </div>
 
         {/* Mobile layout - optimized for better organization */}
-        <div className="lg:hidden flex flex-col">
+        <div className="lg:hidden flex flex-col items-center text-center">
           <AnimatedSection>
             {/* Header content */}
             <div className="mb-8">
@@ -201,7 +201,7 @@ const Hero = ({ className }: HeroProps) => {
                 The most complete AI copilot for financial auditors and accountants.
               </p>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 justify-center">
                 <Button 
                   variant="outline" 
                   size="sm" 

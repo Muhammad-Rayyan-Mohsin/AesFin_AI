@@ -34,22 +34,22 @@ const Header = ({ className }: HeaderProps) => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
           <nav className="flex items-center gap-16 mr-8">
-            <Link to="/pricing" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
-              <span className="relative z-10">Pricing</span>
-              <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
+            <Link to="/pricing" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium relative group">
+              <span className="relative">Pricing</span>
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
             </Link>
-            <a href="/about" className="relative text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
-              <span className="relative z-10">About Us</span>
-              <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
+            <a href="/about" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium relative group">
+              <span className="relative">About Us</span>
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
             </a>
-            <a href="/contact" className="relative text-base text-gray-600 hover:text-gray-900 transition-colors font-medium group">
-              <span className="relative z-10">Support & Contact</span>
-              <span className="absolute inset-x-0 -bottom-1 h-1 bg-blue-100 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
+            <a href="/contact" className="text-base text-gray-600 hover:text-gray-900 transition-colors font-medium relative group">
+              <span className="relative">Support & Contact</span>
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-aes-green/30 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
             </a>
           </nav>
           <Button 
             variant="outline" 
-            className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all group"
+            className="border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all group"
           >
             Log In
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
