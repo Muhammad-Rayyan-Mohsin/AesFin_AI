@@ -64,9 +64,9 @@ const Header = ({ className }: HeaderProps) => {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-sm border-none bg-aes-navy p-0">
+          <SheetContent side="right" className="w-full max-w-sm border-l border-gray-100 bg-white p-0">
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-start p-6 border-b border-white/5">
+              <div className="flex items-center justify-start p-6">
                 <img 
                   src="/Logo.svg" 
                   alt="AesFin AI" 
@@ -75,50 +75,39 @@ const Header = ({ className }: HeaderProps) => {
               </div>
               
               <nav className="flex-1 p-6">
-                <div className="space-y-6">
-                  <Link to="/" className="block w-full text-xl text-white font-light">
-                    Dashboard
-                  </Link>
-                  <Link to="/" className="block w-full text-xl text-white font-light">
-                    Our Research
-                  </Link>
-                  <Link to="/about" className="block w-full text-xl text-white font-light">
-                    About Us
-                  </Link>
-                  <Link to="/pricing" className="block w-full text-xl text-white font-light">
+                <div className="space-y-5">
+                  <Link to="/pricing" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
                     Pricing
                   </Link>
-                  <Link to="/contact" className="block w-full text-xl text-white font-light">
+                  <Link to="/about" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
+                    About Us
+                  </Link>
+                  <Link to="/contact" className="block w-full text-base text-gray-800 font-medium hover:text-aes-green transition-colors">
                     Support & Contact
                   </Link>
                 </div>
               </nav>
               
-              <div className="mt-auto border-t border-white/5 p-6 space-y-6">
+              <div className="mt-auto border-t border-gray-100 p-6 space-y-4">
                 <Button 
-                  variant="ghost" 
-                  className="block w-full text-xl text-white font-light text-left justify-start h-auto p-0 hover:bg-transparent"
+                  variant="outline" 
+                  className="w-full border-aes-navy text-aes-navy hover:bg-aes-navy hover:text-white transition-colors"
                 >
                   Login
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button 
-                  variant="ghost" 
-                  className="block w-full text-xl text-white font-light text-left justify-start h-auto p-0 hover:bg-transparent"
-                >
-                  Sign Up
-                </Button>
-                <Button 
-                  className="flex items-center text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded w-auto"
+                  className="w-full bg-aes-green hover:bg-aes-green/90 text-white transition-colors"
                 >
                   <span className="flex-shrink-0 mr-2">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
                       <path d="M16 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       <path d="M8 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       <path d="M3 10H21" stroke="currentColor" strokeWidth="2" />
                     </svg>
                   </span>
-                  Book a Call
+                  Book a Demo
                 </Button>
               </div>
             </div>
