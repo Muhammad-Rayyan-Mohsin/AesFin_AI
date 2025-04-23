@@ -23,7 +23,7 @@ const WaitList = ({ className }: WaitListProps) => {
 
   return (
     <section id="wait-list" className={cn(
-      "relative py-32 bg-white overflow-hidden",
+      "relative py-16 md:py-32 bg-white overflow-hidden",
       className
     )}>
       {/* Animated Grid Background */}
@@ -52,50 +52,50 @@ const WaitList = ({ className }: WaitListProps) => {
         <Sparkles className="w-6 h-6" />
       </div>
 
-      <div className="container relative z-10">
+      <div className="container relative z-10 px-4 md:px-8">
         <AnimatedSection>
           <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold mb-6 md:mb-8">
               <span className="text-aes-navy">Try</span> <span className="text-aes-green">AesFin AI</span> <span className="text-aes-navy">for free</span>
             </h2>
 
-            <p className="text-aes-gray text-xl mb-12 max-w-2xl mx-auto">
+            <p className="text-aes-gray text-lg md:text-xl mb-8 md:mb-12 max-w-2xl mx-auto">
               Perfect for SMEs. 
-              <br />
+              <br className="hidden md:block" />
               Get enterprise-grade financial intelligence at a fraction of the cost.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
-                  <Building2 className="w-6 h-6 text-aes-green" />
+            <div className="flex flex-row overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
+              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
+                  <Building2 className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
                 </div>
-                <h3 className="text-aes-navy font-semibold mb-2">SME Focused</h3>
-                <p className="text-aes-gray text-sm">Tailored specifically for small and medium enterprises</p>
+                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">SME Focused</h3>
+                <p className="text-aes-gray text-xs md:text-sm">Tailored specifically for small and medium enterprises</p>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
-                  <Clock className="w-6 h-6 text-aes-green" />
+              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
+                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
                 </div>
-                <h3 className="text-aes-navy font-semibold mb-2">Quick Setup</h3>
-                <p className="text-aes-gray text-sm">Get started in minutes, not days or weeks</p>
+                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">Quick Setup</h3>
+                <p className="text-aes-gray text-xs md:text-sm">Get started in minutes, not days or weeks</p>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
-                  <Shield className="w-6 h-6 text-aes-green" />
+              <div className="flex-shrink-0 w-[200px] md:w-auto flex flex-col items-center">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-3 md:mb-4">
+                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-aes-green" />
                 </div>
-                <h3 className="text-aes-navy font-semibold mb-2">Secure & Compliant</h3>
-                <p className="text-aes-gray text-sm">Enterprise-grade security for your financial data</p>
+                <h3 className="text-aes-navy font-semibold mb-1 md:mb-2 text-sm md:text-base">Secure & Compliant</h3>
+                <p className="text-aes-gray text-xs md:text-sm">Enterprise-grade security for your financial data</p>
               </div>
             </div>
 
             <div className="flex justify-center">
               <Button 
                 size="lg" 
-                className="bg-aes-navy hover:bg-aes-navy/90 text-white px-8 py-6 text-lg flex items-center gap-2"
+                className="bg-aes-navy hover:bg-aes-navy/90 text-white px-6 py-5 md:px-8 md:py-6 text-base md:text-lg flex items-center gap-2"
                 onClick={handleOpenCalendly}
               >
-                <Sparkles className="w-5 h-5" />
+                <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
                 Book a Demo
               </Button>
             </div>

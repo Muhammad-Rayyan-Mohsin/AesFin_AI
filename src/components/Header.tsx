@@ -68,9 +68,9 @@ const Header = ({ className }: HeaderProps) => {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-sm border-l border-aes-grayLight bg-white p-6">
+          <SheetContent side="right" className="w-full max-w-sm border-none bg-aes-navy p-0">
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-center mb-8">
+              <div className="flex items-center justify-start p-6 border-b border-white/5">
                 <img 
                   src="/Logo.svg" 
                   alt="AesFin AI" 
@@ -78,37 +78,44 @@ const Header = ({ className }: HeaderProps) => {
                 />
               </div>
               
-              <nav className="flex-1">
+              <nav className="flex-1 p-6">
                 <div className="space-y-6">
-                  <Link to="/pricing" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
-                    <span className="font-medium">Pricing</span>
-                    <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>
+                  <Link to="/dashboard" className="block w-full text-xl text-white font-light">
+                    Dashboard
                   </Link>
-                  <a href="/about" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
-                    <span className="font-medium">About Us</span>
-                    <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>
-                  </a>
-                  <a href="/contact" className="flex items-center justify-between w-full text-base text-aes-navy hover:text-aes-green transition-colors group">
-                    <span className="font-medium">Support & Contact</span>
-                    <div className="h-px w-8 bg-aes-green/30 group-hover:w-12 transition-all duration-300"></div>
-                  </a>
+                  <Link to="/research" className="block w-full text-xl text-white font-light">
+                    Our Research
+                  </Link>
+                  <Link to="/about" className="block w-full text-xl text-white font-light">
+                    About Us
+                  </Link>
+                  <Link to="/pricing" className="block w-full text-xl text-white font-light">
+                    Pricing
+                  </Link>
+                  <Link to="/contact" className="block w-full text-xl text-white font-light">
+                    Support & Contact
+                  </Link>
                 </div>
               </nav>
               
-              <div className="mt-auto pt-6 space-y-4">
-                <Button 
-                  className="w-full bg-aes-green text-white hover:bg-white hover:text-aes-green border border-aes-green transition-all duration-300"
-                >
+              <div className="mt-auto border-t border-white/5 p-6 space-y-6">
+                <Link to="/login" className="block w-full text-xl text-white font-light">
+                  Login
+                </Link>
+                <Link to="/signup" className="block w-full text-xl text-white font-light">
+                  Sign Up
+                </Link>
+                <Link to="/book-call" className="flex items-center text-white bg-blue-500 py-2 px-4 rounded">
+                  <span className="flex-shrink-0 mr-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
+                      <path d="M16 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M8 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M3 10H21" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                  </span>
                   Book a Call
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all duration-300"
-                >
-                  Log In
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Button>
+                </Link>
               </div>
             </div>
           </SheetContent>
