@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronRight, AlertCircle, TrendingUp, DollarSign, AlertTriangle, Sparkles } from 'lucide-react';
+import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import AnimatedSection from './ui/animated-section';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,147 @@ interface HeroProps {
 }
 
 const Hero = ({ className }: HeroProps) => {
+  const [riskScoreIndex, setRiskScoreIndex] = useState(0);
+  const [totalMonitored, setTotalMonitored] = useState(140080);
+
+  // Risk score data to cycle through
+  const riskScoreData = [
+    { 
+      score: 87, 
+      change: -12, 
+      label: "Risk Score"
+    },
+    { 
+      score: 92, 
+      change: 8, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 76, 
+      change: -5, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 94, 
+      change: 14, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 71, 
+      change: -23, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 83, 
+      change: 7, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 68, 
+      change: -15, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 90, 
+      change: 22, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 65, 
+      change: -25, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 88, 
+      change: 10, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 59, 
+      change: -29, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 78, 
+      change: 19, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 63, 
+      change: -15, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 85, 
+      change: 22, 
+      label: "Risk Score" 
+    },
+    { 
+      score: 72, 
+      change: -13, 
+      label: "Risk Score" 
+    }
+  ];
+
+  // Auto-rotate risk score every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRiskScoreIndex((prevIndex) => 
+        prevIndex < riskScoreData.length - 1 ? prevIndex + 1 : 0
+      );
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-increment total monitored amount
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Random increment between $10 and $100
+      const increment = Math.floor(Math.random() * 91) + 10;
+      setTotalMonitored(prev => prev + increment);
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  // Format currency with commas and decimal places
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
+
+  // Current risk score data
+  const currentRiskData = riskScoreData[riskScoreIndex];
+  const isImprovement = currentRiskData.change < 0;
+  
+  // Determine text color based on change (down is good, up is bad for risk)
+  const getMetricColor = (score, isImprovement) => {
+    return isImprovement ? "text-emerald-600" : "text-red-600";
+  };
+
+  // Determine icon color and component based on change
+  const getChangeDisplay = (change, isImprovement) => {
+    const absChange = Math.abs(change);
+    
+    // For risk score, down arrow is good (green), up arrow is bad (red)
+    return isImprovement ? (
+      <>
+        <TrendingDown className="w-4 h-4 text-emerald-600" />
+        <span className="text-sm text-emerald-600">{absChange}% improvement</span>
+      </>
+    ) : (
+      <>
+        <TrendingUp className="w-4 h-4 text-red-600" />
+        <span className="text-sm text-red-600">{absChange}% increase</span>
+      </>
+    );
+  };
+
   const sampleTransactions = [
     {
       id: 1,
@@ -118,17 +259,18 @@ const Hero = ({ className }: HeroProps) => {
               {/* Risk Score Card */}
               <div className="absolute -top-8 -left-8 sm:-top-12 sm:-left-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-3 sm:p-4 border border-emerald-100 scale-90 sm:scale-100 z-10">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <AlertCircle className="w-5 h-5 text-emerald-600" />
+                  <div className={`w-8 h-8 ${isImprovement ? "bg-emerald-100" : "bg-red-100"} rounded-full flex items-center justify-center transition-colors duration-300`}>
+                    <AlertCircle className={`w-5 h-5 ${isImprovement ? "text-emerald-600" : "text-red-600"} transition-colors duration-300`} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">Risk Score</p>
-                    <p className="text-2xl font-bold text-emerald-600">87%</p>
+                    <p className="text-sm font-medium text-gray-900">{currentRiskData.label}</p>
+                    <p className={cn("text-2xl font-bold transition-colors duration-300", getMetricColor(currentRiskData.score, isImprovement))}>
+                      {currentRiskData.score}%
+                    </p>
                   </div>
                 </div>
-                <div className="mt-3 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-emerald-600" />
-                  <span className="text-sm text-emerald-600">12% improvement</span>
+                <div className="mt-3 flex items-center gap-2 h-6 transition-all duration-300">
+                  {getChangeDisplay(currentRiskData.change, isImprovement)}
                 </div>
               </div>
 
@@ -180,7 +322,9 @@ const Hero = ({ className }: HeroProps) => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-900">Total Monitored</p>
-                    <p className="text-lg font-bold text-emerald-600">$140,080.00</p>
+                    <p className="text-lg font-bold text-emerald-600 transition-all duration-500">
+                      {formatCurrency(totalMonitored)}
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -189,14 +333,18 @@ const Hero = ({ className }: HeroProps) => {
                       <AlertTriangle className="w-4 h-4 text-yellow-500" />
                       <span className="text-xs font-medium text-gray-600">Flagged</span>
                     </div>
-                    <p className="text-sm font-bold text-gray-900">$48,730</p>
+                    <p className="text-sm font-bold text-gray-900 transition-all duration-500">
+                      {formatCurrency(Math.round(totalMonitored * 0.35))}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center gap-1">
                       <TrendingUp className="w-4 h-4 text-emerald-600" />
                       <span className="text-xs font-medium text-gray-600">Cleared</span>
                     </div>
-                    <p className="text-sm font-bold text-gray-900">$91,350</p>
+                    <p className="text-sm font-bold text-gray-900 transition-all duration-500">
+                      {formatCurrency(Math.round(totalMonitored * 0.65))}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -249,15 +397,30 @@ const Hero = ({ className }: HeroProps) => {
                 {/* Risk Score Card */}
                 <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-3 border border-emerald-100">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <AlertCircle className="w-4 h-4 text-emerald-600" />
+                    <div className={`w-6 h-6 ${isImprovement ? "bg-emerald-100" : "bg-red-100"} rounded-full flex items-center justify-center transition-colors duration-300`}>
+                      <AlertCircle className={`w-4 h-4 ${isImprovement ? "text-emerald-600" : "text-red-600"} transition-colors duration-300`} />
                     </div>
-                    <p className="text-xs font-medium text-gray-900">Risk Score</p>
+                    <p className="text-xs font-medium text-gray-900">{currentRiskData.label}</p>
                   </div>
-                  <p className="text-xl font-bold text-emerald-600 mb-1">87%</p>
-                  <div className="flex items-center gap-1">
-                    <TrendingUp className="w-3 h-3 text-emerald-600" />
-                    <span className="text-xs text-emerald-600">12% improvement</span>
+                  <p className={cn("text-xl font-bold mb-1 transition-colors duration-300", getMetricColor(currentRiskData.score, isImprovement))}>
+                    {currentRiskData.score}%
+                  </p>
+                  <div className="flex items-center gap-1 h-5 transition-all duration-300">
+                    {currentRiskData.change < 0 ? (
+                      <>
+                        <TrendingDown className="w-3 h-3 text-emerald-600" />
+                        <span className="text-xs text-emerald-600">
+                          {Math.abs(currentRiskData.change)}% improvement
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <TrendingUp className="w-3 h-3 text-red-600" />
+                        <span className="text-xs text-red-600">
+                          {currentRiskData.change}% increase
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -269,21 +432,25 @@ const Hero = ({ className }: HeroProps) => {
                     </div>
                     <p className="text-xs font-medium text-gray-900">Total Monitored</p>
                   </div>
-                  <p className="text-base font-bold text-emerald-600 mb-2">$140,080</p>
+                  <p className="text-base font-bold text-emerald-600 mb-2">{formatCurrency(totalMonitored)}</p>
                   <div className="grid grid-cols-2 gap-1 text-xs">
                     <div>
                       <div className="flex items-center">
                         <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
                         <span className="font-medium text-gray-600">Flagged</span>
                       </div>
-                      <p className="font-bold text-gray-900">$48,730</p>
+                      <p className="font-bold text-gray-900">
+                        {formatCurrency(Math.round(totalMonitored * 0.35))}
+                      </p>
                     </div>
                     <div>
                       <div className="flex items-center">
                         <TrendingUp className="w-3 h-3 text-emerald-600 mr-1" />
                         <span className="font-medium text-gray-600">Cleared</span>
                       </div>
-                      <p className="font-bold text-gray-900">$91,350</p>
+                      <p className="font-bold text-gray-900">
+                        {formatCurrency(Math.round(totalMonitored * 0.65))}
+                      </p>
                     </div>
                   </div>
                 </div>
