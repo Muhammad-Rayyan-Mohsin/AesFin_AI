@@ -103,7 +103,7 @@ const Header = ({ className }: HeaderProps) => {
                   Login
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Link to="/contact">
+                <a href="https://calendly.com/ali14hasnain/30min" target="_blank" rel="noopener noreferrer">
                   <Button 
                     className="w-full bg-aes-green hover:bg-aes-green/90 text-white transition-colors"
                   >
@@ -117,7 +117,7 @@ const Header = ({ className }: HeaderProps) => {
                     </span>
                     Book a Call
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </SheetContent>
