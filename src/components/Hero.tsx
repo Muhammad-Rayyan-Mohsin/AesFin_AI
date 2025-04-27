@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles } from 'lucide-react';
+import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, X } from 'lucide-react';
 import { Button } from './ui/button';
 import AnimatedSection from './ui/animated-section';
 import { Link } from 'react-router-dom';
+import { addToWaitlist } from '@/lib/waitlist-service';
+import { useToast } from '@/hooks/use-toast';
 
 interface HeroProps {
   className?: string;
@@ -12,6 +14,10 @@ interface HeroProps {
 const Hero = ({ className }: HeroProps) => {
   const [riskScoreIndex, setRiskScoreIndex] = useState(0);
   const [totalMonitored, setTotalMonitored] = useState(140080);
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   // Risk score data to cycle through
   const riskScoreData = [
@@ -195,6 +201,50 @@ const Hero = ({ className }: HeroProps) => {
     }
   };
 
+  // Handle waitlist submission
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      const result = await addToWaitlist(email);
+      
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: result.message || "You've been added to our waitlist!",
+          variant: "default",
+        });
+        setEmail('');
+        setIsWaitlistModalOpen(false);
+      } else {
+        toast({
+          title: "Error",
+          description: result.error || "Failed to join waitlist. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className={cn(
       "relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-slate-100 pt-16 pb-12 md:pt-28 md:pb-24",
@@ -236,7 +286,7 @@ const Hero = ({ className }: HeroProps) => {
                 The most complete AI copilot for financial auditors and accountants.
               </p>
 
-              <div className="flex">
+              <div className="flex gap-4">
                 <a href="https://calendly.com/ali14hasnain/30min" target="_blank" rel="noopener noreferrer">
                   <Button 
                     size="default"
@@ -246,6 +296,15 @@ const Hero = ({ className }: HeroProps) => {
                     <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </a>
+                
+                <Button 
+                  size="default"
+                  className="bg-aes-navy text-white hover:bg-white hover:text-aes-navy border border-aes-navy transition-all duration-300 group px-5 py-2 text-sm font-medium transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
+                  onClick={() => setIsWaitlistModalOpen(true)}
+                >
+                  Join Waitlist
+                  <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
               </div>
             </AnimatedSection>
           </div>
@@ -376,7 +435,7 @@ const Hero = ({ className }: HeroProps) => {
                 The most complete AI copilot for financial auditors and accountants.
               </p>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center space-x-3">
                 <a href="https://calendly.com/ali14hasnain/30min" target="_blank" rel="noopener noreferrer">
                   <Button 
                     size="sm"
@@ -386,6 +445,15 @@ const Hero = ({ className }: HeroProps) => {
                     <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </a>
+                
+                <Button 
+                  size="sm"
+                  className="bg-aes-navy text-white hover:bg-white hover:text-aes-navy border border-aes-navy transition-all duration-300 group px-4 py-1.5 text-xs font-medium shadow-sm"
+                  onClick={() => setIsWaitlistModalOpen(true)}
+                >
+                  Join Waitlist
+                  <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
               </div>
             </div>
           </AnimatedSection>
@@ -424,35 +492,9 @@ const Hero = ({ className }: HeroProps) => {
                   </div>
                 </div>
 
-                {/* Analytics Card */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-3 border border-emerald-100">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <DollarSign className="w-4 h-4 text-emerald-600" />
-                    </div>
-                    <p className="text-xs font-medium text-gray-900">Total Monitored</p>
-                  </div>
-                  <p className="text-base font-bold text-emerald-600 mb-2">{formatCurrency(totalMonitored)}</p>
-                  <div className="grid grid-cols-2 gap-1 text-xs">
-                    <div>
-                      <div className="flex items-center">
-                        <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
-                        <span className="font-medium text-gray-600">Flagged</span>
-                      </div>
-                      <p className="font-bold text-gray-900">
-                        {formatCurrency(Math.round(totalMonitored * 0.35))}
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex items-center">
-                        <TrendingUp className="w-3 h-3 text-emerald-600 mr-1" />
-                        <span className="font-medium text-gray-600">Cleared</span>
-                      </div>
-                      <p className="font-bold text-gray-900">
-                        {formatCurrency(Math.round(totalMonitored * 0.65))}
-                      </p>
-                    </div>
-                  </div>
+                {/* Replaced the Total Monitored card with a spacer to maintain layout */}
+                <div className="hidden">
+                  {/* This card is intentionally hidden for mobile view */}
                 </div>
               </div>
             </AnimatedSection>
@@ -496,6 +538,60 @@ const Hero = ({ className }: HeroProps) => {
           </div>
         </div>
       </div>
+
+      {/* Waitlist Modal */}
+      {isWaitlistModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 relative">
+            <button 
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+              onClick={() => setIsWaitlistModalOpen(false)}
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-aes-green/10 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-aes-green" />
+              </div>
+            </div>
+            
+            <h3 className="text-2xl font-bold text-center text-aes-navy mb-2">Join Our Waitlist</h3>
+            <p className="text-gray-600 text-center mb-6">
+              Be among the first to experience AesFin AI's revolutionary financial compliance tool.
+            </p>
+            
+            <form onSubmit={handleWaitlistSubmit}>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="your@email.com"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-aes-green focus:border-transparent"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <Button
+                type="submit"
+                className="w-full bg-aes-green text-white hover:bg-aes-green/90 py-2 rounded-md font-medium"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Joining..." : "Join Waitlist"}
+              </Button>
+              
+              <p className="text-xs text-gray-500 mt-4 text-center">
+                We'll notify you when AesFin AI becomes available for your business.
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
