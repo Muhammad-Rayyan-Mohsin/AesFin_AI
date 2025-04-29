@@ -458,25 +458,12 @@ const Hero = ({ className }: HeroProps) => {
                     <p className="text-xs font-medium text-gray-900">Total Monitored</p>
                   </div>
                   <p className="text-base font-bold text-emerald-600 mb-2">{formatCurrency(totalMonitored)}</p>
-                  <div className="grid grid-cols-2 gap-1 text-xs">
-                    <div>
-                      <div className="flex items-center">
-                        <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
-                        <span className="font-medium text-gray-600">Flagged</span>
-                      </div>
-                      <p className="font-bold text-gray-900">
-                        {formatCurrency(Math.round(totalMonitored * 0.35))}
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex items-center">
-                        <TrendingUp className="w-3 h-3 text-emerald-600 mr-1" />
-                        <span className="font-medium text-gray-600">Cleared</span>
-                      </div>
-                      <p className="font-bold text-gray-900">
-                        {formatCurrency(Math.round(totalMonitored * 0.65))}
-                      </p>
-                    </div>
+                  <div className="flex items-center gap-1 text-xs">
+                    <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
+                    <span className="font-medium text-gray-600">Flagged:</span>
+                    <p className="font-bold text-gray-900 ml-1">
+                      {formatCurrency(Math.round(totalMonitored * 0.35))}
+                    </p>
                   </div>
                 </div>
               </div>
