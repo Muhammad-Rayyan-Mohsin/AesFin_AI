@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular background -->
+  <circle cx="20" cy="20" r="18" fill="#F0FFF4"/>
+  <!-- Stylized 'A' letter -->
+  <path d="M13 30L16 15H24L27 30H23L22 26H18L17 30H13ZM19 22H21L20 17L19 22Z" fill="#1E8A6B"/>
+  <!-- Decorative element -->
+  <circle cx="20" cy="20" r="16" stroke="#1E8A6B" stroke-width="2" stroke-dasharray="2 1"/>
+</svg>
