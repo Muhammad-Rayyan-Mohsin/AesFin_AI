@@ -12,6 +12,7 @@ interface WaitListProps {
 const WaitList = ({ className }: WaitListProps) => {
   const { toast } = useToast();
   const [activeFeature, setActiveFeature] = useState(0);
+  const [email, setEmail] = useState('');
   
   const features = [
     {
@@ -48,6 +49,16 @@ const WaitList = ({ className }: WaitListProps) => {
     toast({
       title: "Success!",
       description: "Opening Calendly to book your demo.",
+      variant: "default",
+    });
+  };
+
+  const handleWaitlistSignup = () => {
+    // Here you would typically integrate with your backend API
+    // For now, we'll just show a success toast
+    toast({
+      title: "Success!",
+      description: "You've been added to our waitlist. We'll notify you when we're ready!",
       variant: "default",
     });
   };
