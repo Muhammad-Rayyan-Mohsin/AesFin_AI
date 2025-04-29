@@ -459,8 +459,10 @@ const Hero = ({ className }: HeroProps) => {
                   </div>
                   <p className="text-base font-bold text-emerald-600 mb-2">{formatCurrency(totalMonitored)}</p>
                   <div className="flex items-center gap-1 text-xs">
-                    <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
-                    <span className="font-medium text-gray-600">Flagged:</span>
+                    <div className="flex items-center">
+                      <AlertTriangle className="w-3 h-3 text-yellow-500 mr-1" />
+                      <span className="font-medium text-gray-600">Flagged:</span>
+                    </div>
                     <p className="font-bold text-gray-900 ml-1">
                       {formatCurrency(Math.round(totalMonitored * 0.35))}
                     </p>
