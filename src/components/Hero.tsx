@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, UserPlus } from 'lucide-react';
+import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, UserPlus, Users, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import AnimatedSection from './ui/animated-section';
 import { Link } from 'react-router-dom';
 import WaitlistDialog from './ui/waitlist-dialog';
+import { Input } from './ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { faker } from '@faker-js/faker';
+import { supabase } from '@/lib/supabase';
+import { useToast } from '@/hooks/use-toast';
+
+// Sample waitlist data (in a real app, this would come from the API)
+const generateSampleWaitlistUsers = (count = 7) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i + 1,
+    name: faker.person.firstName(),
+    avatar: faker.image.avatar(),
+    companyRole: faker.person.jobTitle(),
+    joinedAt: faker.date.recent({ days: 30 }).toISOString(),
+  }));
+};
 
 interface HeroProps {
   className?: string;
@@ -13,6 +29,11 @@ interface HeroProps {
 const Hero = ({ className }: HeroProps) => {
   const [riskScoreIndex, setRiskScoreIndex] = useState(0);
   const [totalMonitored, setTotalMonitored] = useState(140080);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistUsers, setWaitlistUsers] = useState(generateSampleWaitlistUsers());
+  const [totalWaitlistCount, setTotalWaitlistCount] = useState(1238);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   // Risk score data to cycle through
   const riskScoreData = [
@@ -194,6 +215,57 @@ const Hero = ({ className }: HeroProps) => {
       default:
         return 'bg-gray-100 text-gray-700';
     }
+  };
+
+  // Function to handle waitlist signup
+  const handleWaitlistSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!waitlistEmail.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      // In a real app, this would be an API call to save the email
+      // For now, simulate an API call with a timeout
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // In production, this would use the actual API endpoint:
+      // const { data, error } = await supabase
+      //   .from('waitlist')
+      //   .insert([{ email: waitlistEmail }]);
+
+      // Add new user to the display list (for demo purposes)
+      const newUser = {
+        id: waitlistUsers.length + 1,
+        name: faker.person.firstName(),
+        avatar: faker.image.avatar(),
+        companyRole: faker.person.jobTitle(),
+        joinedAt: new Date().toISOString(),
+      };
+
+      setWaitlistUsers(prev => [newUser, ...prev.slice(0, 8)]);
+      setTotalWaitlistCount(prev => prev + 1);
+      setWaitlistEmail('');
+      
+      toast({
+        title: "Success!",
+        description: "You've been added to our waitlist. We'll notify you when we're ready!",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Error submitting to waitlist:", error);
+      toast({
+        title: "Error",
+        description: "There was an error adding you to the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Get initials from name for avatar fallback
+  const getInitials = (name: string) => {
+    return name.charAt(0).toUpperCase();
   };
 
   return (
@@ -476,7 +548,7 @@ const Hero = ({ className }: HeroProps) => {
               <div className="mt-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-emerald-100 p-3">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-gray-900">Recent Transactions</h3>
-                  <Button size="xs" className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-6 px-2">
+                  <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-6 px-2">
                     Review All
                   </Button>
                 </div>
@@ -509,6 +581,131 @@ const Hero = ({ className }: HeroProps) => {
             </AnimatedSection>
           </div>
         </div>
+
+        {/* Waitlist Panel - Full Width Below Hero */}
+        <AnimatedSection delay={0.4}>
+          <div className="mt-16 md:mt-28 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-aes-green/20 overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-1/2 left-1/4 w-64 h-64 rounded-full bg-aes-green/5 blur-3xl" />
+              <div className="absolute bottom-0 right-1/3 w-48 h-48 rounded-full bg-blue-400/5 blur-2xl" />
+            </div>
+
+            <div className="grid md:grid-cols-5 lg:grid-cols-2 xl:grid-cols-5">
+              {/* Waitlist Users - Show on desktop, hide on mobile */}
+              <div className="hidden md:block md:col-span-3 lg:col-span-1 xl:col-span-3 p-8 bg-gradient-to-br from-emerald-50/80 to-white/70 border-r border-aes-green/10">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-full bg-aes-green/10 flex items-center justify-center">
+                      <Users className="w-5 h-5 text-aes-green" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-aes-navy">Our Community</h3>
+                      <p className="text-sm text-aes-gray">Financial professionals like you</p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-2 bg-aes-green/10 rounded-full text-sm font-medium text-aes-green flex items-center gap-2">
+                    <span className="inline-block h-2 w-2 rounded-full bg-aes-green animate-pulse"></span>
+                    <span>{totalWaitlistCount.toLocaleString()} members</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {waitlistUsers.slice(0, 6).map((user) => (
+                    <div key={user.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/90 transition-all hover:shadow-sm border border-transparent hover:border-aes-green/10">
+                      <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
+                        <AvatarImage src={user.avatar} alt={user.name} />
+                        <AvatarFallback className="bg-aes-green/10 text-aes-green font-medium">
+                          {getInitials(user.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium text-aes-navy">{user.name}</p>
+                        <p className="text-xs text-aes-gray truncate max-w-[140px] italic">
+                          "{user.companyRole}"
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Waitlist Stats */}
+              <div className="p-8 md:col-span-2 lg:col-span-1 xl:col-span-2 flex flex-col justify-center">
+                <div className="max-w-md mx-auto w-full">
+                  <div className="text-center mb-6">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-aes-green/10 mb-4">
+                      <Sparkles className="h-6 w-6 text-aes-green" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-aes-navy mb-2">Join Our Growing Community</h3>
+                    <p className="text-aes-gray">Financial professionals around the world are embracing AI-powered intelligence</p>
+                  </div>
+                  
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-white/50 rounded-lg p-4 border border-aes-green/10 text-center">
+                      <p className="text-3xl font-bold text-aes-navy mb-1">{totalWaitlistCount.toLocaleString()}</p>
+                      <p className="text-sm text-aes-gray">Community Members</p>
+                    </div>
+                    <div className="bg-white/50 rounded-lg p-4 border border-aes-green/10 text-center">
+                      <p className="text-3xl font-bold text-aes-green mb-1">12+</p>
+                      <p className="text-sm text-aes-gray">Countries Worldwide</p>
+                    </div>
+                  </div>
+                  
+                  {/* Mobile: Show mini avatars of people who joined */}
+                  <div className="md:hidden flex flex-col items-center space-y-3">
+                    <div className="flex justify-center">
+                      {waitlistUsers.slice(0, 7).map((user, index) => (
+                        <Avatar 
+                          key={user.id} 
+                          className={`h-10 w-10 border-2 border-white shadow-md transition-all ${
+                            index === 0 ? "z-30" : index === 1 ? "z-20" : index === 2 ? "z-10" : ""
+                          }`}
+                          style={{
+                            transform: `translateX(-${index * 8}px)`,
+                            animationDelay: `${index * 0.1}s`
+                          }}
+                        >
+                          <AvatarImage src={user.avatar} alt={user.name} />
+                          <AvatarFallback className="bg-aes-green/10 text-aes-green text-xs font-medium">
+                            {getInitials(user.name)}
+                          </AvatarFallback>
+                        </Avatar>
+                      ))}
+                      <div 
+                        className="h-10 w-10 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center transform -translate-x-6 z-0"
+                        style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
+                      >
+                        <span className="text-xs font-medium text-aes-green">+{totalWaitlistCount - 7}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="inline-block h-2 w-2 rounded-full bg-aes-green animate-pulse"></span>
+                      <p className="text-sm text-aes-navy font-medium text-center">
+                        <strong>{totalWaitlistCount.toLocaleString()}</strong> members and growing!
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 flex justify-center">
+                    <WaitlistDialog
+                      trigger={
+                        <Button
+                          size="default"
+                          className="bg-aes-green text-white hover:bg-aes-navy transition-all duration-300 rounded-full px-6"
+                        >
+                          Join Our Community
+                          <UserPlus className="w-4 h-4 ml-2" />
+                        </Button>
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
