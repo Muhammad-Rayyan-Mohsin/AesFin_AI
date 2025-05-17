@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, UserPlus, Users, ArrowRight } from 'lucide-react';
+import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, UserPlus, Users, ArrowRight, PlayCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import AnimatedSection from './ui/animated-section';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { faker } from '@faker-js/faker';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 
 // Sample waitlist data (in a real app, this would come from the API)
 const generateSampleWaitlistUsers = (count = 7) => {
@@ -34,6 +35,7 @@ const Hero = ({ className }: HeroProps) => {
   const [totalWaitlistCount, setTotalWaitlistCount] = useState(1238);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   // Risk score data to cycle through
   const riskScoreData = [
@@ -319,18 +321,37 @@ const Hero = ({ className }: HeroProps) => {
                     <ChevronRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </a>
-                <WaitlistDialog 
-                  trigger={
+                <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
+                  <DialogTrigger asChild>
                     <Button 
                       size="default"
                       variant="outline"
                       className="border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all duration-300 group px-5 py-2 text-sm font-medium transform shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
+                      onClick={() => setIsDemoOpen(true)}
                     >
-                      Join Waitlist
-                      <UserPlus className="w-3.5 h-3.5 ml-2" />
+                      Watch Demo
+                      <PlayCircle className="w-4 h-4 ml-2" />
                     </Button>
-                  }
-                />
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl w-full aspect-video">
+                    <DialogHeader>
+                      <DialogTitle>Product Demo</DialogTitle>
+                    </DialogHeader>
+                    <div className="w-full aspect-video">
+                      {isDemoOpen && (
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/aMohh4bLFlo?autoplay=1"
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        ></iframe>
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </AnimatedSection>
           </div>
@@ -471,18 +492,37 @@ const Hero = ({ className }: HeroProps) => {
                     <ChevronRight className="w-3 h-3 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </a>
-                <WaitlistDialog 
-                  trigger={
+                <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
+                  <DialogTrigger asChild>
                     <Button 
                       size="sm"
                       variant="outline"
                       className="border-aes-green text-aes-green hover:bg-aes-green hover:text-white transition-all duration-300 group px-4 py-1.5 text-xs font-medium shadow-sm"
+                      onClick={() => setIsDemoOpen(true)}
                     >
-                      Join Waitlist
-                      <UserPlus className="w-3 h-3 ml-1.5" />
+                      Watch Demo
+                      <PlayCircle className="w-4 h-4 ml-2" />
                     </Button>
-                  }
-                />
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl w-full aspect-video">
+                    <DialogHeader>
+                      <DialogTitle>Product Demo</DialogTitle>
+                    </DialogHeader>
+                    <div className="w-full aspect-video">
+                      {isDemoOpen && (
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/aMohh4bLFlo?autoplay=1"
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        ></iframe>
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </AnimatedSection>
@@ -581,131 +621,6 @@ const Hero = ({ className }: HeroProps) => {
             </AnimatedSection>
           </div>
         </div>
-
-        {/* Waitlist Panel - Full Width Below Hero */}
-        <AnimatedSection delay={0.4}>
-          <div className="mt-16 md:mt-28 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-aes-green/20 overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/2 left-1/4 w-64 h-64 rounded-full bg-aes-green/5 blur-3xl" />
-              <div className="absolute bottom-0 right-1/3 w-48 h-48 rounded-full bg-blue-400/5 blur-2xl" />
-            </div>
-
-            <div className="grid md:grid-cols-5 lg:grid-cols-2 xl:grid-cols-5">
-              {/* Waitlist Users - Show on desktop, hide on mobile */}
-              <div className="hidden md:block md:col-span-3 lg:col-span-1 xl:col-span-3 p-8 bg-gradient-to-br from-emerald-50/80 to-white/70 border-r border-aes-green/10">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-full bg-aes-green/10 flex items-center justify-center">
-                      <Users className="w-5 h-5 text-aes-green" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-aes-navy">Our Community</h3>
-                      <p className="text-sm text-aes-gray">Financial professionals like you</p>
-                    </div>
-                  </div>
-                  <div className="px-4 py-2 bg-aes-green/10 rounded-full text-sm font-medium text-aes-green flex items-center gap-2">
-                    <span className="inline-block h-2 w-2 rounded-full bg-aes-green animate-pulse"></span>
-                    <span>{totalWaitlistCount.toLocaleString()} members</span>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {waitlistUsers.slice(0, 6).map((user) => (
-                    <div key={user.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/90 transition-all hover:shadow-sm border border-transparent hover:border-aes-green/10">
-                      <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
-                        <AvatarImage src={user.avatar} alt={user.name} />
-                        <AvatarFallback className="bg-aes-green/10 text-aes-green font-medium">
-                          {getInitials(user.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="text-sm font-medium text-aes-navy">{user.name}</p>
-                        <p className="text-xs text-aes-gray truncate max-w-[140px] italic">
-                          "{user.companyRole}"
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Waitlist Stats */}
-              <div className="p-8 md:col-span-2 lg:col-span-1 xl:col-span-2 flex flex-col justify-center">
-                <div className="max-w-md mx-auto w-full">
-                  <div className="text-center mb-6">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-aes-green/10 mb-4">
-                      <Sparkles className="h-6 w-6 text-aes-green" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-aes-navy mb-2">Join Our Growing Community</h3>
-                    <p className="text-aes-gray">Financial professionals around the world are embracing AI-powered intelligence</p>
-                  </div>
-                  
-                  {/* Stats */}
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-white/50 rounded-lg p-4 border border-aes-green/10 text-center">
-                      <p className="text-3xl font-bold text-aes-navy mb-1">{totalWaitlistCount.toLocaleString()}</p>
-                      <p className="text-sm text-aes-gray">Community Members</p>
-                    </div>
-                    <div className="bg-white/50 rounded-lg p-4 border border-aes-green/10 text-center">
-                      <p className="text-3xl font-bold text-aes-green mb-1">12+</p>
-                      <p className="text-sm text-aes-gray">Countries Worldwide</p>
-                    </div>
-                  </div>
-                  
-                  {/* Mobile: Show mini avatars of people who joined */}
-                  <div className="md:hidden flex flex-col items-center space-y-3">
-                    <div className="flex justify-center">
-                      {waitlistUsers.slice(0, 7).map((user, index) => (
-                        <Avatar 
-                          key={user.id} 
-                          className={`h-10 w-10 border-2 border-white shadow-md transition-all ${
-                            index === 0 ? "z-30" : index === 1 ? "z-20" : index === 2 ? "z-10" : ""
-                          }`}
-                          style={{
-                            transform: `translateX(-${index * 8}px)`,
-                            animationDelay: `${index * 0.1}s`
-                          }}
-                        >
-                          <AvatarImage src={user.avatar} alt={user.name} />
-                          <AvatarFallback className="bg-aes-green/10 text-aes-green text-xs font-medium">
-                            {getInitials(user.name)}
-                          </AvatarFallback>
-                        </Avatar>
-                      ))}
-                      <div 
-                        className="h-10 w-10 rounded-full bg-white border-2 border-white shadow-md flex items-center justify-center transform -translate-x-6 z-0"
-                        style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
-                      >
-                        <span className="text-xs font-medium text-aes-green">+{totalWaitlistCount - 7}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="inline-block h-2 w-2 rounded-full bg-aes-green animate-pulse"></span>
-                      <p className="text-sm text-aes-navy font-medium text-center">
-                        <strong>{totalWaitlistCount.toLocaleString()}</strong> members and growing!
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 flex justify-center">
-                    <WaitlistDialog
-                      trigger={
-                        <Button
-                          size="default"
-                          className="bg-aes-green text-white hover:bg-aes-navy transition-all duration-300 rounded-full px-6"
-                        >
-                          Join Our Community
-                          <UserPlus className="w-4 h-4 ml-2" />
-                        </Button>
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );

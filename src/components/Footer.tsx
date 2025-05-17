@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface FooterProps {
@@ -12,61 +12,62 @@ const Footer = ({ className }: FooterProps) => {
 
   return (
     <footer className={cn(
-      "relative py-12 bg-white border-t border-aes-grayLight",
+      'relative bg-[#1A2235] text-[#E5E7EB] pt-28 pb-20',
       className
     )}>
-      <div className="container">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-          {/* Logo & Info */}
-          <div className="sm:col-span-2">
-            <div className="flex flex-col items-start gap-2 mb-6">
-              {/* Logo in the footer */}
-              <div className="mb-4">
-                <img 
-                  src="/Logo.svg" 
-                  alt="AesFin AI" 
-                  className="h-12 w-auto object-contain" 
-                />
-              </div>
-              <p className="text-sm text-aes-gray mb-6 max-w-xs text-left">
-                Your personal automated AI financial agent.
-              </p>
-              
-              <div className="flex items-center gap-4">
-                <a href="https://www.linkedin.com/company/aesfin-ai" target="_blank" rel="noopener noreferrer" className="text-aes-gray hover:text-aes-greenDark transition-colors">
-                  <Linkedin className="h-5 w-5" />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-              </div>
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+          {/* Left: Logo, description, newsletter */}
+          <div className="flex-1 min-w-[260px] flex flex-col gap-4">
+            <div className="flex items-center gap-3 mb-2">
+              <img src="/Logo.svg" alt="AesFin AI" className="h-16 w-16 rounded-lg bg-[#1A2235] p-2" />
+              <span className="text-2xl font-bold text-white">AesFin AI</span>
             </div>
+            <p className="text-[#A1A1AA] text-base max-w-md mb-2 font-normal">
+              Your personal automated AI financial agent.
+            </p>
           </div>
-          
-          {/* Links - Now in a flex container for better mobile alignment */}
-          <div className="flex gap-8 sm:gap-4">
-            <div className="flex-1">
-              <h3 className="font-display font-semibold text-aes-greenDark mb-4">Company</h3>
-              <ul className="space-y-2">
-                <li><Link to="/about" className="text-sm text-aes-gray hover:text-aes-green transition-colors">About</Link></li>
-                <li><Link to="/contact" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Contact</Link></li>
-                <li><Link to="/pricing" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Pricing</Link></li>
-              </ul>
-            </div>
-            
-            <div className="flex-1">
-              <h3 className="font-display font-semibold text-aes-greenDark mb-4">Resources</h3>
-              <ul className="space-y-2">
-                <li><Link to="/security" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Security</Link></li>
-                <li><Link to="/privacy" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Privacy</Link></li>
-                <li><Link to="/terms" className="text-sm text-aes-gray hover:text-aes-green transition-colors">Terms</Link></li>
-              </ul>
-            </div>
+          {/* Right: Newsletter form */}
+          <div className="flex-1 flex flex-col items-end min-w-[320px]">
+            <span className="text-lg font-semibold text-white mb-2">Join our waitlist</span>
+            <form className="flex w-full max-w-md">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 rounded-l-md bg-[#23262F] text-[#E5E7EB] px-5 py-3 outline-none border-none placeholder-[#A1A1AA] text-base"
+              />
+              <button
+                type="submit"
+                className="rounded-r-md bg-[#393C49] text-[#E5E7EB] px-6 py-3 text-base font-semibold hover:bg-[#4B4E5A] transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
-        
-        <div className="border-t border-aes-grayLight mt-12 pt-6 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-xs text-aes-gray mb-4 md:mb-0">
-            © {currentYear} AesFin AI. All rights reserved.
-          </p>
+
+        <hr className="my-8 border-[#23262F]" />
+
+        {/* Navigation links */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center mb-8">
+          <a href="/dashboard" className="hover:text-white transition-colors text-base">Dashboard</a>
+          <a href="/about" className="hover:text-white transition-colors text-base">About Us</a>
+          <a href="/pricing" className="hover:text-white transition-colors text-base">Pricing</a>
+          <a href="/research" className="hover:text-white transition-colors text-base">Research</a>
+          <a href="/contact" className="hover:text-white transition-colors text-base">Contact</a>
+          <a href="/privacy" className="hover:text-white transition-colors text-base">Privacy Policy</a>
+        </div>
+
+        <hr className="mb-6 border-[#23262F]" />
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <p className="text-sm text-[#A1A1AA]">© {currentYear} AesFin AI. All rights reserved.</p>
+          <div className="flex gap-8 text-[#A1A1AA] text-2xl">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Twitter className="w-7 h-7" /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Facebook className="w-7 h-7" /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Linkedin className="w-7 h-7" /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Instagram className="w-7 h-7" /></a>
+          </div>
         </div>
       </div>
     </footer>
