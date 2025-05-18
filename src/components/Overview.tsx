@@ -79,6 +79,7 @@ const Overview = ({ className }: OverviewProps) => {
           activeIndex={activeIndex}
           onPrev={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1))}
           onNext={() => setActiveIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0))}
+          onSlideChange={setActiveIndex}
         />
       </div>
     </section>
