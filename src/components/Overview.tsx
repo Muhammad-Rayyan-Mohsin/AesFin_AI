@@ -56,20 +56,18 @@ const Overview = ({ className }: OverviewProps) => {
             </h2>
             <div className="flex items-center justify-start gap-0 bg-white/10 rounded-full p-0.5 w-fit mx-auto shadow-sm mt-6" style={{marginTop: '1.5rem'}}>
               {segmentLabels.map((label, idx) => (
-                <button
+                <span
                   key={label}
                   className={cn(
-                    "px-3 py-1 font-sans font-normal text-sm transition-all focus:outline-none rounded-full",
+                    "px-3 py-1 font-sans font-normal text-sm rounded-full select-none",
                     idx === activeIndex
                       ? "bg-green-700 text-white shadow-md"
-                      : "text-slate-500 hover:text-green-700"
+                      : "text-slate-500"
                   )}
                   style={{minWidth: '80px'}}
-                  onClick={() => setActiveIndex(idx)}
-                  aria-pressed={idx === activeIndex}
                 >
                   {label}
-                </button>
+                </span>
               ))}
             </div>
           </div>

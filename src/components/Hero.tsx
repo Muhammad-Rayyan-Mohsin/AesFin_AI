@@ -11,6 +11,7 @@ import { faker } from '@faker-js/faker';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import styles from './Hero.module.css';
 
 // Sample waitlist data (in a real app, this would come from the API)
 const generateSampleWaitlistUsers = (count = 7) => {
@@ -277,6 +278,8 @@ const Hero = ({ className }: HeroProps) => {
     )}>
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Animated gradient background */}
+        <div className={styles["animate-hero-gradient"] + " absolute inset-0 z-0"} />
         <div className="absolute -top-48 -right-48 w-96 h-96 rounded-full bg-aes-green/5 blur-3xl" />
         <div className="absolute top-1/3 -left-24 w-64 h-64 rounded-full bg-blue-400/5 blur-2xl" />
         <div className="absolute -bottom-24 right-1/4 w-72 h-72 rounded-full bg-aes-green/5 blur-3xl" />
