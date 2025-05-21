@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Overview from '@/components/Overview';
-import Security from '@/components/Security';
 import UserJourney from '@/components/UserJourney';
 import WaitList from '@/components/WaitList';
 import Footer from '@/components/Footer';
@@ -16,8 +15,9 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <Overview />
-        <Security />
-        <UserJourney />
+        <div className="mt-0">
+          <UserJourney />
+        </div>
         <WaitList />
       </main>
       <Footer />
