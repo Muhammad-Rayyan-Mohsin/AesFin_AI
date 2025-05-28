@@ -6,7 +6,7 @@ const PrivacyPage = () => {
   const sections = [
     {
       title: 'Introduction',
-      content: `At AesFin AI, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our compliance solutions and visit our website.`
+      content: `At Aes AI, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our compliance solutions and visit our website.`
     },
     {
       title: 'Information We Collect',

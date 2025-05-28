@@ -52,7 +52,7 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div className="relative w-screen h-[60vh] md:h-screen overflow-hidden">
       <Swiper
         onSwiper={setSwiper}
         onSlideChange={handleSlideChange}
@@ -67,7 +67,7 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
       >
         {screenshots.map((screenshot, index) => (
           <SwiperSlide key={`${screenshot.image}-${index}`}>
-            <div className="h-full pl-4 pr-8 py-16">
+            <div className="h-full px-4 py-8 md:py-16">
               <div
                 className={cn(
                   "relative w-full h-full rounded-[2rem] overflow-hidden",

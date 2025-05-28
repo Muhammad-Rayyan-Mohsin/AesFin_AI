@@ -70,7 +70,7 @@ const SecurityPage = () => {
                 <span className="text-aes-green">Fully Protected</span>
               </h1>
               <p className="text-lg text-aes-gray/90 max-w-3xl mx-auto mb-8">
-                AesFin AI implements the industry's highest security standards to safeguard your sensitive financial information. Our comprehensive security measures ensure your data remains private, secure, and under your control at all times.
+                Aes AI implements the industry's highest security standards to safeguard your sensitive financial information. Our comprehensive security measures ensure your data remains private, secure, and under your control at all times.
               </p>
             </AnimatedSection>
           </div>
@@ -116,7 +116,7 @@ const SecurityPage = () => {
                   Compliance & Certifications
                 </h2>
                 <p className="text-aes-gray">
-                  AesFin AI meets or exceeds all relevant industry standards and regulations.
+                  Aes AI meets or exceeds all relevant industry standards and regulations.
                 </p>
               </div>
               
@@ -132,7 +132,7 @@ const SecurityPage = () => {
               <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8 max-w-3xl mx-auto">
                 <h3 className="text-xl font-medium text-aes-navy mb-4">Our Security Commitment</h3>
                 <p className="text-sm text-aes-gray/90 mb-4">
-                  At AesFin AI, security isn't just a feature—it's foundational to everything we do. We continuously monitor, test, and improve our security measures to stay ahead of emerging threats and vulnerabilities.
+                  At Aes AI, security isn't just a feature—it's foundational to everything we do. We continuously monitor, test, and improve our security measures to stay ahead of emerging threats and vulnerabilities.
                 </p>
                 <p className="text-sm text-aes-gray/90 mb-4">
                   Our team includes security experts with backgrounds in financial services and data protection. We regularly conduct penetration testing, vulnerability assessments, and security audits to ensure the highest standards of protection.

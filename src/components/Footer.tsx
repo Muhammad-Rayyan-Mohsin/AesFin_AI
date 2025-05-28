@@ -20,16 +20,16 @@ const Footer = ({ className }: FooterProps) => {
           {/* Left: Logo, description, newsletter */}
           <div className="flex-1 min-w-[260px] flex flex-col gap-4">
             <div className="flex items-center gap-3 mb-2">
-              <img src="/Logo.svg" alt="AesFin AI" className="h-16 w-16 rounded-lg bg-[#1A2235] p-2" />
-              <span className="text-2xl font-bold text-white">AesFin AI</span>
+              <img src="/Logo.svg" alt="Aes AI" className="h-16 w-16 rounded-lg bg-[#1A2235] p-2" />
+              <span className="text-2xl font-bold text-white">Aes AI</span>
             </div>
             <p className="text-[#A1A1AA] text-base max-w-md mb-2 font-normal">
               Your personal automated AI financial agent.
             </p>
           </div>
           {/* Right: Newsletter form */}
-          <div className="flex-1 flex flex-col items-end min-w-[320px]">
-            <span className="text-lg font-semibold text-white mb-2">Join our waitlist</span>
+          <div className="flex-1 flex flex-col items-center md:items-end min-w-[320px]">
+            <span className="text-lg font-semibold text-white mb-2 text-center md:text-left">Join our waitlist</span>
             <form className="flex w-full max-w-md">
               <input
                 type="email"
@@ -61,7 +61,7 @@ const Footer = ({ className }: FooterProps) => {
         <hr className="mb-6 border-[#23262F]" />
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <p className="text-sm text-[#A1A1AA]">© {currentYear} AesFin AI. All rights reserved.</p>
+          <p className="text-sm text-[#A1A1AA]">© {currentYear} Aes AI. All rights reserved.</p>
           <div className="flex gap-8 text-[#A1A1AA] text-2xl">
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Twitter className="w-7 h-7" /></a>
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Facebook className="w-7 h-7" /></a>

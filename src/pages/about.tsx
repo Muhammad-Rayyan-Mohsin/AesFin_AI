@@ -10,11 +10,11 @@ const AboutPage = () => {
         <div className="container px-4 mx-auto py-16">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl font-display font-bold text-aes-navy mb-6">
-              About AesFin AI
+              About Aes AI
             </h1>
             <div className="prose prose-lg max-w-none">
               <p className="text-lg text-aes-gray mb-8">
-                AesFin AI is a cutting-edge financial intelligence platform that leverages artificial intelligence
+                Aes AI is a cutting-edge financial intelligence platform that leverages artificial intelligence
                 to transform how businesses manage their finances and ensure compliance.
               </p>
               

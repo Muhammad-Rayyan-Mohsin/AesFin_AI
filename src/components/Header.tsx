@@ -25,7 +25,7 @@ const Header = ({ className }: HeaderProps) => {
           <Link to="/" className="flex items-center">
             <img 
               src="/Logo.svg" 
-              alt="AesFin AI Logo" 
+              alt="Aes AI Logo" 
               className="h-14 w-auto object-contain" 
             />
           </Link>
@@ -73,7 +73,7 @@ const Header = ({ className }: HeaderProps) => {
               <div className="flex items-center justify-start p-6">
                 <img 
                   src="/Logo.svg" 
-                  alt="AesFin AI" 
+                  alt="Aes AI" 
                   className="h-8 w-auto" 
                 />
               </div>

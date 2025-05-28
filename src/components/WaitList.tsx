@@ -98,7 +98,7 @@ const WaitList = ({ className }: WaitListProps) => {
         <AnimatedSection>
           <div className="text-center max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold mb-6 md:mb-8">
-              <span className="text-aes-navy">Try</span> <span className="text-aes-green">AesFin AI</span> <span className="text-aes-navy">for free</span>
+              <span className="text-aes-navy">Try</span> <span className="text-aes-green">Aes AI</span> <span className="text-aes-navy">for free</span>
             </h2>
 
             <p className="text-aes-gray text-lg md:text-xl mb-8 md:mb-12 max-w-2xl mx-auto">
