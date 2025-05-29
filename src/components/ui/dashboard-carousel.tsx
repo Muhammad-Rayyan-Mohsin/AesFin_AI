@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/effect-fade';
 
 interface Screenshot {
   image: string;
@@ -52,26 +53,27 @@ const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-screen h-[60vh] md:h-screen overflow-hidden">
+    <div className="relative w-full max-w-screen h-[60vh] md:h-screen overflow-hidden">
       <Swiper
         onSwiper={setSwiper}
         onSlideChange={handleSlideChange}
-        modules={[Autoplay]}
+        modules={[Autoplay, EffectFade]}
         loop={true}
+        effect="fade"
         autoplay={{
-          delay: 2000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
-        speed={200}
+        speed={800}
         className="w-full h-full"
       >
         {screenshots.map((screenshot, index) => (
           <SwiperSlide key={`${screenshot.image}-${index}`}>
-            <div className="h-full px-4 py-8 md:py-16">
+            <div className="h-full px-2 sm:px-4 py-8 md:py-16">
               <div
                 className={cn(
                   "relative w-full h-full rounded-[2rem] overflow-hidden",
-                  "transition-all duration-400",
+                  "transition-all duration-700",
                   activeIndex === index ? "scale-100 z-20" : "scale-90 z-10",
                   "border-4 border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                 )}
