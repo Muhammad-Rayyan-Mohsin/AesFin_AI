@@ -1,15 +1,17 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { motion, useInView, useReducedMotion, Variants } from 'framer-motion';
+import { fadeUp, fadeIn, slideInLeft, slideInRight } from '@/lib/animation-variants';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
-  direction?: 'up' | 'down' | 'left' | 'right';
+  direction?: 'up' | 'down' | 'left' | 'right' | 'fade' | 'scale';
   delay?: number;
   duration?: number;
   threshold?: number;
+  once?: boolean;
+  amount?: number | "some" | "all";
 }
 
 const AnimatedSection = ({
@@ -19,33 +21,79 @@ const AnimatedSection = ({
   delay = 0,
   duration = 0.6,
   threshold = 0.1,
+  once = true,
+  amount = 0.3,
 }: AnimatedSectionProps) => {
-  const { elementRef, isVisible } = useScrollAnimation<HTMLDivElement>({ threshold });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { 
+    once,
+    amount,
+  });
+  const prefersReducedMotion = useReducedMotion();
 
-  const getTransformValue = () => {
+  // If user prefers reduced motion, only use the fade animation
+  if (prefersReducedMotion) {
+    return (
+      <motion.div
+        ref={ref}
+        className={cn(className)}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={fadeIn}
+        custom={delay}
+        transition={{ duration }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+
+  // Choose the right animation variant based on direction
+  const getVariants = (): Variants => {
     switch (direction) {
-      case 'up': return 'translateY(40px)';
-      case 'down': return 'translateY(-40px)';
-      case 'left': return 'translateX(40px)';
-      case 'right': return 'translateX(-40px)';
-      default: return 'translateY(40px)';
+      case 'up': return fadeUp;
+      case 'down': return {
+        hidden: { opacity: 0, y: -40 },
+        visible: (delay = 0) => ({
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration,
+            ease: [0.25, 0.1, 0.25, 1],
+            delay: delay * 0.1,
+          }
+        })
+      };
+      case 'left': return slideInLeft;
+      case 'right': return slideInRight;
+      case 'fade': return fadeIn;
+      case 'scale': return {
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: (delay = 0) => ({
+          opacity: 1,
+          scale: 1,
+          transition: {
+            duration,
+            ease: [0.25, 0.1, 0.25, 1],
+            delay: delay * 0.1,
+          }
+        })
+      };
+      default: return fadeUp;
     }
   };
 
   return (
-    <div
-      ref={elementRef}
+    <motion.div
+      ref={ref}
       className={cn(className)}
-      style={{
-        transform: isVisible ? 'translate(0)' : getTransformValue(),
-        opacity: isVisible ? 1 : 0,
-        transition: `transform ${duration}s ease-out, opacity ${duration}s ease-out`,
-        transitionDelay: `${delay}s`,
-        willChange: 'transform, opacity',
-      }}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={getVariants()}
+      custom={delay}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

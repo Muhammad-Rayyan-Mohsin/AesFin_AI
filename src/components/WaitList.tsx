@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Sparkles, Building2, Clock, Shield } from 'lucide-react';
 import { Button } from './ui/button';
-import AnimatedSection from './ui/animated-section';
+import { WaitlistForm } from './ui/waitlist-form';
+import { AnimatedTitle, FadeUpDiv, StaggerContainer, FadeInDiv } from './ui/motion';
 import { useToast } from '@/hooks/use-toast';
+import { motion } from 'framer-motion';
 
 interface WaitListProps {
   className?: string;
@@ -12,7 +14,6 @@ interface WaitListProps {
 const WaitList = ({ className }: WaitListProps) => {
   const { toast } = useToast();
   const [activeFeature, setActiveFeature] = useState(0);
-  const [email, setEmail] = useState('');
   
   const features = [
     {
@@ -53,14 +54,14 @@ const WaitList = ({ className }: WaitListProps) => {
     });
   };
 
-  const handleWaitlistSignup = () => {
-    // Here you would typically integrate with your backend API
-    // For now, we'll just show a success toast
-    toast({
-      title: "Success!",
-      description: "You've been added to our waitlist. We'll notify you when we're ready!",
-      variant: "default",
-    });
+  // Mock waitlist submission handler
+  const handleWaitlistSubmit = async (email: string) => {
+    // Simulate API call with delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // In a real app, this would be an API call to save the email
+    // For demo purposes, we'll just return success
+    return Promise.resolve();
   };
 
   return (
@@ -74,49 +75,84 @@ const WaitList = ({ className }: WaitListProps) => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem]" />
         
         {/* Animated Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[grid-shine_3s_ease-in-out_infinite]" />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+          animate={{ 
+            x: ['0%', '100%', '0%'],
+          }}
+          transition={{ 
+            duration: 10, 
+            ease: "linear", 
+            repeat: Infinity,
+            repeatType: "loop" 
+          }}
+        />
         
         {/* Subtle Radial Gradient */}
         <div className="absolute inset-0 bg-radial-gradient from-aes-green/5 via-transparent to-transparent" />
       </div>
       
-      {/* Sparkle decorations */}
-      <div className="absolute top-12 left-1/4 text-aes-green animate-pulse">
+      {/* Floating sparkle decorations */}
+      <motion.div 
+        className="absolute top-12 left-1/4 text-aes-green"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      >
         <Sparkles className="w-6 h-6" />
-      </div>
-      <div className="absolute top-24 right-1/3 text-aes-green animate-pulse delay-300">
+      </motion.div>
+      <motion.div 
+        className="absolute top-24 right-1/3 text-aes-green"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      >
         <Sparkles className="w-4 h-4" />
-      </div>
-      <div className="absolute bottom-24 left-1/3 text-aes-green animate-pulse delay-500">
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-24 left-1/3 text-aes-green"
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+      >
         <Sparkles className="w-5 h-5" />
-      </div>
-      <div className="absolute right-1/4 top-1/2 text-aes-green animate-pulse delay-700">
+      </motion.div>
+      <motion.div 
+        className="absolute right-1/4 top-1/2 text-aes-green"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+      >
         <Sparkles className="w-6 h-6" />
-      </div>
+      </motion.div>
 
       <div className="container relative z-10 px-4 md:px-8">
-        <AnimatedSection>
+        <StaggerContainer>
           <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold mb-6 md:mb-8">
+            <AnimatedTitle className="text-3xl md:text-5xl lg:text-6xl font-display font-bold mb-6 md:mb-8 overflow-wrap-break-word">
               <span className="text-aes-navy">Try</span> <span className="text-aes-green">Aes AI</span> <span className="text-aes-navy">for free</span>
-            </h2>
+            </AnimatedTitle>
 
-            <p className="text-aes-gray text-lg md:text-xl mb-8 md:mb-12 max-w-2xl mx-auto">
-              Perfect for SMEs. 
-              <br className="hidden md:block" />
-              Get enterprise-grade financial intelligence at a fraction of the cost.
-            </p>
+            <FadeInDiv delay={0.2}>
+              <p className="text-aes-gray text-lg md:text-xl mb-8 md:mb-12 max-w-2xl mx-auto overflow-wrap-break-word">
+                Perfect for SMEs. 
+                <br className="hidden md:block" />
+                Get enterprise-grade financial intelligence at a fraction of the cost.
+              </p>
+            </FadeInDiv>
 
             {/* Features - Desktop: Grid, Mobile: Auto-rotating Carousel */}
             <div className="hidden md:grid md:grid-cols-3 gap-8 mb-12">
               {features.map((feature, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
-                    {feature.icon}
+                <FadeUpDiv key={index} delay={0.3 + index * 0.1}>
+                  <div className="flex flex-col items-center group">
+                    <motion.div 
+                      className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      {feature.icon}
+                    </motion.div>
+                    <h3 className="text-aes-navy font-semibold mb-2 text-base overflow-wrap-break-word">{feature.title}</h3>
+                    <p className="text-aes-gray text-sm overflow-wrap-break-word">{feature.description}</p>
                   </div>
-                  <h3 className="text-aes-navy font-semibold mb-2 text-base">{feature.title}</h3>
-                  <p className="text-aes-gray text-sm">{feature.description}</p>
-                </div>
+                </FadeUpDiv>
               ))}
             </div>
 
@@ -124,48 +160,69 @@ const WaitList = ({ className }: WaitListProps) => {
             <div className="md:hidden flex justify-center mb-12 h-[140px]">
               <div className="w-[280px] relative">
                 {features.map((feature, index) => (
-                  <div 
+                  <motion.div 
                     key={index} 
-                    className={`absolute flex flex-col items-center w-full transition-all duration-500 ${
-                      index === activeFeature 
-                        ? 'opacity-100 translate-y-0 z-10' 
-                        : 'opacity-0 translate-y-8 -z-10'
-                    }`}
+                    className="absolute flex flex-col items-center w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: index === activeFeature ? 1 : 0,
+                      y: index === activeFeature ? 0 : 20
+                    }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   >
                     <div className="w-12 h-12 rounded-full bg-aes-greenPale flex items-center justify-center mb-4">
                       {feature.icon}
                     </div>
-                    <h3 className="text-aes-navy font-semibold mb-2 text-base">{feature.title}</h3>
-                    <p className="text-aes-gray text-sm">{feature.description}</p>
-                  </div>
+                    <h3 className="text-aes-navy font-semibold mb-2 text-base overflow-wrap-break-word">{feature.title}</h3>
+                    <p className="text-aes-gray text-sm overflow-wrap-break-word">{feature.description}</p>
+                  </motion.div>
                 ))}
                 
                 {/* Indicators */}
                 <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-2">
                   {features.map((_, index) => (
-                    <div 
+                    <motion.div 
                       key={index}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        index === activeFeature ? 'w-6 bg-aes-green' : 'w-1.5 bg-aes-gray/30'
-                      }`}
+                      className="h-1.5 rounded-full bg-aes-gray/30"
+                      animate={{ 
+                        width: index === activeFeature ? "1.5rem" : "0.375rem",
+                        backgroundColor: index === activeFeature ? "#01ab44" : "rgb(141, 156, 168, 0.3)"
+                      }}
+                      transition={{ duration: 0.3 }}
                     />
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-center">
-              <Button 
-                size="lg" 
-                className="bg-aes-navy hover:bg-aes-navy/90 text-white px-6 py-5 md:px-8 md:py-6 text-base md:text-lg flex items-center gap-2"
-                onClick={handleOpenCalendly}
-              >
-                <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
-                Book a Demo
-              </Button>
-            </div>
+            {/* Waitlist Form */}
+            <FadeUpDiv delay={0.5} className="mb-10 max-w-lg mx-auto">
+              <WaitlistForm 
+                onSubmit={handleWaitlistSubmit}
+                buttonText="Join Waitlist"
+                placeholder="Enter your email address"
+              />
+            </FadeUpDiv>
+
+            <FadeInDiv delay={0.6}>
+              <div className="flex justify-center">
+                <motion.div 
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <Button 
+                    size="lg" 
+                    className="bg-aes-navy hover:bg-aes-navy/90 text-white px-6 py-5 md:px-8 md:py-6 text-base md:text-lg flex items-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                    onClick={handleOpenCalendly}
+                  >
+                    <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
+                    Book a Demo
+                  </Button>
+                </motion.div>
+              </div>
+            </FadeInDiv>
           </div>
-        </AnimatedSection>
+        </StaggerContainer>
       </div>
     </section>
   );

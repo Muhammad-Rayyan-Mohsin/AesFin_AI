@@ -85,7 +85,7 @@ const UserJourney = ({ className }: UserJourneyProps) => {
               USER JOURNEY
               <div className="h-px w-4 md:w-8 bg-aes-green/30 ml-2 md:ml-3"></div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-display font-medium mb-5 md:mb-8 text-white group">
+            <h2 className="text-3xl md:text-4xl font-display font-medium mb-5 md:mb-8 text-white group overflow-wrap-break-word">
               <span className="relative inline-block">
                 A Simple Path to 
                 <span className="absolute bottom-0 left-0 w-full h-px bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></span>
@@ -95,7 +95,7 @@ const UserJourney = ({ className }: UserJourneyProps) => {
                 <span className="absolute bottom-0 left-0 w-full h-px bg-aes-green/40 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 delay-100 origin-left"></span>
               </span>
             </h2>
-            <p className="text-base md:text-lg text-aes-gray/90 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-aes-gray/90 leading-relaxed max-w-2xl mx-auto overflow-wrap-break-word">
               Our streamlined process takes you from data to insights in just a few steps,
               with minimal setup time and maximum impact on your financial operations.
             </p>

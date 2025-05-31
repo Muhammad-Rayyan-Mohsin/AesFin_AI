@@ -28,11 +28,11 @@ const FeatureCard = ({ icon, title, description, className, index }: FeatureCard
         {icon}
       </div>
       
-      <h3 className="text-sm md:text-md font-display font-medium text-white mb-2 md:mb-3 transition-colors duration-300 group-hover:text-aes-greenLight text-center md:text-left">
+      <h3 className="text-sm md:text-md font-display font-medium text-white mb-2 md:mb-3 transition-colors duration-300 group-hover:text-aes-greenLight text-center md:text-left overflow-wrap-break-word">
         {title}
       </h3>
       
-      <p className="text-xs md:text-sm text-aes-gray/80 flex-grow font-light leading-relaxed text-center md:text-left">
+      <p className="text-xs md:text-sm text-aes-gray/80 flex-grow font-light leading-relaxed text-center md:text-left overflow-wrap-break-word">
         {description}
       </p>
     </div>

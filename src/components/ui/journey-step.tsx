@@ -26,12 +26,12 @@ const JourneyStep = ({ step, title, description, className, isActive = false }: 
       </div>
       <div className="space-y-2">
         <h3 className={cn(
-          "text-xl font-display font-medium transition-colors duration-300",
+          "text-xl font-display font-medium transition-colors duration-300 overflow-wrap-break-word",
           isActive ? "text-aes-green" : "text-white"
         )}>
           {title}
         </h3>
-        <p className="text-sm text-aes-gray/90 font-light">{description}</p>
+        <p className="text-sm text-aes-gray/90 font-light overflow-wrap-break-word">{description}</p>
       </div>
     </div>
   );

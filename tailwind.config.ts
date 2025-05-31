@@ -68,6 +68,9 @@ export default {
 					greenDark: '#217a46',   // Dark green
 					greenLight: '#4cd37e',  // Lighter tint of green, kept for gradient effects
 					greenPale: '#e8f7ee',   // Very pale green for subtle backgrounds
+					mintBg: '#F2F8F5',      // New very pale mint/green background color
+					featureBg: '#F2FBF6',   // Very pale green for feature sections
+					ctaBg: '#ECF9F2',       // Slightly more saturated pale green for CTAs
 					white: '#FFFFFF',       // Pure white
 					offWhite: '#F9FAFB',    // Modern off-white
 					gray: '#8D9CA8',        // Neutral gray
@@ -231,8 +234,21 @@ export default {
 			},
 			transitionTimingFunction: {
 				'bounce-in': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-			},
+			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		function({ addUtilities }) {
+			const newUtilities = {
+				'.overflow-wrap-break-word': {
+					'overflow-wrap': 'break-word',
+					'word-wrap': 'break-word',
+					'word-break': 'normal',
+					'hyphens': 'none'
+				}
+			}
+			addUtilities(newUtilities)
+		}
+	],
 } satisfies Config;

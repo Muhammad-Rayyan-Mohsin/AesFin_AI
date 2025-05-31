@@ -89,6 +89,14 @@
   body {
     @apply bg-background text-foreground font-sans overflow-x-hidden;
   }
+  
+  /* Prevent word splitting across lines for all text by default */
+  p, h1, h2, h3, h4, h5, h6, span, div, button, a {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+  }
 }
 
 @layer components {
@@ -153,6 +161,14 @@
   
   .revealed {
     @apply opacity-100 translate-y-0;
+  }
+  
+  /* Utility class for preventing word splitting when needed explicitly */
+  .no-word-break {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
   }
 }
 
