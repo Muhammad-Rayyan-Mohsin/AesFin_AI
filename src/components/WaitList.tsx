@@ -6,6 +6,7 @@ import { WaitlistForm } from './ui/waitlist-form';
 import { AnimatedTitle, FadeUpDiv, StaggerContainer, FadeInDiv } from './ui/motion';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
+import { addToWaitlist } from '@/lib/waitlist-service';
 
 interface WaitListProps {
   className?: string;
@@ -54,14 +55,32 @@ const WaitList = ({ className }: WaitListProps) => {
     });
   };
 
-  // Mock waitlist submission handler
+  // Waitlist submission handler
   const handleWaitlistSubmit = async (email: string) => {
-    // Simulate API call with delay
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    // In a real app, this would be an API call to save the email
-    // For demo purposes, we'll just return success
-    return Promise.resolve();
+    try {
+      const result = await addToWaitlist(email);
+
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: result.message || "You've been added to our waitlist. We'll notify you when we're ready!",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Note",
+          description: result.error || "There was an issue with your submission.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting to waitlist:", error);
+      toast({
+        title: "Error",
+        description: "There was an error adding you to the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

@@ -14,6 +14,7 @@ import ContactPage from "./pages/contact";
 import PrivacyPage from "./pages/privacy";
 import TermsPage from "./pages/terms";
 import SecurityPage from "./pages/security";
+import WaitlistTestPage from "./pages/waitlist-test";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const AnimatedRoutes = () => {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/security" element={<SecurityPage />} />
+          <Route path="/waitlist-test" element={<WaitlistTestPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

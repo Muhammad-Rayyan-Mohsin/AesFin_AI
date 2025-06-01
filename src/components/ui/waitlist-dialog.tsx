@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { addToWaitlist } from '@/lib/waitlist-service';
 
 interface WaitlistDialogProps {
   trigger?: React.ReactNode;
@@ -21,16 +22,36 @@ const WaitlistDialog = ({ trigger }: WaitlistDialogProps) => {
   const [email, setEmail] = useState('');
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically make an API call to save the email
-    toast({
-      title: "Success!",
-      description: "You've been added to our waitlist. We'll notify you when we're ready!",
-      variant: "default",
-    });
-    setEmail('');
-    setOpen(false);
+    if (!email.trim()) return;
+
+    try {
+      const result = await addToWaitlist(email);
+
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: result.message || "You've been added to our waitlist. We'll notify you when we're ready!",
+          variant: "default",
+        });
+        setEmail('');
+        setOpen(false);
+      } else {
+        toast({
+          title: "Note",
+          description: result.error || "There was an issue with your submission.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting to waitlist:", error);
+      toast({
+        title: "Error",
+        description: "There was an error adding you to the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

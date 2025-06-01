@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
 // These environment variables should be set in a .env file in production
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://hlfnvdilgujaascyoupt.supabase.co'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsZm52ZGlsZ3VqYWFzY3lvdXB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NzgwNjAsImV4cCI6MjA2MDA1NDA2MH0.YxLcL6GY3B0qT8cuCg_t5TnoysPlLI_UaCu07ytoakk'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://nmnekzvpjkqvqyljxrgs.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tbmVrenZwamtxdnF5bGp4cmdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg4MDAzNDcsImV4cCI6MjA2NDM3NjM0N30.7zEnBayJ7awlIuOwV8AfmdODal2mZWVsXLuiUkXAT-c'
 
 // Create the Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)

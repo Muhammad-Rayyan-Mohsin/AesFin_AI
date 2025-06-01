@@ -55,14 +55,7 @@ const Footer = ({ className }: FooterProps) => {
     { href: "/dashboard", label: "Dashboard" },
     { href: "/about", label: "About Us" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/research", label: "Research" },
     { href: "/contact", label: "Contact" },
-  ];
-
-  const legalLinks = [
-    { href: "/terms", label: "Terms of Service" },
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/cookies", label: "Cookie Policy" },
   ];
 
   const contactInfo = [
@@ -105,181 +98,155 @@ const Footer = ({ className }: FooterProps) => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Column 1: Company Info */}
-          <ScrollReveal>
-          <div className="flex flex-col">
-              <motion.div 
-                className="flex items-center gap-3 mb-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <motion.img 
-                  src="/Logo.svg" 
-                  alt="Aes AI" 
-                  className="h-10 w-10 rounded-lg bg-[#1A2235] p-2"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.2 }}
-                />
-              <span className="text-xl font-bold text-white">Aes AI</span>
-              </motion.div>
-              <motion.p 
-                className="text-[#A1A1AA] text-sm mb-4 font-normal"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
+        {/* Main footer content - Updated grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 md:gap-y-0 md:gap-x-12 mb-8 items-start">
+          {/* Column 1: Company Info & Description */}
+          <ScrollReveal delay={0.1} className="flex flex-col md:col-span-1">
+            <motion.div 
+              className="flex items-center gap-3 mb-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.img 
+                src="/Logo.svg" 
+                alt="Aes AI"
+                className="h-10 w-10 rounded-lg bg-aes-navy p-2"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.2 }}
+              />
+              <span className="text-xl font-bold text-aes-white">Aes AI</span>
+            </motion.div>
+            <motion.p 
+              className="text-aes-gray text-sm mb-4 font-normal max-w-sm leading-relaxed"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Your personal automated AI financial agent that simplifies wealth management and optimizes your financial decisions.
-              </motion.p>
-              <ScrollSequence className="flex gap-4 text-[#A1A1AA] mt-2" staggerChildren={0.1} delayStart={0.3}>
-                {socialLinks.map((social, index) => (
-                  <motion.a 
-                    key={social.label}
-                    href={social.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:text-white transition-colors p-2 bg-[#23262F] rounded-full"
-                    whileHover={{ scale: 1.2, backgroundColor: "#2F3441" }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label={social.label}
+            </motion.p>
+            <ScrollSequence className="flex gap-4 text-aes-gray mt-2" staggerChildren={0.1} delayStart={0.3}>
+              {socialLinks.map((social) => (
+                <motion.a 
+                  key={social.label}
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-aes-white transition-colors p-2 bg-aes-navyLight rounded-full"
+                  whileHover={{ scale: 1.2, backgroundColor: "#2F3441" }} // A darker shade for hover
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </ScrollSequence>
+          </ScrollReveal>
+
+          {/* Column 2: Quick Links & Contact Info & Newsletter */}
+          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-col">
+                <AnimatedText 
+                  text="Quick Links" 
+                  className="text-aes-white font-semibold text-lg mb-3"
+                  delayStart={0.1}
+                />
+                <div className="grid grid-cols-1 gap-2">
+                  <ScrollSequence staggerChildren={0.05} delayStart={0.2}>
+                    {quickLinks.map((link) => (
+                      <motion.a 
+                        key={link.label}
+                        href={link.href} 
+                        className="text-aes-gray hover:text-aes-white transition-colors text-sm flex items-center"
+                        whileHover={{ x: 5, color: "#FFFFFF" }}
+                      >
+                        <motion.span 
+                          className="w-1.5 h-1.5 bg-aes-grayDark rounded-full mr-2"
+                          whileHover={{ backgroundColor: "#6D7185", scale: 1.5 }}
+                        />
+                        {link.label}
+                      </motion.a>
+                    ))}
+                  </ScrollSequence>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
+              <div className="flex flex-col">
+                <AnimatedText 
+                  text="Contact" 
+                  className="text-aes-white font-semibold text-lg mb-3"
+                  delayStart={0.1}
+                />
+                <div className="grid grid-cols-1 gap-3">
+                  <ScrollSequence staggerChildren={0.05} delayStart={0.2}>
+                    {contactInfo.map((contact) => (
+                      <motion.a 
+                        key={contact.label}
+                        href={contact.href} 
+                        className="text-aes-gray hover:text-aes-white transition-colors text-sm flex items-center"
+                        whileHover={{ x: 5, color: "#FFFFFF" }}
+                      >
+                        {contact.icon}
+                        {contact.label}
+                      </motion.a>
+                    ))}
+                  </ScrollSequence>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.4}>
+              <div className="flex flex-col">
+                <AnimatedText 
+                  text="Newsletter" 
+                  className="text-aes-white font-semibold text-lg mb-3"
+                  delayStart={0.1}
+                />
+                <motion.p 
+                  className="text-aes-gray text-sm mb-3 max-w-xs"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  Stay updated with our latest news and offers.
+                </motion.p>
+                <motion.form 
+                  className="flex flex-col gap-2 w-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  <motion.input
+                    type="email"
+                    placeholder="Your email address"
+                    className="rounded-md bg-aes-navyLight text-aes-white px-4 py-2 outline-none border border-aes-grayDark focus:border-aes-gray focus:ring-1 focus:ring-aes-green placeholder-aes-gray text-sm"
+                    whileFocus={{ scale: 1.02, borderColor: "#4B4E5A" }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <motion.button
+                    type="submit"
+                    className="rounded-md bg-aes-green text-aes-white px-4 py-2 text-sm font-semibold hover:bg-aes-greenDark transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </ScrollSequence>
-            </div>
-          </ScrollReveal>
-
-          {/* Column 2: Quick Links */}
-          <ScrollReveal delay={0.1}>
-          <div className="flex flex-col">
-              <AnimatedText 
-                text="Quick Links" 
-                className="text-white font-semibold text-lg mb-3"
-                delayStart={0.1}
-              />
-            <div className="grid grid-cols-1 gap-2">
-                <ScrollSequence staggerChildren={0.05} delayStart={0.2}>
-                  {quickLinks.map((link) => (
-                    <motion.a 
-                      key={link.label}
-                      href={link.href} 
-                      className="text-[#A1A1AA] hover:text-white transition-colors text-sm flex items-center"
-                      whileHover={{ x: 5, color: "#FFFFFF" }}
-                    >
-                      <motion.span 
-                        className="w-1.5 h-1.5 bg-[#393C49] rounded-full mr-2"
-                        whileHover={{ backgroundColor: "#6D7185", scale: 1.5 }}
-                      />
-                      {link.label}
-                    </motion.a>
-                  ))}
-                </ScrollSequence>
+                    Subscribe
+                  </motion.button>
+                </motion.form>
               </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Column 3: Legal */}
-          <ScrollReveal delay={0.2}>
-          <div className="flex flex-col">
-              <AnimatedText 
-                text="Legal" 
-                className="text-white font-semibold text-lg mb-3"
-                delayStart={0.2}
-              />
-            <div className="grid grid-cols-1 gap-2">
-                <ScrollSequence staggerChildren={0.05} delayStart={0.3}>
-                  {legalLinks.map((link) => (
-                    <motion.a 
-                      key={link.label}
-                      href={link.href} 
-                      className="text-[#A1A1AA] hover:text-white transition-colors text-sm flex items-center"
-                      whileHover={{ x: 5, color: "#FFFFFF" }}
-                    >
-                      <motion.span 
-                        className="w-1.5 h-1.5 bg-[#393C49] rounded-full mr-2"
-                        whileHover={{ backgroundColor: "#6D7185", scale: 1.5 }}
-                      />
-                      {link.label}
-                    </motion.a>
-                  ))}
-                </ScrollSequence>
-            </div>
-            
-              <AnimatedText 
-                text="Contact" 
-                className="text-white font-semibold text-lg mt-4 mb-3"
-                delayStart={0.4}
-              />
-            <div className="grid grid-cols-1 gap-3">
-                <ScrollSequence staggerChildren={0.05} delayStart={0.5}>
-                  {contactInfo.map((contact) => (
-                    <motion.a 
-                      key={contact.label}
-                      href={contact.href} 
-                      className="text-[#A1A1AA] hover:text-white transition-colors text-sm flex items-center"
-                      whileHover={{ x: 5, color: "#FFFFFF" }}
-                    >
-                      {contact.icon}
-                      {contact.label}
-                    </motion.a>
-                  ))}
-                </ScrollSequence>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Column 4: Newsletter */}
-          <ScrollReveal delay={0.3}>
-          <div className="flex flex-col">
-              <AnimatedText 
-                text="Join Our Waitlist" 
-                className="text-white font-semibold text-lg mb-3"
-                delayStart={0.3}
-              />
-              <motion.p 
-                className="text-[#A1A1AA] text-sm mb-3"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-              Be the first to know when we launch and receive exclusive offers.
-              </motion.p>
-              <motion.form 
-                className="flex flex-col gap-2 w-full"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <motion.input
-                type="email"
-                placeholder="Enter your email"
-                className="rounded-md bg-[#23262F] text-[#E5E7EB] px-4 py-2 outline-none border border-[#393C49] focus:border-[#4B4E5A] placeholder-[#A1A1AA] text-sm"
-                  whileFocus={{ scale: 1.02, borderColor: "#4B4E5A" }}
-                  transition={{ duration: 0.2 }}
-              />
-                <motion.button
-                type="submit"
-                className="rounded-md bg-gradient-to-r from-[#3D5AFE] to-[#1E88E5] text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-              >
-                Subscribe
-                </motion.button>
-              </motion.form>
+            </ScrollReveal>
           </div>
-          </ScrollReveal>
         </div>
 
         <motion.hr 
-          className="border-[#23262F] mb-4"
+          className="border-aes-grayDark mb-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
@@ -294,7 +261,7 @@ const Footer = ({ className }: FooterProps) => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <p className="text-xs text-[#A1A1AA]">© {currentYear} Aes AI. All rights reserved.</p>
+          <p className="text-xs text-aes-gray">© {currentYear} Aes AI. All rights reserved.</p>
         </motion.div>
       </div>
       
@@ -302,7 +269,7 @@ const Footer = ({ className }: FooterProps) => {
       <AnimatePresence>
         {showScrollToTop && (
           <motion.button
-            className="fixed bottom-6 right-6 bg-[#23262F] hover:bg-[#2F3441] text-white p-3 rounded-full shadow-lg z-50"
+            className="fixed bottom-6 right-6 bg-aes-navy hover:bg-aes-navyLight text-aes-white p-3 rounded-full shadow-lg z-50"
             onClick={scrollToTop}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

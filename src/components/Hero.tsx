@@ -23,6 +23,7 @@ import DynamicGridBackground from './ui/dynamic-grid-background';
 import { ScrollReveal, ScrollSequence } from './ui/scroll-reveal';
 import SectionHeading from './ui/section-heading';
 import DemoModal from './ui/demo-modal';
+import { addToWaitlist } from '@/lib/waitlist-service';
 
 // Sample waitlist data (in a real app, this would come from the API)
 const generateSampleWaitlistUsers = (count = 7) => {
@@ -238,33 +239,35 @@ const Hero = ({ className }: HeroProps) => {
 
     setIsSubmitting(true);
     try {
-      // In a real app, this would be an API call to save the email
-      // For now, simulate an API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      // In production, this would use the actual API endpoint:
-      // const { data, error } = await supabase
-      //   .from('waitlist')
-      //   .insert([{ email: waitlistEmail }]);
-
-      // Add new user to the display list (for demo purposes)
-      const newUser = {
-        id: waitlistUsers.length + 1,
-        name: faker.person.firstName(),
-        avatar: faker.image.avatar(),
-        companyRole: faker.person.jobTitle(),
-        joinedAt: new Date().toISOString(),
-      };
-
-      setWaitlistUsers(prev => [newUser, ...prev.slice(0, 8)]);
-      setTotalWaitlistCount(prev => prev + 1);
-      setWaitlistEmail('');
+      // Use the actual waitlist service
+      const result = await addToWaitlist(waitlistEmail);
       
-      toast({
-        title: "Success!",
-        description: "You've been added to our waitlist. We'll notify you when we're ready!",
-        variant: "default",
-      });
+      if (result.success) {
+        // Add new user to the display list (for demo purposes)
+        const newUser = {
+          id: waitlistUsers.length + 1,
+          name: faker.person.firstName(),
+          avatar: faker.image.avatar(),
+          companyRole: faker.person.jobTitle(),
+          joinedAt: new Date().toISOString(),
+        };
+
+        setWaitlistUsers(prev => [newUser, ...prev.slice(0, 8)]);
+        setTotalWaitlistCount(prev => prev + 1);
+        setWaitlistEmail('');
+        
+        toast({
+          title: "Success!",
+          description: result.message || "You've been added to our waitlist. We'll notify you when we're ready!",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Note",
+          description: result.error || "There was an issue with your submission.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error submitting to waitlist:", error);
       toast({
