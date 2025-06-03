@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Linkedin, Twitter, Facebook, Instagram, Mail, MapPin, Phone, ArrowUp } from 'lucide-react';
+import { Linkedin, Twitter, Facebook, Instagram, Mail, MapPin, Phone, ArrowUp, Loader2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollReveal, ScrollSequence } from './ui/scroll-reveal';
 import { useAnimation } from '@/providers/AnimationProvider';
 import AnimatedText from './ui/animated-text';
+import { addToWaitlist } from '@/lib/waitlist-service';
+import { useToast } from '@/hooks/use-toast';
+import { faker } from '@faker-js/faker';
 
 interface FooterProps {
   className?: string;
@@ -15,6 +18,9 @@ const Footer = ({ className }: FooterProps) => {
   const currentYear = new Date().getFullYear();
   const { prefersReducedMotion } = useAnimation();
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   // Listen for scroll to show/hide the "back to top" button
   useEffect(() => {
@@ -47,7 +53,7 @@ const Footer = ({ className }: FooterProps) => {
   const socialLinks = [
     { icon: <Twitter className="w-5 h-5" />, href: "https://twitter.com", label: "Twitter" },
     { icon: <Facebook className="w-5 h-5" />, href: "https://facebook.com", label: "Facebook" },
-    { icon: <Linkedin className="w-5 h-5" />, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: <Linkedin className="w-5 h-5" />, href: "https://www.linkedin.com/company/aesfin-ai/posts/?feedView=all", label: "LinkedIn" },
     { icon: <Instagram className="w-5 h-5" />, href: "https://instagram.com", label: "Instagram" },
   ];
 
@@ -62,6 +68,43 @@ const Footer = ({ className }: FooterProps) => {
     { icon: <Mail className="w-4 h-4 mr-2" />, href: "mailto:info@aesai.com", label: "info@aesai.com" },
     { icon: <Phone className="w-4 h-4 mr-2" />, href: "tel:+11234567890", label: "+1 (123) 456-7890" },
   ];
+
+  // Function to handle waitlist signup
+  const handleWaitlistSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!waitlistEmail.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      // Use the actual waitlist service
+      const result = await addToWaitlist(waitlistEmail);
+      
+      if (result.success) {
+        setWaitlistEmail('');
+        
+        toast({
+          title: "Success!",
+          description: result.message || "You've been added to our waitlist. We'll notify you when we're ready!",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Note",
+          description: result.error || "There was an issue with your submission.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting to waitlist:", error);
+      toast({
+        title: "Error",
+        description: "There was an error adding you to the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <footer className={cn(
@@ -203,7 +246,7 @@ const Footer = ({ className }: FooterProps) => {
             <ScrollReveal delay={0.4}>
               <div className="flex flex-col">
                 <AnimatedText 
-                  text="Newsletter" 
+                  text="Join Waitlist" 
                   className="text-aes-white font-semibold text-lg mb-3"
                   delayStart={0.1}
                 />
@@ -214,7 +257,7 @@ const Footer = ({ className }: FooterProps) => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  Stay updated with our latest news and offers.
+                  Be the first to gain access to our platform when we launch.
                 </motion.p>
                 <motion.form 
                   className="flex flex-col gap-2 w-full"
@@ -222,6 +265,7 @@ const Footer = ({ className }: FooterProps) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
+                  onSubmit={handleWaitlistSignup}
                 >
                   <motion.input
                     type="email"
@@ -229,15 +273,24 @@ const Footer = ({ className }: FooterProps) => {
                     className="rounded-md bg-aes-navyLight text-aes-white px-4 py-2 outline-none border border-aes-grayDark focus:border-aes-gray focus:ring-1 focus:ring-aes-green placeholder-aes-gray text-sm"
                     whileFocus={{ scale: 1.02, borderColor: "#4B4E5A" }}
                     transition={{ duration: 0.2 }}
+                    value={waitlistEmail}
+                    onChange={(e) => setWaitlistEmail(e.target.value)}
+                    required
                   />
                   <motion.button
                     type="submit"
-                    className="rounded-md bg-aes-green text-aes-white px-4 py-2 text-sm font-semibold hover:bg-aes-greenDark transition-colors"
+                    className="rounded-md bg-aes-green text-aes-white px-4 py-2 text-sm font-semibold hover:bg-aes-greenDark transition-colors flex items-center justify-center"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
+                    disabled={isSubmitting}
                   >
-                    Subscribe
+                    {isSubmitting ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4 mr-2" />
+                    )}
+                    Join Waitlist
                   </motion.button>
                 </motion.form>
               </div>

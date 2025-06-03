@@ -11,7 +11,6 @@ interface AnimatedButtonProps extends ButtonProps {
   showArrow?: boolean;
   arrowIcon?: React.ReactNode;
   href?: string;
-  onClick?: () => void;
 }
 
 const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
@@ -27,14 +26,6 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           variants: hoverLift
         };
 
-    const handleClick = () => {
-      if (href) {
-        window.location.href = href;
-      } else if (onClick) {
-        onClick();
-      }
-    };
-
     return (
       <motion.div
         className="inline-block"
@@ -48,7 +39,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
             showArrow && "pr-2",
             className
           )}
-          onClick={handleClick}
+          onClick={onClick}
           {...props}
         >
           {children}

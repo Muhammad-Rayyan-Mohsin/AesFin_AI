@@ -22,8 +22,9 @@ import AnimatedButton from './ui/animated-button';
 import DynamicGridBackground from './ui/dynamic-grid-background';
 import { ScrollReveal, ScrollSequence } from './ui/scroll-reveal';
 import SectionHeading from './ui/section-heading';
-import DemoModal from './ui/demo-modal';
 import { addToWaitlist } from '@/lib/waitlist-service';
+import RequestDemo from './RequestDemo';
+import VideoButton from './VideoButton';
 
 // Sample waitlist data (in a real app, this would come from the API)
 const generateSampleWaitlistUsers = (count = 7) => {
@@ -48,7 +49,6 @@ const Hero = ({ className }: HeroProps) => {
   const [totalWaitlistCount, setTotalWaitlistCount] = useState(1238);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   // Risk score data to cycle through
   const riskScoreData = [
@@ -310,20 +310,12 @@ const Hero = ({ className }: HeroProps) => {
       }
       buttons={
         <div className="flex flex-wrap gap-4">
-          <AnimatedButton 
-            className="bg-aes-green text-white"
-            onClick={() => window.location.href = '/demo'}
-          >
-            Request Demo
-          </AnimatedButton>
+          <RequestDemo 
+            buttonVariant="primary"
+            buttonSize="lg"
+          />
           
-          <AnimatedButton 
-            variant="outline"
-            className="border-aes-gray/30 text-aes-navy"
-            onClick={() => setIsDemoOpen(true)}
-          >
-            Watch Video
-          </AnimatedButton>
+          <VideoButton />
         </div>
       }
     >
@@ -445,12 +437,6 @@ const Hero = ({ className }: HeroProps) => {
           </form>
         </div>
       </ScrollReveal>
-      
-      {/* Demo Modal */}
-      <DemoModal
-        isOpen={isDemoOpen} 
-        onClose={() => setIsDemoOpen(false)} 
-      />
     </Hero3D>
   );
 };
