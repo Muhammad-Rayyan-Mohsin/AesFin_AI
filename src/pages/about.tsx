@@ -12,33 +12,6 @@ import { fadeIn, fadeUp, cardHover } from '@/lib/animation-variants';
 const AboutPage = () => {
   const { prefersReducedMotion } = useAnimation();
   
-  const teamMembers = [
-    {
-      name: "Dr. Sarah Johnson",
-      role: "Chief Executive Officer",
-      bio: "Former fintech executive with 15+ years of experience in financial technology and AI research.",
-      image: "/team/team-1.jpg" // Replace with actual image path
-    },
-    {
-      name: "Michael Chen",
-      role: "Chief Technology Officer",
-      bio: "AI researcher with a background in machine learning and financial data analysis systems.",
-      image: "/team/team-2.jpg" // Replace with actual image path
-    },
-    {
-      name: "Olivia Martinez",
-      role: "Chief Financial Officer",
-      bio: "CPA with extensive experience in corporate finance and financial compliance systems.",
-      image: "/team/team-3.jpg" // Replace with actual image path
-    },
-    {
-      name: "David Patel",
-      role: "Head of Product",
-      bio: "Product leader with experience building financial software at major fintech companies.",
-      image: "/team/team-4.jpg" // Replace with actual image path
-    }
-  ];
-  
   const coreValues = [
     {
       icon: <Shield className="h-6 w-6 text-aes-green" />,
@@ -265,50 +238,6 @@ const AboutPage = () => {
           </div>
         </section>
         
-        {/* Team Section */}
-        <section className="py-16 md:py-24 bg-aes-mintBg">
-          <div className="container px-4 mx-auto">
-            <ScrollReveal>
-              <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-aes-navy mb-4">
-                  Meet Our Leadership Team
-                </h2>
-                <p className="text-aes-gray">
-                  Our team consists of experts in artificial intelligence, finance, and software development,
-                  working together to create the next generation of financial management tools.
-                </p>
-              </div>
-            </ScrollReveal>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {teamMembers.map((member, index) => (
-                <ScrollReveal key={index} delay={index * 0.1}>
-                  <motion.div 
-                    className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300"
-                    whileHover={prefersReducedMotion ? {} : { y: -5 }}
-                  >
-                    <div className="h-48 bg-gray-200 overflow-hidden">
-                      <img 
-                        src={member.image} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = `https://placehold.co/300x200/aes-navy/white?text=${member.name.split(' ').map(n => n[0]).join('')}`;
-                        }}
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-medium text-aes-navy mb-1">{member.name}</h3>
-                      <p className="text-sm font-medium text-aes-green mb-3">{member.role}</p>
-                      <p className="text-sm text-aes-gray">{member.bio}</p>
-                    </div>
-                  </motion.div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-        
         {/* Company Timeline - Feature */}
         <section className="py-16 md:py-24 bg-aes-featureBg">
           <div className="container px-4 mx-auto">
@@ -365,7 +294,7 @@ const AboutPage = () => {
                     </Button>
                     <Button 
                       variant="outline" 
-                      className="border-white text-white hover:bg-white/10 group"
+                      className="border-white text-white bg-white/10 hover:bg-white/20 group"
                       onClick={() => window.location.href = "/contact"}
                     >
                       Contact Us
