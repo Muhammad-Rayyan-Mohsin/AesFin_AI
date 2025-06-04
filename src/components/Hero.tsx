@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronRight, AlertCircle, TrendingUp, TrendingDown, DollarSign, AlertTriangle, Sparkles, UserPlus, Users, ArrowRight, PlayCircle, Loader2 } from 'lucide-react';
+import { 
+  ChevronRight, 
+  Shield, 
+  LineChart, 
+  Zap, 
+  CheckCircle, 
+  AlertTriangle, 
+  Sparkles, 
+  ArrowRight, 
+  Play, 
+  Loader2,
+  TrendingDown,
+  TrendingUp
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import WaitlistDialog from './ui/waitlist-dialog';
@@ -191,42 +204,33 @@ const Hero = ({ className }: HeroProps) => {
   const sampleTransactions = [
     {
       id: 1,
-      description: "International Wire Transfer",
-      amount: "$45,230.00",
-      risk: "high",
-      date: "2024-03-15"
+      amount: "$17,553",
+      account: "ACC-773",
+      time: "11:21 PM",
+      status: "flagged"
     },
     {
       id: 2,
-      description: "Vendor Payment - Tech Solutions",
-      amount: "$12,850.00",
-      risk: "low",
-      date: "2024-03-14"
+      amount: "$10,510",
+      account: "ACC-224",
+      time: "11:21 PM",
+      status: "approved"
     },
     {
       id: 3,
-      description: "Recurring Payment - Cloud Services",
-      amount: "$3,499.99",
-      risk: "medium",
-      date: "2024-03-13"
-    },
-    {
-      id: 4,
-      description: "Payroll Distribution",
-      amount: "$78,500.00",
-      risk: "low",
-      date: "2024-03-12"
+      amount: "$25,628",
+      account: "ACC-923",
+      time: "11:21 PM",
+      status: "approved"
     }
   ];
 
-  const getRiskColor = (risk: string) => {
-    switch (risk) {
-      case 'high':
-        return 'bg-red-100 text-red-700';
-      case 'medium':
-        return 'bg-yellow-100 text-yellow-700';
-      case 'low':
-        return 'bg-emerald-100 text-emerald-700';
+  const getRiskColor = (status: string) => {
+    switch (status) {
+      case 'flagged':
+        return 'bg-red-50 text-red-700';
+      case 'approved':
+        return 'bg-emerald-50 text-emerald-700';
       default:
         return 'bg-gray-100 text-gray-700';
     }
@@ -286,158 +290,166 @@ const Hero = ({ className }: HeroProps) => {
   };
 
   return (
-    <Hero3D
-      className={cn("bg-gradient-to-b from-white to-aes-mintBg py-16 md:py-24 overflow-hidden", className)}
-      image="/screenshots/Screenshot 2025-05-18 at 12.32.00 AM.png"
-      title={
-        <div className="mb-6">
-          <div className="inline-flex items-center px-3 py-1 mb-6 text-sm font-medium rounded-full bg-aes-green/10 text-aes-green overflow-wrap-break-word">
-            <Sparkles className="w-3.5 h-3.5 mr-2" />
-            <span>Financial Intelligence Platform</span>
-          </div>
-          <AnimatedText 
-            text="Intelligent AI for financial compliance & risk management"
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-aes-navy overflow-wrap-break-word"
-            as="h1"
-          />
-        </div>
-      }
-      description={
-        <p className="text-xl text-aes-gray max-w-xl overflow-wrap-break-word">
-          Advanced AI-powered solution for financial institutions to monitor transactions, 
-          assess risks, and ensure compliance with regulations - all in one platform.
-        </p>
-      }
-      buttons={
-        <div className="flex flex-wrap gap-4">
-          <RequestDemo 
-            buttonVariant="primary"
-            buttonSize="lg"
-          />
-          
-          <VideoButton />
-        </div>
-      }
-    >
-      {/* The Hero3D component will render the title, description, buttons, and image we passed as props */}
-      {/* If needed, we can still add additional custom content inside the component */}
+    <div className={cn("relative min-h-screen bg-gradient-to-b from-[#0E1B2B] to-[#03111F] overflow-hidden", className)}>
+      {/* Emerald green radial glows */}
+      <div className="absolute left-1/4 top-1/3 w-[500px] h-[500px] bg-[#00C37D] opacity-20 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute right-1/4 top-1/2 w-[400px] h-[400px] bg-[#00C37D] opacity-15 blur-[100px] rounded-full pointer-events-none"></div>
       
-      {/* Dashboard stats will appear below the hero */}
-      <ScrollReveal delay={0.4}>
-        <div className="mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex justify-between items-start mb-4">
+      <div className="container mx-auto px-4 py-12 md:py-16 lg:py-24 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+          {/* Left column with text content */}
+          <div className="w-full lg:w-1/2 text-center lg:text-left">
+            {/* Top badge */}
+            <div className="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-[#0E1B2B]/80 text-white tracking-wide mx-auto lg:mx-0">
+              <Zap className="w-3.5 h-3.5 mr-2" />
+              <span>AI-Powered Financial Intelligence</span>
+            </div>
+            
+            {/* Main heading */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="text-white block">Your AI Co-Pilot for</span>
+              <span className="text-[#00C37D] block">Financial Operations</span>
+            </h1>
+            
+            {/* Subheading */}
+            <p className="text-white text-lg md:text-xl max-w-[600px] mb-10 mx-auto lg:mx-0 leading-relaxed">
+              Automate complex financial tasks, reduce processing times from months to minutes, and revolutionize your audit and accounting operations with advanced AI.
+            </p>
+            
+            {/* Feature icons */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-10">
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <AlertCircle className="w-5 h-5 text-aes-green" />
-                </div>
-                <span className="font-medium text-aes-navy overflow-wrap-break-word">{currentRiskData.label}</span>
+                <Shield className="w-5 h-5 text-[#00C37D] mr-2" />
+                <span className="text-white text-sm">AI Risk Scoring</span>
               </div>
-              <div className={`flex items-center ${isImprovement ? 'text-emerald-600' : 'text-red-600'} overflow-wrap-break-word`}>
-                {getChangeDisplay(currentRiskData.change, isImprovement)}
+              <div className="flex items-center">
+                <LineChart className="w-5 h-5 text-[#00C37D] mr-2" />
+                <span className="text-white text-sm">Real-time Analytics</span>
+              </div>
+              <div className="flex items-center">
+                <Zap className="w-5 h-5 text-[#00C37D] mr-2" />
+                <span className="text-white text-sm">Instant Reconciliation</span>
               </div>
             </div>
-            <div className="flex items-baseline">
-              <span className={`text-3xl font-bold ${getMetricColor(currentRiskData.score, isImprovement)}`}>
-                {currentRiskData.score}
-              </span>
-              <span className="text-xs text-aes-gray ml-2">/ 100</span>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-16">
+              <RequestDemo 
+                buttonVariant="primary"
+                buttonSize="lg"
+                buttonText="Request Demo"
+                className="rounded-full px-6 py-3 bg-[#00C37D] hover:bg-[#00C37D]/90 text-white shadow-lg"
+              />
+              
+              <VideoButton 
+                buttonSize="lg"
+                buttonText="Watch Demo Video"
+                className="shadow-lg"
+              />
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <DollarSign className="w-5 h-5 text-aes-green" />
-                </div>
-                <span className="font-medium text-aes-navy overflow-wrap-break-word">Total Monitored</span>
+          {/* Right column with dashboard card - hidden on mobile/tablet */}
+          <div className="w-full lg:w-1/2 hidden lg:block">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-[480px] mx-auto">
+              {/* Card header */}
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-gray-800">Financial Intelligence Dashboard</h3>
+                <p className="text-sm text-gray-500">Real-time risk assessment and transaction monitoring</p>
               </div>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-3xl font-bold text-aes-navy">
-                {formatCurrency(totalMonitored)}
-              </span>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <Users className="w-5 h-5 text-aes-green" />
-                </div>
-                <span className="font-medium text-aes-navy overflow-wrap-break-word">Waitlist</span>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-aes-navy mb-2">
-                {totalWaitlistCount}
-              </span>
-              <div className="flex -space-x-2 overflow-hidden">
-                {waitlistUsers.map((user, index) => (
-                  <div 
-                    key={index}
-                    className="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-aes-gray/20 flex items-center justify-center"
-                  >
-                    {user.avatar ? (
-                      <img 
-                        src={user.avatar} 
-                        alt={`User ${index + 1}`} 
-                        className="w-full h-full object-cover" 
-                      />
-                    ) : (
-                      <span className="text-xs font-medium text-aes-navy">
-                        {getInitials(user.name)}
-                      </span>
-                    )}
+              
+              {/* Risk score section */}
+              <div className="px-6 pb-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex items-baseline">
+                    <span className="text-4xl font-bold text-[#00C37D]">69</span>
+                    <span className="text-gray-400 ml-1">/100</span>
                   </div>
-                ))}
-                <div className="w-8 h-8 rounded-full border-2 border-white bg-aes-green flex items-center justify-center">
-                  <span className="text-xs font-medium text-white">+{totalWaitlistCount - waitlistUsers.length}</span>
+                  <div className="px-2.5 py-1 bg-emerald-50 rounded-full">
+                    <span className="text-xs font-medium text-emerald-700">Low Risk</span>
+                  </div>
                 </div>
+                
+                {/* Stats row */}
+                <div className="flex gap-4 mb-4">
+                  <div className="flex-1">
+                    <span className="text-sm font-semibold text-gray-800">91%</span>
+                    <span className="text-xs text-gray-500 ml-1">Compliance</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm font-semibold text-gray-800">0</span>
+                    <span className="text-xs text-gray-500 ml-1">Anomalies</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm font-semibold text-gray-800">1,272</span>
+                    <span className="text-xs text-gray-500 ml-1">Processed</span>
+                  </div>
+                </div>
+                
+                {/* Progress bar */}
+                <div className="mb-4">
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs text-gray-500">Risk Assessment Progress</span>
+                    <span className="text-xs text-[#00C37D]">Real-time</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#00C37D] rounded-full" style={{ width: '70%' }}></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Live transaction monitor */}
+              <div className="px-6 pb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-medium text-gray-800">Live Transaction Monitor</h4>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 rounded-full bg-[#10B981] mr-1.5"></div>
+                    <span className="text-xs text-[#10B981]">Live</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2 mb-4">
+                  {sampleTransactions.map((transaction) => (
+                    <div key={transaction.id} className="p-3 bg-gray-50 rounded-lg flex items-center justify-between">
+                      <div className="flex items-center">
+                        {transaction.status === 'flagged' ? (
+                          <AlertTriangle className="w-4 h-4 text-red-500 mr-2" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
+                        )}
+                        <div>
+                          <div className="font-medium text-gray-800">{transaction.amount}</div>
+                          <div className="text-xs text-gray-500">{transaction.account}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500">{transaction.time}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${getRiskColor(transaction.status)}`}>
+                          {transaction.status}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <Link to="/transactions" className="text-sm font-medium text-[#00C37D] hover:text-[#00C37D]/80 flex items-center">
+                  View All Transactions
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </ScrollReveal>
-      
-      {/* Waitlist Form */}
-      <ScrollReveal delay={0.6}>
-        <div className="mt-12 bg-white/50 backdrop-blur-sm border border-white/20 rounded-xl p-6 md:p-8 max-w-3xl mx-auto">
-          <h3 className="text-xl font-bold text-aes-navy mb-2 overflow-wrap-break-word">Join the Waitlist</h3>
-          <p className="text-aes-gray mb-6 overflow-wrap-break-word">
-            Be the first to gain access to our platform when we launch. Enter your email below.
+        
+        {/* Hero footer text */}
+        <div className="text-center mt-16 md:mt-24">
+          <p className="text-[#9CA3AF] text-xs mb-2">Trusted by forward-thinking financial professionals</p>
+          <p className="text-[#9CA3AF] text-xs">
+            Enterprise Ready <span className="mx-2">|</span> SOC 2 Compliant <span className="mx-2">|</span> Bank-Grade Security
           </p>
-          
-          <form 
-            className="flex flex-col sm:flex-row gap-3"
-            onSubmit={handleWaitlistSignup}
-          >
-            <Input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1"
-              value={waitlistEmail}
-              onChange={(e) => setWaitlistEmail(e.target.value)}
-              required
-            />
-            <Button 
-              type="submit" 
-              className="bg-aes-green hover:bg-aes-greenDark text-white flex items-center justify-center"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              ) : (
-                <ArrowRight className="w-4 h-4 mr-2" />
-              )}
-              <span className="overflow-wrap-break-word">Join Waitlist</span>
-            </Button>
-          </form>
         </div>
-      </ScrollReveal>
-    </Hero3D>
+      </div>
+    </div>
   );
 };
 

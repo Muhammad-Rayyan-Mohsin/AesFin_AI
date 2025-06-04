@@ -23,14 +23,14 @@ export function RequestDemo({
   const buttonSizeClasses = {
     sm: "px-3 py-1.5 text-sm",
     md: "px-4 py-2 text-base",
-    lg: "px-5 py-2.5 text-lg"
+    lg: "px-6 py-3 text-lg"
   };
 
   // Button variant classes
   const buttonVariantClasses = {
-    primary: "bg-aes-green hover:bg-aes-greenDark text-white",
-    secondary: "bg-aes-navy hover:bg-aes-navyLight text-white",
-    outline: "bg-transparent border-2 border-aes-green text-aes-green hover:bg-aes-greenPale"
+    primary: "bg-[#00C37D] hover:bg-[#00C37D]/90 text-white",
+    secondary: "bg-[#0E1B2B] hover:bg-[#0E1B2B]/90 text-white",
+    outline: "bg-transparent border-2 border-[#00C37D] text-[#00C37D] hover:bg-[#00C37D]/10"
   };
 
   // Handle opening Calendly
@@ -50,11 +50,12 @@ export function RequestDemo({
     <Button
       onClick={handleOpenCalendly}
       className={cn(
-        "rounded-md font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2",
+        "rounded-full font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2",
         buttonSizeClasses[buttonSize],
         buttonVariantClasses[buttonVariant],
         className
       )}
+      data-request-demo="true"
     >
       <Sparkles className="w-5 h-5" />
       {buttonText}
