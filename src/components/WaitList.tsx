@@ -214,16 +214,7 @@ const WaitList = ({ className }: WaitListProps) => {
               </div>
             </div>
 
-            {/* Waitlist Form */}
-            <FadeUpDiv delay={0.5} className="mb-10 max-w-lg mx-auto">
-              <WaitlistForm 
-                onSubmit={handleWaitlistSubmit}
-                buttonText="Join Waitlist"
-                placeholder="Enter your email address"
-              />
-            </FadeUpDiv>
-
-            <FadeInDiv delay={0.6}>
+            <FadeInDiv delay={0.5}>
               <div className="flex justify-center">
                 <motion.div 
                   whileHover={{ scale: 1.03 }}

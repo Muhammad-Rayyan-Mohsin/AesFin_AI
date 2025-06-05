@@ -290,110 +290,138 @@ const Hero = ({ className }: HeroProps) => {
   };
 
   return (
-    <div className={cn("relative min-h-screen bg-gradient-to-b from-[#0E1B2B] to-[#03111F] overflow-hidden", className)}>
-      {/* Emerald green radial glows */}
-      <div className="absolute left-1/4 top-1/3 w-[500px] h-[500px] bg-[#00C37D] opacity-20 blur-[100px] rounded-full pointer-events-none"></div>
-      <div className="absolute right-1/4 top-1/2 w-[400px] h-[400px] bg-[#00C37D] opacity-15 blur-[100px] rounded-full pointer-events-none"></div>
+    <div className={cn("relative min-h-screen overflow-hidden", className)}>
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-to-b from-aes-navy via-aes-navyLight to-aes-navy"></div>
+      
+      {/* Animated grid background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(42,51,71,0.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(42,51,71,0.3)_1px,transparent_1px)] bg-[size:4rem_4rem] md:bg-[size:4rem_4rem] sm:bg-[size:2rem_2rem]"></div>
+        
+        {/* Animated gradient overlay - disabled on small mobile for performance */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-aes-navy/30 to-transparent hidden sm:block"
+          animate={{ 
+            x: ['0%', '100%', '0%'],
+          }}
+          transition={{ 
+            duration: 15, 
+            ease: "linear", 
+            repeat: Infinity,
+            repeatType: "loop" 
+          }}
+        />
+      </div>
+      
+      {/* Green accent glows - simplified for mobile */}
+      <div className="absolute left-1/4 top-1/3 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-aes-green opacity-10 blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute right-1/4 top-1/2 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-aes-green opacity-8 blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute left-1/2 bottom-0 w-[300px] md:w-[600px] h-[200px] md:h-[300px] bg-aes-navyLight opacity-30 blur-[40px] md:blur-[80px] rounded-full pointer-events-none transform -translate-x-1/2"></div>
+      
+      {/* Floating elements - hidden on mobile for performance */}
+      <div className="absolute top-20 left-[15%] w-8 h-8 rounded-full border border-aes-green/20 animate-float opacity-60 hidden md:block"></div>
+      <div className="absolute top-40 right-[20%] w-4 h-4 rounded-full border border-aes-green/30 animate-float opacity-70 hidden md:block" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute bottom-32 left-[30%] w-6 h-6 rounded-full border border-aes-green/20 animate-float opacity-50 hidden md:block" style={{ animationDelay: '2s' }}></div>
       
       <div className="container mx-auto px-4 py-12 md:py-16 lg:py-24 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-16">
           {/* Left column with text content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             {/* Top badge */}
-            <div className="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-[#0E1B2B]/80 text-white tracking-wide mx-auto lg:mx-0">
+            <div className="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-aes-green/10 text-aes-green tracking-wide mx-auto lg:mx-0">
               <Zap className="w-3.5 h-3.5 mr-2" />
               <span>AI-Powered Financial Intelligence</span>
             </div>
             
             {/* Main heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-white block">Your AI Co-Pilot for</span>
-              <span className="text-[#00C37D] block">Financial Operations</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-10">
+              <span className="block bg-gradient-to-r from-white via-white to-aes-green text-transparent bg-clip-text">Automating Audits from months to minutes</span>
             </h1>
-            
-            {/* Subheading */}
-            <p className="text-white text-lg md:text-xl max-w-[600px] mb-10 mx-auto lg:mx-0 leading-relaxed">
-              Automate complex financial tasks, reduce processing times from months to minutes, and revolutionize your audit and accounting operations with advanced AI.
-            </p>
             
             {/* Feature icons */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-10">
               <div className="flex items-center">
-                <Shield className="w-5 h-5 text-[#00C37D] mr-2" />
+                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
+                  <Shield className="w-4 h-4 text-aes-green" />
+                </div>
                 <span className="text-white text-sm">AI Risk Scoring</span>
               </div>
               <div className="flex items-center">
-                <LineChart className="w-5 h-5 text-[#00C37D] mr-2" />
+                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
+                  <LineChart className="w-4 h-4 text-aes-green" />
+                </div>
                 <span className="text-white text-sm">Real-time Analytics</span>
               </div>
               <div className="flex items-center">
-                <Zap className="w-5 h-5 text-[#00C37D] mr-2" />
+                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
+                  <Zap className="w-4 h-4 text-aes-green" />
+                </div>
                 <span className="text-white text-sm">Instant Reconciliation</span>
               </div>
             </div>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-16">
+            {/* CTA Buttons - optimized for mobile */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-10 sm:mb-16">
               <RequestDemo 
                 buttonVariant="primary"
                 buttonSize="lg"
                 buttonText="Request Demo"
-                className="rounded-full px-6 py-3 bg-[#00C37D] hover:bg-[#00C37D]/90 text-white shadow-lg"
+                className="rounded-full px-4 md:px-6 py-2.5 md:py-3 bg-aes-green hover:bg-aes-green/90 text-white shadow-lg text-sm sm:text-base"
               />
               
               <VideoButton 
                 buttonSize="lg"
                 buttonText="Watch Demo Video"
-                className="shadow-lg"
+                className="rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white shadow-lg px-4 md:px-6 py-2.5 md:py-3 text-sm sm:text-base"
               />
             </div>
           </div>
           
-          {/* Right column with dashboard card - hidden on mobile/tablet */}
+          {/* Dashboard cards - desktop and mobile versions */}
           <div className="w-full lg:w-1/2 hidden lg:block">
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-[480px] mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-[480px] mx-auto border border-aes-grayLight">
               {/* Card header */}
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-800">Financial Intelligence Dashboard</h3>
-                <p className="text-sm text-gray-500">Real-time risk assessment and transaction monitoring</p>
+              <div className="p-6 border-b border-aes-grayLight">
+                <h3 className="text-lg font-bold text-aes-navy">Financial Intelligence Dashboard</h3>
+                <p className="text-sm text-aes-gray">Real-time risk assessment and transaction monitoring</p>
               </div>
               
               {/* Risk score section */}
               <div className="px-6 pb-4">
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-bold text-[#00C37D]">69</span>
-                    <span className="text-gray-400 ml-1">/100</span>
+                    <span className="text-4xl font-bold text-aes-green">69</span>
+                    <span className="text-aes-gray ml-1">/100</span>
                   </div>
-                  <div className="px-2.5 py-1 bg-emerald-50 rounded-full">
-                    <span className="text-xs font-medium text-emerald-700">Low Risk</span>
+                  <div className="px-2.5 py-1 bg-aes-greenPale rounded-full">
+                    <span className="text-xs font-medium text-aes-green">Low Risk</span>
                   </div>
                 </div>
                 
                 {/* Stats row */}
                 <div className="flex gap-4 mb-4">
                   <div className="flex-1">
-                    <span className="text-sm font-semibold text-gray-800">91%</span>
-                    <span className="text-xs text-gray-500 ml-1">Compliance</span>
+                    <span className="text-sm font-semibold text-aes-navy">91%</span>
+                    <span className="text-xs text-aes-gray ml-1">Compliance</span>
                   </div>
                   <div className="flex-1">
-                    <span className="text-sm font-semibold text-gray-800">0</span>
-                    <span className="text-xs text-gray-500 ml-1">Anomalies</span>
+                    <span className="text-sm font-semibold text-aes-navy">0</span>
+                    <span className="text-xs text-aes-gray ml-1">Anomalies</span>
                   </div>
                   <div className="flex-1">
-                    <span className="text-sm font-semibold text-gray-800">1,272</span>
-                    <span className="text-xs text-gray-500 ml-1">Processed</span>
+                    <span className="text-sm font-semibold text-aes-navy">1,272</span>
+                    <span className="text-xs text-aes-gray ml-1">Processed</span>
                   </div>
                 </div>
                 
                 {/* Progress bar */}
                 <div className="mb-4">
                   <div className="flex justify-between mb-1">
-                    <span className="text-xs text-gray-500">Risk Assessment Progress</span>
-                    <span className="text-xs text-[#00C37D]">Real-time</span>
+                    <span className="text-xs text-aes-gray">Risk Assessment Progress</span>
+                    <span className="text-xs text-aes-green">Real-time</span>
                   </div>
-                  <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#00C37D] rounded-full" style={{ width: '70%' }}></div>
+                  <div className="w-full h-1.5 bg-aes-grayLight rounded-full overflow-hidden">
+                    <div className="h-full bg-aes-green rounded-full" style={{ width: '70%' }}></div>
                   </div>
                 </div>
               </div>
@@ -401,30 +429,34 @@ const Hero = ({ className }: HeroProps) => {
               {/* Live transaction monitor */}
               <div className="px-6 pb-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-medium text-gray-800">Live Transaction Monitor</h4>
+                  <h4 className="font-medium text-aes-navy">Live Transaction Monitor</h4>
                   <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-[#10B981] mr-1.5"></div>
-                    <span className="text-xs text-[#10B981]">Live</span>
+                    <div className="w-2 h-2 rounded-full bg-aes-green mr-1.5"></div>
+                    <span className="text-xs text-aes-green">Live</span>
                   </div>
                 </div>
                 
                 <div className="space-y-2 mb-4">
                   {sampleTransactions.map((transaction) => (
-                    <div key={transaction.id} className="p-3 bg-gray-50 rounded-lg flex items-center justify-between">
+                    <div key={transaction.id} className="p-3 bg-aes-mintBg rounded-lg flex items-center justify-between">
                       <div className="flex items-center">
                         {transaction.status === 'flagged' ? (
                           <AlertTriangle className="w-4 h-4 text-red-500 mr-2" />
                         ) : (
-                          <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
+                          <CheckCircle className="w-4 h-4 text-aes-green mr-2" />
                         )}
                         <div>
-                          <div className="font-medium text-gray-800">{transaction.amount}</div>
-                          <div className="text-xs text-gray-500">{transaction.account}</div>
+                          <div className="font-medium text-aes-navy">{transaction.amount}</div>
+                          <div className="text-xs text-aes-gray">{transaction.account}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">{transaction.time}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${getRiskColor(transaction.status)}`}>
+                        <span className="text-xs text-aes-gray">{transaction.time}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          transaction.status === 'flagged' 
+                            ? 'bg-red-50 text-red-700' 
+                            : 'bg-aes-greenPale text-aes-green'
+                        }`}>
                           {transaction.status}
                         </span>
                       </div>
@@ -432,19 +464,75 @@ const Hero = ({ className }: HeroProps) => {
                   ))}
                 </div>
                 
-                <Link to="/transactions" className="text-sm font-medium text-[#00C37D] hover:text-[#00C37D]/80 flex items-center">
+                <Link to="/transactions" className="text-sm font-medium text-aes-green hover:text-aes-green/80 flex items-center">
                   View All Transactions
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               </div>
             </div>
           </div>
+          
+          {/* Mobile optimized dashboard preview */}
+          <div className="w-full lg:hidden mt-4">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 shadow-lg max-w-[400px] mx-auto">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-medium text-base">Financial Dashboard</h3>
+                <div className="px-2 py-0.5 bg-aes-green/20 rounded-full">
+                  <span className="text-xs text-aes-green font-medium">Live</span>
+                </div>
+              </div>
+              
+              <div className="flex gap-3 mb-4">
+                {/* Risk score simplified card */}
+                <div className="flex-1 bg-white/5 rounded-lg p-3 border border-white/10">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Shield className="w-3.5 h-3.5 text-aes-green" />
+                    <span className="text-xs text-white/90">Risk Score</span>
+                  </div>
+                  <div className="flex items-baseline">
+                    <span className="text-2xl font-bold text-white">69</span>
+                    <span className="text-white/60 ml-1 text-xs">/100</span>
+                  </div>
+                </div>
+                
+                {/* Transactions simplified card */}
+                <div className="flex-1 bg-white/5 rounded-lg p-3 border border-white/10">
+                  <div className="flex items-center gap-2 mb-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-aes-green" />
+                    <span className="text-xs text-white/90">Processed</span>
+                  </div>
+                  <span className="text-2xl font-bold text-white">1,272</span>
+                </div>
+              </div>
+              
+              {/* Single transaction preview */}
+              <div className="bg-white/5 rounded-lg p-3 border border-white/10 mb-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <CheckCircle className="w-3.5 h-3.5 text-aes-green mr-2" />
+                    <div>
+                      <div className="font-medium text-white text-sm">{sampleTransactions[0].amount}</div>
+                      <div className="text-xs text-white/60">{sampleTransactions[0].account}</div>
+                    </div>
+                  </div>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-aes-green/20 text-aes-green">
+                    approved
+                  </span>
+                </div>
+              </div>
+              
+              <Link to="/transactions" className="text-xs font-medium text-aes-green hover:text-aes-green/80 flex items-center justify-center w-full">
+                View Full Dashboard
+                <ChevronRight className="w-3.5 h-3.5 ml-1" />
+              </Link>
+            </div>
+          </div>
         </div>
         
         {/* Hero footer text */}
         <div className="text-center mt-16 md:mt-24">
-          <p className="text-[#9CA3AF] text-xs mb-2">Trusted by forward-thinking financial professionals</p>
-          <p className="text-[#9CA3AF] text-xs">
+          <p className="text-aes-gray/80 text-xs mb-2">Trusted by forward-thinking financial professionals</p>
+          <p className="text-aes-gray/80 text-xs">
             Enterprise Ready <span className="mx-2">|</span> SOC 2 Compliant <span className="mx-2">|</span> Bank-Grade Security
           </p>
         </div>

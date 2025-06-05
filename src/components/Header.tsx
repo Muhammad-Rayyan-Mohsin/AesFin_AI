@@ -203,17 +203,17 @@ const Header = ({ className }: HeaderProps) => {
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-gray-600 hover:text-gray-900 h-10 w-10 rounded-full"
                       onClick={() => setIsOpen(true)}
+                      aria-label="Open navigation menu"
                     >
-                      <Menu className="h-5 w-5" />
-                      <span className="sr-only">Toggle menu</span>
+                      <Menu className="h-6 w-6" />
                     </Button>
                   </motion.div>
                 </SheetTrigger>
@@ -226,7 +226,7 @@ const Header = ({ className }: HeaderProps) => {
                       exit={{ x: 300, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                      <div className="flex items-center justify-between p-4">
+                      <div className="flex items-center justify-between p-4 border-b border-gray-100">
                         <motion.img 
                           src="/Logo.svg" 
                           alt="Aes AI" 
@@ -236,22 +236,23 @@ const Header = ({ className }: HeaderProps) => {
                           transition={{ delay: 0.1 }}
                         />
                         <motion.button
-                          className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                          className="p-3 rounded-full hover:bg-gray-100 transition-colors"
                           onClick={() => setIsOpen(false)}
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
+                          aria-label="Close navigation menu"
                         >
                           <X className="h-5 w-5 text-gray-600" />
                         </motion.button>
                       </div>
                       
                       <motion.nav 
-                        className="flex-1 px-6"
+                        className="flex-1 px-6 py-6"
                         variants={navContainerVariants}
                         initial="hidden"
                         animate="visible"
                       >
-                        <div className="space-y-1">
+                        <div className="space-y-4">
                           {navigationLinks.map((link, index) => (
                             <motion.div
                               key={link.href}
@@ -263,14 +264,14 @@ const Header = ({ className }: HeaderProps) => {
                               <Link 
                                 to={link.href} 
                                 className={cn(
-                                  "flex items-center w-full text-base py-2 px-2 rounded-md font-medium transition-colors",
+                                  "flex items-center w-full text-base py-3 px-4 rounded-xl font-medium transition-colors",
                                   isActiveLink(link.href)
                                     ? "text-aes-green bg-aes-green/10" 
                                     : "text-gray-800 hover:text-aes-green hover:bg-gray-50"
                                 )}
                                 onClick={() => setIsOpen(false)}
                               >
-                                <span className="mr-2">{link.icon}</span>
+                                <span className="mr-3 w-6 h-6 flex items-center justify-center">{link.icon}</span>
                                 {link.label}
                               </Link>
                             </motion.div>
@@ -284,19 +285,19 @@ const Header = ({ className }: HeaderProps) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                       >
-                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <Button 
                             variant="outline" 
-                            className="w-full border-aes-navy text-aes-navy hover:bg-aes-navy hover:text-white transition-colors"
+                            className="w-full border-aes-navy text-aes-navy hover:bg-aes-navy hover:text-white transition-colors h-12 rounded-xl"
                           >
                             Login
                             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                           </Button>
                         </motion.div>
-                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <a href="https://calendly.com/ali14hasnain/30min" target="_blank" rel="noopener noreferrer">
                             <Button 
-                              className="w-full bg-aes-green hover:bg-aes-green/90 text-white transition-colors"
+                              className="w-full bg-aes-green hover:bg-aes-green/90 text-white transition-colors h-12 rounded-xl"
                             >
                               <span className="flex-shrink-0 mr-2">
                                 <CalendarClock className="w-4 h-4" />
