@@ -327,8 +327,8 @@ const Hero = ({ className }: HeroProps) => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-16">
           {/* Left column with text content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left">
-            {/* Top badge */}
-            <div className="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-aes-green/10 text-aes-green tracking-wide mx-auto lg:mx-0">
+            {/* Top badge - lowered by increasing margin and adjusting position */}
+            <div className="relative top-4 inline-flex items-center px-4 py-1.5 mb-10 text-sm font-medium rounded-full bg-aes-green/10 text-aes-green tracking-wide mx-auto lg:mx-0">
               <Zap className="w-3.5 h-3.5 mr-2" />
               <span>AI-Powered Financial Intelligence</span>
             </div>

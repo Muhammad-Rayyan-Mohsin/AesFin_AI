@@ -102,7 +102,7 @@ const Header = ({ className }: HeaderProps) => {
           "w-full", 
           isScrolled 
             ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200/50" 
-            : "bg-white border-b border-gray-200",
+            : "bg-white border-b border-gray-200/70",
           className
         )}
         initial={{ y: -100 }}
@@ -110,8 +110,8 @@ const Header = ({ className }: HeaderProps) => {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Main header with navigation */}
-        <div className="container">
-          <div className="flex h-16 items-center justify-between">
+        <div className="container px-4 sm:px-4 md:px-6">
+          <div className="flex h-14 sm:h-14 md:h-16 items-center justify-between">
             {/* Logo */}
             <motion.div 
               className="flex items-center gap-2"
@@ -123,7 +123,7 @@ const Header = ({ className }: HeaderProps) => {
                 <motion.img 
                   src="/Logo.svg" 
                   alt="Aes AI Logo" 
-                  className="h-10 w-auto object-contain"
+                  className="h-8 sm:h-8 md:h-10 w-auto object-contain"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
@@ -209,11 +209,11 @@ const Header = ({ className }: HeaderProps) => {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="text-gray-600 hover:text-gray-900 h-10 w-10 rounded-full"
+                      className="text-gray-600 hover:text-gray-900 h-9 w-9 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-full p-1.5"
                       onClick={() => setIsOpen(true)}
                       aria-label="Open navigation menu"
                     >
-                      <Menu className="h-6 w-6" />
+                      <Menu className="h-5 w-5 md:h-6 md:w-6" />
                     </Button>
                   </motion.div>
                 </SheetTrigger>
@@ -226,23 +226,23 @@ const Header = ({ className }: HeaderProps) => {
                       exit={{ x: 300, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeOut" }}
                     >
-                      <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                      <div className="flex items-center justify-between p-3 sm:p-3 md:p-4 border-b border-gray-100">
                         <motion.img 
                           src="/Logo.svg" 
                           alt="Aes AI" 
-                          className="h-8 w-auto"
+                          className="h-7 sm:h-7 md:h-8 w-auto"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.1 }}
                         />
                         <motion.button
-                          className="p-3 rounded-full hover:bg-gray-100 transition-colors"
+                          className="p-2 sm:p-2 md:p-3 rounded-full hover:bg-gray-100 transition-colors"
                           onClick={() => setIsOpen(false)}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           aria-label="Close navigation menu"
                         >
-                          <X className="h-5 w-5 text-gray-600" />
+                          <X className="h-4 w-4 sm:h-4 sm:w-4 md:h-5 md:w-5 text-gray-600" />
                         </motion.button>
                       </div>
                       
