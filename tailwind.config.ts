@@ -222,9 +222,27 @@ export default {
 				'shimmer': 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				display: ['Space Grotesk', 'sans-serif'],
-				mono: ['IBM Plex Mono', 'monospace']
+				sans: ['Outfit', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				display: ['Fraunces', 'Georgia', 'Times New Roman', 'serif'],
+				mono: ['IBM Plex Mono', 'Consolas', 'Monaco', 'monospace']
+			},
+			letterSpacing: {
+				tightest: '-.04em',
+				tighter: '-.02em',
+				tight: '-.01em',
+				normal: '0',
+				wide: '.01em',
+				wider: '.02em',
+				widest: '.03em',
+			},
+			lineHeight: {
+				'tighter': '1.1',
+				'tight': '1.2',
+				'snug': '1.3',
+				'normal': '1.5',
+				'relaxed': '1.625',
+				'loose': '1.75',
+				'extra-loose': '2',
 			},
 			transitionProperty: {
 				'height': 'height',
@@ -250,5 +268,5 @@ export default {
 			}
 			addUtilities(newUtilities)
 		}
-	],
+	]
 } satisfies Config;

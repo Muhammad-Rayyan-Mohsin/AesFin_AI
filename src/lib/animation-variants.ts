@@ -604,4 +604,225 @@ export const coverflowItem: Variants = {
       damping: 30
     }
   })
+};
+
+// New animation variants for enhanced interactivity
+
+// Subtle image hover zoom effect
+export const subtleImageZoom: Variants = {
+  initial: { scale: 1 },
+  hover: { 
+    scale: 1.02, 
+    transition: { 
+      duration: durations.default,
+      ease: easings.default
+    }
+  }
+};
+
+// Subtle background color shift on hover
+export const subtleColorShift: Variants = {
+  initial: { backgroundColor: "rgba(255, 255, 255, 0)" },
+  hover: { 
+    backgroundColor: "rgba(240, 247, 250, 0.5)", 
+    transition: { 
+      duration: durations.medium,
+      ease: easings.default
+    }
+  }
+};
+
+// Subtle border highlight animation
+export const subtleBorderHighlight: Variants = {
+  initial: { 
+    boxShadow: "inset 0 0 0 0 rgba(99, 230, 190, 0)",
+  },
+  hover: { 
+    boxShadow: "inset 0 0 0 2px rgba(99, 230, 190, 0.3)",
+    transition: { 
+      duration: durations.default,
+      ease: easings.default
+    }
+  }
+};
+
+// Subtle scale for icons without affecting layout
+export const subtleIconScale: Variants = {
+  initial: { scale: 1 },
+  hover: { 
+    scale: 1.15, 
+    transition: { 
+      type: "spring",
+      stiffness: 400,
+      damping: 10
+    }
+  }
+};
+
+// Continuous subtle pulsing for important elements
+export const subtlePulse: Variants = {
+  initial: { scale: 1 },
+  animate: {
+    scale: [1, 1.02, 1],
+    transition: {
+      duration: 3,
+      ease: easings.smooth,
+      repeat: Infinity,
+      repeatType: "loop"
+    }
+  }
+};
+
+// Smooth staggered reveal for list items
+export const listItemReveal: Variants = {
+  hidden: { opacity: 0, x: -5 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: durations.fast,
+      ease: easings.default,
+      delay: custom * 0.08
+    }
+  })
+};
+
+// Super subtle parallax effect
+export const microParallax: Variants = {
+  initial: { y: 0 },
+  scroll: (scrollY: number) => ({
+    y: scrollY * 0.05,
+    transition: {
+      type: "spring",
+      stiffness: 50,
+      damping: 30,
+      mass: 0.5
+    }
+  })
+};
+
+// Enhanced logo hover effect
+export const logoHoverEffect: Variants = {
+  initial: { 
+    filter: "brightness(1) saturate(1)",
+    scale: 1
+  },
+  hover: { 
+    filter: "brightness(1.1) saturate(1.2)",
+    scale: 1.05,
+    transition: { 
+      duration: durations.fast,
+      ease: easings.default
+    }
+  }
+};
+
+// Accessibility-friendly focus animation
+export const accessibleFocus: Variants = {
+  initial: {},
+  focus: {
+    outline: "2px solid rgba(99, 230, 190, 0.5)",
+    outlineOffset: "3px",
+    transition: {
+      duration: durations.fast,
+      ease: easings.default
+    }
+  }
+};
+
+// Chart line drawing animation for data visualizations
+export const chartLineReveal: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: (custom = 0) => ({
+    pathLength: 1,
+    opacity: 1,
+    transition: {
+      pathLength: { 
+        duration: durations.slow * 1.5, 
+        ease: easings.smooth 
+      },
+      opacity: { 
+        duration: durations.fast, 
+        ease: "easeIn" 
+      },
+      delay: custom * 0.2
+    }
+  })
+};
+
+// Counter animation for metrics
+export const countUp: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: durations.default,
+      ease: easings.default
+    }
+  }
+};
+
+// Radial progress indicator animation
+export const radialProgress: Variants = {
+  hidden: { opacity: 0, strokeDashoffset: 283 }, // 283 is approx circumference of circle with r=45
+  visible: (custom = 0) => ({
+    opacity: 1,
+    strokeDashoffset: custom, // Pass the final value as custom
+    transition: {
+      strokeDashoffset: {
+        duration: durations.slow * 1.5,
+        ease: easings.smooth
+      },
+      opacity: {
+        duration: durations.fast,
+        ease: "easeIn"
+      }
+    }
+  })
+};
+
+// Metric card reveal with subtle pulse
+export const metricReveal: Variants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: durations.medium,
+      ease: easings.default,
+      delay: custom * 0.1
+    }
+  }),
+  pulse: {
+    scale: [1, 1.02, 1],
+    transition: {
+      duration: 1.2,
+      ease: easings.smooth,
+      times: [0, 0.5, 1],
+      repeat: 1
+    }
+  }
+};
+
+// Tooltip reveal animation
+export const tooltipReveal: Variants = {
+  hidden: { opacity: 0, y: 10, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: durations.fast,
+      ease: easings.default
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: 5,
+    scale: 0.95,
+    transition: {
+      duration: durations.fast * 0.7,
+      ease: "easeIn"
+    }
+  }
 }; 
