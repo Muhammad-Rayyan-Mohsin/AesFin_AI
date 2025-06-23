@@ -11,11 +11,12 @@ import {
   CalendarClock 
 } from 'lucide-react';
 import { Button } from './ui/button';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useScrollDirection } from '@/hooks/use-scroll-direction';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAnimation } from '@/providers/AnimationProvider';
+import { useDeviceInfo } from '@/hooks/use-mobile';
+import MobileMenu from './ui/mobile-menu';
 import { 
   logoAnimation, 
   navLinkAnimation, 
@@ -31,6 +32,7 @@ interface HeaderProps {
 const Header = ({ className }: HeaderProps) => {
   const isVisible = useScrollDirection();
   const { prefersReducedMotion } = useAnimation();
+  const { isMobile, isTablet } = useDeviceInfo();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -108,6 +110,7 @@ const Header = ({ className }: HeaderProps) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{ willChange: 'transform' }}
       >
         {/* Main header with navigation */}
         <div className="container px-4 sm:px-4 md:px-6">
@@ -127,6 +130,7 @@ const Header = ({ className }: HeaderProps) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
+                  style={{ willChange: 'transform' }}
                 />
               </Link>
             </motion.div>
@@ -175,7 +179,7 @@ const Header = ({ className }: HeaderProps) => {
                 ))}
               </motion.nav>
 
-              {/* Login Button */}
+              {/* Desktop Login Button */}
               <motion.div
                 variants={navLinkAnimation}
                 initial="hidden"
@@ -198,123 +202,74 @@ const Header = ({ className }: HeaderProps) => {
               </motion.div>
             </div>
 
-            {/* Mobile Navigation */}
+            {/* Mobile Navigation - Enhanced */}
             <div className="flex items-center space-x-2 lg:hidden">
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+              {/* Mobile Login Button (tablet only) */}
+              {isTablet && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="text-aes-green hover:bg-aes-green/10 mr-2"
                   >
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="text-gray-600 hover:text-gray-900 h-9 w-9 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-full p-1.5"
-                      onClick={() => setIsOpen(true)}
-                      aria-label="Open navigation menu"
+                    Log In
+                  </Button>
+                </motion.div>
+              )}
+
+              {/* Hamburger Menu Button */}
+              <motion.button
+                className={cn(
+                  "p-2 rounded-lg transition-all duration-200 relative z-50",
+                  "focus:outline-none focus:ring-2 focus:ring-aes-green focus:ring-offset-2",
+                  "hover:bg-gray-100 active:bg-gray-200",
+                  "min-w-[44px] min-h-[44px]" // Touch-friendly size
+                )}
+                onClick={() => setIsOpen(!isOpen)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={isOpen}
+              >
+                <AnimatePresence mode="wait">
+                  {isOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <Menu className="h-5 w-5 md:h-6 md:w-6" />
-                    </Button>
-                  </motion.div>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-full max-w-sm border-l border-gray-100 bg-white p-0">
-                  <AnimatePresence>
-                    <motion.div 
-                      className="flex flex-col h-full"
-                      initial={{ x: 300, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      exit={{ x: 300, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                    >
-                      <div className="flex items-center justify-between p-3 sm:p-3 md:p-4 border-b border-gray-100">
-                        <motion.img 
-                          src="/Logo.svg" 
-                          alt="Aes AI" 
-                          className="h-7 sm:h-7 md:h-8 w-auto"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.1 }}
-                        />
-                        <motion.button
-                          className="p-2 sm:p-2 md:p-3 rounded-full hover:bg-gray-100 transition-colors"
-                          onClick={() => setIsOpen(false)}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          aria-label="Close navigation menu"
-                        >
-                          <X className="h-4 w-4 sm:h-4 sm:w-4 md:h-5 md:w-5 text-gray-600" />
-                        </motion.button>
-                      </div>
-                      
-                      <motion.nav 
-                        className="flex-1 px-6 py-6"
-                        variants={navContainerVariants}
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        <div className="space-y-4">
-                          {navigationLinks.map((link, index) => (
-                            <motion.div
-                              key={link.href}
-                              variants={navLinkAnimation}
-                              custom={index}
-                              whileHover={{ x: 5 }}
-                              whileTap={{ scale: 0.98 }}
-                            >
-                              <Link 
-                                to={link.href} 
-                                className={cn(
-                                  "flex items-center w-full text-base py-3 px-4 rounded-xl font-medium transition-colors",
-                                  isActiveLink(link.href)
-                                    ? "text-aes-green bg-aes-green/10" 
-                                    : "text-gray-800 hover:text-aes-green hover:bg-gray-50"
-                                )}
-                                onClick={() => setIsOpen(false)}
-                              >
-                                <span className="mr-3 w-6 h-6 flex items-center justify-center">{link.icon}</span>
-                                {link.label}
-                              </Link>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.nav>
-                      
-                      <motion.div 
-                        className="mt-auto border-t border-gray-100 p-6 space-y-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                      >
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <Button 
-                            variant="outline" 
-                            className="w-full border-aes-navy text-aes-navy hover:bg-aes-navy hover:text-white transition-colors h-12 rounded-xl"
-                          >
-                            Login
-                            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                          </Button>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <a href="https://calendly.com/ali14hasnain/30min" target="_blank" rel="noopener noreferrer">
-                            <Button 
-                              className="w-full bg-aes-green hover:bg-aes-green/90 text-white transition-colors h-12 rounded-xl"
-                            >
-                              <span className="flex-shrink-0 mr-2">
-                                <CalendarClock className="w-4 h-4" />
-                              </span>
-                              Book a Call
-                            </Button>
-                          </a>
-                        </motion.div>
-                      </motion.div>
+                      <X className="h-6 w-6 text-gray-600" />
                     </motion.div>
-                  </AnimatePresence>
-                </SheetContent>
-              </Sheet>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="h-6 w-6 text-gray-600" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
             </div>
           </div>
         </div>
       </motion.header>
+
+      {/* Enhanced Mobile Menu */}
+      <MobileMenu
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        navigationLinks={navigationLinks}
+      />
     </div>
   );
 };

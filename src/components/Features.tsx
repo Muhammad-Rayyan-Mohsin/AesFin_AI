@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, ZapIcon, BarChart3, Shield, TrendingUp, Clock, AlertCircle, Eye } from 'lucide-react';
 import { ScrollReveal, ScrollParallax, ScrollSequence } from './ui/scroll-reveal';
 import { AnimatedTitle } from './ui/motion';
 import { Button } from './ui/button';
 import { motion } from 'framer-motion';
+import { FeatureCardSkeleton } from './ui/skeleton-loader';
+import { magneticButton } from '@/lib/optimized-animations';
+import { useDeviceInfo } from '@/hooks/use-mobile';
 
 interface FeatureItem {
   icon: React.ReactNode;
@@ -17,6 +20,15 @@ interface FeaturesProps {
 }
 
 const Features = ({ className }: FeaturesProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const { isMobile, touchCapable } = useDeviceInfo();
+  
+  // Simulate loading state for demonstration
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const features: FeatureItem[] = [
     {
       icon: <ZapIcon className="w-6 h-6 text-aes-green" />,
@@ -91,38 +103,94 @@ const Features = ({ className }: FeaturesProps) => {
           </div>
         </ScrollReveal>
         
-        <ScrollSequence
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-          staggerChildren={0.1}
-          delayStart={0.3}
-        >
-          {features.map((feature, index) => (
-            <div 
-              key={index} 
-              className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="w-12 h-12 bg-aes-green/10 rounded-lg flex items-center justify-center mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold text-aes-navy mb-3 overflow-wrap-break-word">{feature.title}</h3>
-              <p className="text-aes-gray overflow-wrap-break-word">{feature.description}</p>
-            </div>
-          ))}
-        </ScrollSequence>
-        
-        <ScrollReveal delay={0.6} className="mt-16 text-center">
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
+        {isLoading ? (
+          /* Skeleton Loading State */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <FeatureCardSkeleton key={index} />
+            ))}
+          </div>
+        ) : (
+          /* Actual Content with Enhanced Animations */
+          <ScrollSequence
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+            staggerChildren={0.1}
+            delayStart={0.3}
           >
-            <Button 
-              size="lg" 
-              className="bg-aes-green text-white hover:bg-aes-green/90 px-8 py-6 text-lg font-medium rounded-lg"
+            {features.map((feature, index) => (
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+                variants={isMobile ? undefined : {
+                  hover: { 
+                    y: -8,
+                    scale: 1.02,
+                    rotateX: 2,
+                    rotateY: 2,
+                    transition: { duration: 0.3, ease: "easeOut" }
+                  }
+                }}
+                whileHover={isMobile ? undefined : "hover"}
+                whileTap={touchCapable ? { scale: 0.98 } : undefined}
+                style={{ 
+                  willChange: 'transform',
+                  transform: 'translate3d(0, 0, 0)'
+                }}
+              >
+                <motion.div 
+                  className="w-12 h-12 bg-aes-green/10 rounded-lg flex items-center justify-center mb-4"
+                  whileHover={!isMobile ? { scale: 1.1, rotate: 5 } : undefined}
+                  transition={{ duration: 0.2 }}
+                >
+                  {feature.icon}
+                </motion.div>
+                <h3 className="text-xl font-bold text-aes-navy mb-3 overflow-wrap-break-word">{feature.title}</h3>
+                <p className="text-aes-gray overflow-wrap-break-word">{feature.description}</p>
+                
+                {/* Micro-interaction: Hover reveal */}
+                {!isMobile && (
+                  <motion.div
+                    className="mt-4 opacity-0 translate-y-2"
+                    whileHover={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="w-full h-1 bg-gradient-to-r from-aes-green to-aes-greenLight rounded-full" />
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </ScrollSequence>
+        )}
+        
+        {!isLoading && (
+          <ScrollReveal delay={0.6} className="mt-16 text-center">
+            <motion.div
+              variants={magneticButton}
+              initial="initial"
+              whileHover="hover"
+              whileTap="tap"
+              style={{ willChange: 'transform' }}
             >
-              Explore All Features
-            </Button>
-          </motion.div>
-        </ScrollReveal>
+              <Button 
+                size="lg" 
+                className={cn(
+                  "bg-aes-green text-white hover:bg-aes-green/90 px-8 py-6 text-lg font-medium rounded-xl",
+                  "shadow-lg hover:shadow-xl transition-all duration-300",
+                  "min-h-[48px]" // Touch-friendly
+                )}
+              >
+                Explore All Features
+                <motion.span
+                  className="ml-2 inline-block"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  →
+                </motion.span>
+              </Button>
+            </motion.div>
+          </ScrollReveal>
+        )}
       </div>
     </section>
   );

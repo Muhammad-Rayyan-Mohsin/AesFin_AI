@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
-import WaitlistDialog from './ui/waitlist-dialog';
+import { WaitlistDialog } from './ui/unified-waitlist';
 import { Input } from './ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { faker } from '@faker-js/faker';
@@ -333,46 +333,46 @@ const Hero = ({ className }: HeroProps) => {
               <span>AI-Powered Financial Intelligence</span>
             </div>
             
-            {/* Main heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-10">
+            {/* Main heading - Mobile optimized */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6 sm:mb-8 md:mb-10 leading-tight">
               <span className="block bg-gradient-to-r from-white via-white to-aes-green text-transparent bg-clip-text">Automating Audits from months to minutes</span>
             </h1>
             
-            {/* Feature icons */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-10">
+            {/* Feature icons - Mobile optimized */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-10">
               <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <Shield className="w-4 h-4 text-aes-green" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-2 sm:mr-3">
+                  <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-aes-green" />
                 </div>
-                <span className="text-white text-sm">AI Risk Scoring</span>
+                <span className="text-white text-xs sm:text-sm">AI Risk Scoring</span>
               </div>
               <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <LineChart className="w-4 h-4 text-aes-green" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-2 sm:mr-3">
+                  <LineChart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-aes-green" />
                 </div>
-                <span className="text-white text-sm">Real-time Analytics</span>
+                <span className="text-white text-xs sm:text-sm">Real-time Analytics</span>
               </div>
               <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-3">
-                  <Zap className="w-4 h-4 text-aes-green" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-aes-green/10 flex items-center justify-center mr-2 sm:mr-3">
+                  <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-aes-green" />
                 </div>
-                <span className="text-white text-sm">Instant Reconciliation</span>
+                <span className="text-white text-xs sm:text-sm">Instant Reconciliation</span>
               </div>
             </div>
             
-            {/* CTA Buttons - optimized for mobile */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-10 sm:mb-16">
+            {/* CTA Buttons - Touch-friendly mobile optimized */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8 sm:mb-12 md:mb-16">
               <RequestDemo 
                 buttonVariant="primary"
                 buttonSize="lg"
                 buttonText="Request Demo"
-                className="rounded-full px-4 md:px-6 py-2.5 md:py-3 bg-aes-green hover:bg-aes-green/90 text-white shadow-lg text-sm sm:text-base"
+                className="rounded-xl px-6 md:px-8 py-4 bg-aes-green hover:bg-aes-green/90 text-white shadow-lg text-base font-medium min-h-[48px] transition-all duration-200 hover:scale-105 active:scale-95"
               />
               
               <VideoButton 
                 buttonSize="lg"
                 buttonText="Watch Demo Video"
-                className="rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white shadow-lg px-4 md:px-6 py-2.5 md:py-3 text-sm sm:text-base"
+                className="rounded-xl border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white shadow-lg px-6 md:px-8 py-4 text-base font-medium min-h-[48px] transition-all duration-200 hover:scale-105 active:scale-95 backdrop-blur-sm"
               />
             </div>
           </div>

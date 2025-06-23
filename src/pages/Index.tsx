@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PrototypeBanner from '@/components/ui/prototype-banner';
@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Play } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 import { ScrollReveal, ScrollSequence } from '@/components/ui/scroll-reveal';
 import AnimatedText from '@/components/ui/animated-text';
-import WaitList from '@/components/WaitList';
+import { WaitList } from '@/components/ui/unified-waitlist';
 import VideoButton from '@/components/VideoButton';
 import RotatingHeadline from '@/components/ui/rotating-headline';
 import AnimatedImage from '@/components/ui/animated-image';
@@ -20,9 +21,20 @@ import ComplianceChart from '@/components/ui/compliance-chart';
 import CustomerRiskProfile from '@/components/ui/customer-risk-profile';
 import AnimatedMetric from '@/components/ui/animated-metric';
 import { useAnimation } from '@/providers/AnimationProvider';
+import { CardSkeleton, ContentSkeleton } from '@/components/ui/skeleton-loader';
+import { magneticButton, staggerContainer, staggerItem } from '@/lib/optimized-animations';
+import { useDeviceInfo } from '@/hooks/use-mobile';
 
 const Index = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const { isMobile, touchCapable } = useDeviceInfo();
+  
+  // Simulate progressive loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
   
   // Features for main feature section
   const features = [
@@ -115,27 +127,45 @@ const Index = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                   <motion.div
+                    variants={magneticButton}
+                    initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    variants={hoverLift}
+                    style={{ willChange: 'transform' }}
                   >
                     <Button 
                       size="lg" 
-                      className="bg-aes-green text-white hover:bg-aes-greenDark group"
+                      className={cn(
+                        "bg-aes-green text-white hover:bg-aes-greenDark group",
+                        "px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300",
+                        "min-h-[48px] font-medium" // Touch-friendly
+                      )}
                       onClick={() => navigate('/contact')}
                     >
                       Request a demo
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      <motion.div
+                        className="ml-2 inline-block"
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.div>
                     </Button>
                   </motion.div>
                   <motion.div
+                    variants={magneticButton}
+                    initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    variants={hoverLift}
+                    style={{ willChange: 'transform' }}
                   >
                     <VideoButton 
                       buttonText="Watch video" 
-                      className="border-aes-green text-aes-green hover:bg-aes-greenPale hover:text-aes-green bg-white"
+                      className={cn(
+                        "border-aes-green text-aes-green hover:bg-aes-greenPale hover:text-aes-green bg-white",
+                        "px-8 py-4 rounded-xl border-2 min-h-[48px] font-medium",
+                        "shadow-md hover:shadow-lg transition-all duration-300"
+                      )}
                     />
                   </motion.div>
                 </div>
